@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "description": "Extension helps you instagram effectively!",
   "icons": {
-    "128": "images/morejustmedia.png"
+    "192": "images/icon.png"
   },
   "background": {
     "scripts": ["background.js"]
   },
   "browser_action": {
     "default_popup": "popup.html",
-    "default_icon": "images/morejustmedia.png"
+    "default_icon": "images/icon.png"
   },
   "permissions": [
     "activeTab",
