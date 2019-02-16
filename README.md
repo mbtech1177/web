@@ -1,6 +1,6 @@
 # instaweb
 
-![android-chrome-512x512](https://user-images.githubusercontent.com/1909384/52903490-47be0d00-322f-11e9-954c-9035f4d9ac7f.png)
+<img width="300" alt="Instagram Web" src="https://user-images.githubusercontent.com/1909384/52903490-47be0d00-322f-11e9-954c-9035f4d9ac7f.png">
 
 To test out, replace USERNAME, PASSWORD in `light-login.py`
 
@@ -20,5 +20,5 @@ npm run build
 4. Install it.
 5. Press the icon
 6. Login
-7. Open https://instabot.github.io/web
+7. Open https://instagrambot.github.io/web
 8. Enjoy!
