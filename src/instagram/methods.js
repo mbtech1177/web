@@ -14,6 +14,30 @@ export const get_hashtag_feed = (self, hashtag, max_id='') => {
     return self.send_request(url)
 }
 
+// def like(self, media_id):
+//     data = self.json_data({'media_id': media_id})
+//     url = 'media/{media_id}/like/'.format(media_id=media_id)
+//     return self.send_request(url, data)
+//
+// def unlike(self, media_id):
+//     data = self.json_data({'media_id': media_id})
+//     url = 'media/{media_id}/unlike/'.format(media_id=media_id)
+//     return self.send_request(url, data)
+
+export const like = (self, media_id) => {
+  const data = { media_id }
+
+  return self.send_request(`media/${media_id}/like/`, data)
+}
+
+export const unlike = (self, media_id) => {
+  const data = { media_id }
+
+  return self.send_request(`media/${media_id}/unlike/`, data)
+}
+
+
+
 // vvvvvvvvvvvvvvvvv
 
 // def get_location_feed(self, location_id, max_id=''):

@@ -3245,6 +3245,9 @@ const generate_device_id_from_username = (username) => {
 }
 
 const generate_signature = (data) => {
+  if (typeof data != 'string' && !(data instanceof String)) {
+    data = JSON.stringify(data)
+  }
   // body = hmac.new(IG_SIG_KEY.encode('utf-8'), data.encode('utf-8'), hashlib.sha256).hexdigest()
   // + '.' + urllib.parse.quote(data)
   const header = js_sha256__WEBPACK_IMPORTED_MODULE_2___default.a.hmac(_constants__WEBPACK_IMPORTED_MODULE_0__["IG_SIG_KEY"], data)
@@ -3629,12 +3632,14 @@ print("USER_AGENT:", user_agent)
 /*!**********************************!*\
   !*** ./src/instagram/methods.js ***!
   \**********************************/
-/*! exports provided: get_hashtag_feed */
+/*! exports provided: get_hashtag_feed, like, unlike */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_hashtag_feed", function() { return get_hashtag_feed; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "like", function() { return like; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unlike", function() { return unlike; });
 // def get_hashtag_feed(self, hashtag, max_id=''):
 //     url = 'feed/tag/{hashtag}/?max_id={max_id}&rank_token={rank_token}&ranked_content=true&'
 //     url = url.format(
@@ -3650,6 +3655,30 @@ const get_hashtag_feed = (self, hashtag, max_id='') => {
     const url = `feed/tag/${hashtag}/?max_id=${max_id}&rank_token=${rank_token}&ranked_content=true&`
     return self.send_request(url)
 }
+
+// def like(self, media_id):
+//     data = self.json_data({'media_id': media_id})
+//     url = 'media/{media_id}/like/'.format(media_id=media_id)
+//     return self.send_request(url, data)
+//
+// def unlike(self, media_id):
+//     data = self.json_data({'media_id': media_id})
+//     url = 'media/{media_id}/unlike/'.format(media_id=media_id)
+//     return self.send_request(url, data)
+
+const like = (self, media_id) => {
+  const data = { media_id }
+
+  return self.send_request(`media/${media_id}/like/`, data)
+}
+
+const unlike = (self, media_id) => {
+  const data = { media_id }
+
+  return self.send_request(`media/${media_id}/unlike/`, data)
+}
+
+
 
 // vvvvvvvvvvvvvvvvv
 

@@ -22,6 +22,9 @@ export const generate_device_id_from_username = (username) => {
 }
 
 export const generate_signature = (data) => {
+  if (typeof data != 'string' && !(data instanceof String)) {
+    data = JSON.stringify(data)
+  }
   // body = hmac.new(IG_SIG_KEY.encode('utf-8'), data.encode('utf-8'), hashlib.sha256).hexdigest()
   // + '.' + urllib.parse.quote(data)
   const header = sha256.hmac(IG_SIG_KEY, data)
