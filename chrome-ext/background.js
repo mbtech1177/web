@@ -27,7 +27,7 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
           const new_header = new_headers.find(_ => _.name == header.name)
 
           if (new_header) {
-            console.log('changing header value:', header.value, new_header.value)
+            console.log(`changing header '${header.name}' to '${new_header.name}':`, header.value, new_header.value)
             header.value = new_header.value
           }
         })

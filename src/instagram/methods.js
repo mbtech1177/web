@@ -9,7 +9,7 @@
 //
 
 export const get_hashtag_feed = (self, hashtag, max_id='') => {
-    const rank_token = self.rank_token
+    const rank_token = self.rank_token()
     const url = `feed/tag/${hashtag}/?max_id=${max_id}&rank_token=${rank_token}&ranked_content=true&`
     return self.send_request(url)
 }
@@ -28,3 +28,8 @@ export const get_hashtag_feed = (self, hashtag, max_id='') => {
 // def get_popular_feed(self):
 //     url = 'feed/popular/?people_teaser_supported=1&rank_token={rank_token}&ranked_content=true&'
 //     return self.send_request(url.format(rank_token=self.rank_token))
+
+// export default {
+//   get_hashtag_feed,
+//
+// }

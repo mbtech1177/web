@@ -8,52 +8,21 @@ import {
   REQUEST_HEADERS,
 } from './constants'
 
+
 import axios from 'axios'
 
 import md5 from 'blueimp-md5'
-import sha256 from 'js-sha256'
+// import sha256 from 'js-sha256'
+//
+// import uuidjs from 'uuid-js'
+// import hmac from 'hmac'
 
-import uuidjs from 'uuid-js'
-import hmac from 'hmac'
+import { prefixUnsecureHeaders } from './unsecure_headers'
+import { generate_uuid, generate_device_id, generate_signature } from './helpers'
 
 const user_agent = USER_AGENT_BASE(DEVICE) // just insert params
 
 print("USER_AGENT:", user_agent)
-
-const generate_uuid = () => uuidjs.create(4).hex
-
-// ################################################
-// # device_id = properly hashed login and password
-
-const generate_device_id = (seed) => {
-  const volatile_seed = "12345" // # Important ! :) :)
-
-  // m = hashlib.md5()
-  // m.update(seed.encode('utf-8') + volatile_seed.encode('utf-8'))
-
-  const hex = md5(seed + volatile_seed)
-
-  return `android-${hex.slice(0,16)}`
-  //
-  // return 'android-' + m.hexdigest()[:16]
-}
-
-
-const generate_signature = (data) => {
-  // body = hmac.new(IG_SIG_KEY.encode('utf-8'), data.encode('utf-8'), hashlib.sha256).hexdigest() + '.' + urllib.parse.quote(data)
-  // const createHash = (data) => sha256.create(data)
-
-  const header = sha256.hmac(IG_SIG_KEY, data)
-
-  // const hmac_header = hmac(createHash, 64, IG_SIG_KEY).update(data).digest('hex')
-  // const hmac_header = hmac(`${IG_SIG_KEY}` + data)
-  const body = header + `.` + encodeURIComponent(data)
-  const signature = `ig_sig_key_version=4&signed_body=${body}`
-
-  return signature
-}
-
-
 
 export default async (username, password) => {
 
@@ -102,11 +71,11 @@ export default async (username, password) => {
       url: LOGIN_URL,
       method: 'POST',
       data: signed_data,
-      headers: {
+      headers: prefixUnsecureHeaders({
         // 'User-Agent': user_agent,
-        'X-Instaweb-User-Agent': user_agent,
+        'User-Agent': user_agent,
         ...REQUEST_HEADERS,
-      }
+      }, 'replace')
     })
 
     print()

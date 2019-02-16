@@ -25,18 +25,18 @@ export const REQUEST_HEADERS = {
     'Accept-Language': 'en-US',
     'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
 
-    // 'Accept-Encoding': 'gzip,deflate',
-    // 'Connection': 'Keep-Alive',
-    // 'Cookie2': '$Version=1',
+    'Accept-Encoding': 'gzip,deflate',
+    'Connection': 'Keep-Alive',
+    'Cookie2': '$Version=1',
 
       // xhr.js:126 Refused to set unsafe header "User-Agent"
       // xhr.js:126 Refused to set unsafe header "Connection"
       // xhr.js:126 Refused to set unsafe header "Accept-Encoding"
       // xhr.js:126 Refused to set unsafe header "Cookie2"
 
-      'X-Instaweb-Accept-Encoding': 'gzip,deflate',
-      'X-Instaweb-Connection': 'Keep-Alive',
-      'X-Instaweb-Cookie2': '$Version=1',
+      // 'X-Instaweb-Accept-Encoding': 'gzip,deflate',
+      // 'X-Instaweb-Connection': 'Keep-Alive',
+      // 'X-Instaweb-Cookie2': '$Version=1',
 }
 
 
