@@ -6,16 +6,13 @@ To test out, replace USERNAME, PASSWORD in `light-login.py`
 
 # Installing Extension:
 
-1. Build it (you can skip this step)
-
-```bash
-npm i
-npm run build
-```
-
+1. Clone repo to your computer
 2. Open `chrome://extensions`
+3. If not enabled, enable Developer mode on the right side:
+<img width="391" alt="Developer mode" src="https://user-images.githubusercontent.com/1909384/52903546-0ed26800-3230-11e9-8ae1-e0c2e5070191.png">
+
 3. Choose `Load unpacked` and point Chrome to the `chrome-ext` dir in this repo.
-<img width="391" alt="screenshot 2019-02-16 at 21 07 08" src="https://user-images.githubusercontent.com/1909384/52903494-53a9cf00-322f-11e9-9c29-29540586cecb.png">
+<img width="391" alt="Load unpacked button" src="https://user-images.githubusercontent.com/1909384/52903494-53a9cf00-322f-11e9-9c29-29540586cecb.png">
 
 4. Install it.
 5. Press the icon
