@@ -3108,6 +3108,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _instagram__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./instagram */ "./src/instagram/index.js");
 
 
+const whenLogged = async (instagram) => {
+
+  const { user } = await instagram.callMethod('get_user_info', 'instagram') // .then(data => alert(data.user.pk))
+
+  console.log('current user id', user.pk, user)
+
+  const follow = await instagram.callMethod('follow', user.pk)
+
+  console.log('follow request', follow)
+}
 
 window.onload = () => {
   const login_form = document.forms.instalogin
@@ -3124,7 +3134,11 @@ window.onload = () => {
     instagram.login(username.value, password.value)
       .then(user => alert('logged in as @' + user.full_name))
       .then(() => window.instagram = instagram)
+      .then(whenLogged)
       .catch(err => alert(err.message))
+
+    // const user_info = instagram.callMethod('get_user_info', 'instagram')
+    // alert(user_info)
   }
 }
 
@@ -3292,12 +3306,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/instagram/constants.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./login */ "./src/instagram/login.js");
-/* harmony import */ var _methods__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./methods */ "./src/instagram/methods.js");
-/* harmony import */ var _unsecure_headers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./unsecure_headers */ "./src/instagram/unsecure_headers.js");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./helpers */ "./src/instagram/helpers.js");
+/* harmony import */ var _methods__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./methods */ "./src/instagram/methods.js");
+/* harmony import */ var _unsecure_headers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./unsecure_headers */ "./src/instagram/unsecure_headers.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helpers */ "./src/instagram/helpers.js");
 const print = console.log
-
 
 
 
@@ -3317,10 +3329,10 @@ class Instagram {
 
     print("USER_AGENT:", this.user_agent)
 
-    this.phone_id = Object(_helpers__WEBPACK_IMPORTED_MODULE_5__["generate_uuid"])()
+    this.phone_id = Object(_helpers__WEBPACK_IMPORTED_MODULE_4__["generate_uuid"])()
     print("PHONE_ID (just another uuid):", this.phone_id)
 
-    this.uuid = Object(_helpers__WEBPACK_IMPORTED_MODULE_5__["generate_uuid"])()
+    this.uuid = Object(_helpers__WEBPACK_IMPORTED_MODULE_4__["generate_uuid"])()
     print("UUID:", this.uuid)
 
     this.rank_token = () => `${this.user_id}_${this.uuid}`
@@ -3356,7 +3368,7 @@ class Instagram {
   }
 
   async _login(username, password) {
-    this.device_id = Object(_helpers__WEBPACK_IMPORTED_MODULE_5__["generate_device_id_from_username"])(username)
+    this.device_id = Object(_helpers__WEBPACK_IMPORTED_MODULE_4__["generate_device_id_from_username"])(username)
     print("DEVICE_ID:", this.device_id)
 
     const data = JSON.stringify({
@@ -3369,30 +3381,27 @@ class Instagram {
     })
 
     print("Final POST DATA before signing:\n", data)
-    const signed_data = Object(_helpers__WEBPACK_IMPORTED_MODULE_5__["generate_signature"])(data)
+    const signed_data = Object(_helpers__WEBPACK_IMPORTED_MODULE_4__["generate_signature"])(data)
     print("Final POST DATA after signing:\n", signed_data)
 
     try {
       // const response = await this._post('accounts/login/', signed_data)
       const response = await this.send_request('accounts/login/', data, true)
 
-      print()
-      print("---> Details of what is happened:")
-      print(" - BODY:", response)
+      if (response['message'] == 'checkpoint_required') {
+        // In case of 'suspicious activity'
+        console.log('Checkpoing required:', response['checkpoint_url'])
+      }
 
       return response
 
     } catch (err) {
-      print()
-      print(' - This error again')
-      print(err)
-
       throw err
     }
   }
 
   async _request(endpoint, method = 'GET', post_data, extra_headers = {}) {
-    const headers = Object(_unsecure_headers__WEBPACK_IMPORTED_MODULE_4__["prefixUnsecureHeaders"])({
+    const headers = Object(_unsecure_headers__WEBPACK_IMPORTED_MODULE_3__["prefixUnsecureHeaders"])({
       'User-Agent': this.user_agent,
       ..._constants__WEBPACK_IMPORTED_MODULE_0__["REQUEST_HEADERS"],
       ...extra_headers,
@@ -3448,66 +3457,31 @@ class Instagram {
     return this._request(endpoint, 'POST', data, extra_headers)
   }
 
-  send_request(endpoint, post = false, doLogin = false, with_signature = true) {
+  send_request(endpoint, data = null, doLogin = false) {
     if (!this.is_logged_in && !doLogin) {
       throw new Error(`Not logged in! Tried to call ${endpoint}`)
     }
 
     if (!this.user_id) {
-      console.warn(`user_id is undefined! Endpoints that need rank_token will not work`)
+      console.warn(`'user_id' is undefined! Endpoints that need rank_token will not work. Try to relogin.`)
     }
-
-    // if (this.queue.length) {
-    //   await this.whenQueueEnds(this.queue)
-    // }
 
     try {
-      this.total_requests += 1
-
-      if (!post) {
+      if (data) {
+        return this._post(endpoint, Object(_helpers__WEBPACK_IMPORTED_MODULE_4__["generate_signature"])(data))
+      } else {
         return this._get(endpoint)
       }
-
-      if (with_signature) {
-        // Only `send_direct_item` doesn't need a signature
-        const data = Object(_helpers__WEBPACK_IMPORTED_MODULE_5__["generate_signature"])(post)
-
-        return this._post(endpoint, data)
-      } else {
-        return this._post(endpoint, post)
-      }
     } catch (err) {
-      console.error(err)
+      console.error(`Request failed:`, err, `Data:`, endpoint, data, )
     }
-
-
-        //
-        // self.session.headers.update(config.REQUEST_HEADERS)
-        // self.session.headers.update({'User-Agent': self.user_agent})
-        // try:
-        //     self.total_requests += 1
-        //     if post is not None:  # POST
-        //         if with_signature:
-        //             # Only `send_direct_item` doesn't need a signature
-        //             post = self.generate_signature(post)
-        //         response = self.session.post(
-        //             config.API_URL + endpoint, data=post)
-        //     else:  # GET
-        //         response = self.session.get(
-        //             config.API_URL + endpoint)
-        // except Exception as e:
-        //     self.logger.warning(str(e))
-        //     return False
-
-
-
   }
 
   callMethod(name, ...args) {
-    const _method = _methods__WEBPACK_IMPORTED_MODULE_3__[name]
+    const _method = _methods__WEBPACK_IMPORTED_MODULE_2__[name]
 
     if (typeof _method != 'function') {
-      throw new Error(`No method: ${name}. Available methods: ${Object.keys(_methods__WEBPACK_IMPORTED_MODULE_3__).join()}`)
+      throw new Error(`No method: ${name}. Available methods: ${Object.keys(_methods__WEBPACK_IMPORTED_MODULE_2__).join()}`)
     }
 
     return _method(this, args)
@@ -3632,23 +3606,33 @@ print("USER_AGENT:", user_agent)
 /*!**********************************!*\
   !*** ./src/instagram/methods.js ***!
   \**********************************/
-/*! exports provided: get_hashtag_feed, like, unlike */
+/*! exports provided: get_user_info, get_hashtag_feed, get_location_feed, like, unlike, follow, unfollow */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_user_info", function() { return get_user_info; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_hashtag_feed", function() { return get_hashtag_feed; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_location_feed", function() { return get_location_feed; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "like", function() { return like; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unlike", function() { return unlike; });
-// def get_hashtag_feed(self, hashtag, max_id=''):
-//     url = 'feed/tag/{hashtag}/?max_id={max_id}&rank_token={rank_token}&ranked_content=true&'
-//     url = url.format(
-//         hashtag=hashtag,
-//         max_id=max_id,
-//         rank_token=self.rank_token
-//     )
-//     return self.send_request(url)
-//
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "follow", function() { return follow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unfollow", function() { return unfollow; });
+
+function is_user_id(user_id_or_username){
+  return !isNaN(user_id_or_username)
+}
+
+
+const get_user_info = (self, user_id_or_username) => {
+  if (is_user_id(user_id_or_username)) {
+    const user_id = user_id_or_username
+    return self.send_request(`users/${user_id}/info/`)
+  } else { 
+    const username = user_id_or_username
+    return self.send_request(`users/${username}/usernameinfo/`)
+  }
+}
 
 const get_hashtag_feed = (self, hashtag, max_id='') => {
     const rank_token = self.rank_token()
@@ -3656,49 +3640,29 @@ const get_hashtag_feed = (self, hashtag, max_id='') => {
     return self.send_request(url)
 }
 
-// def like(self, media_id):
-//     data = self.json_data({'media_id': media_id})
-//     url = 'media/{media_id}/like/'.format(media_id=media_id)
-//     return self.send_request(url, data)
-//
-// def unlike(self, media_id):
-//     data = self.json_data({'media_id': media_id})
-//     url = 'media/{media_id}/unlike/'.format(media_id=media_id)
-//     return self.send_request(url, data)
+const get_location_feed = (self, location_id, max_id='') => {
+    const rank_token = self.rank_token()
+    const url = `feed/location/${location_id}/?max_id=${max_id}&rank_token=${rank_token}&ranked_content=true&`
+    return self.send_request(url)
+}
 
 const like = (self, media_id) => {
-  const data = { media_id }
-
-  return self.send_request(`media/${media_id}/like/`, data)
+  return self.send_request(`media/${media_id}/like/`, {})
 }
 
 const unlike = (self, media_id) => {
-  const data = { media_id }
+  return self.send_request(`media/${media_id}/unlike/`, {})
+}
 
-  return self.send_request(`media/${media_id}/unlike/`, data)
+const follow = (self, user_id) => {
+  return self.send_request(`friendships/create/${user_id}/`, {})
+}
+
+const unfollow = (self, user_id) => {
+  return self.send_request(`friendships/destroy/${user_id}/`, {})
 }
 
 
-
-// vvvvvvvvvvvvvvvvv
-
-// def get_location_feed(self, location_id, max_id=''):
-//     url = 'feed/location/{location_id}/?max_id={max_id}&rank_token={rank_token}&ranked_content=true&'
-//     url = url.format(
-//         location_id=location_id,
-//         max_id=max_id,
-//         rank_token=self.rank_token
-//     )
-//     return self.send_request(url)
-//
-// def get_popular_feed(self):
-//     url = 'feed/popular/?people_teaser_supported=1&rank_token={rank_token}&ranked_content=true&'
-//     return self.send_request(url.format(rank_token=self.rank_token))
-
-// export default {
-//   get_hashtag_feed,
-//
-// }
 
 
 /***/ }),

@@ -85,7 +85,7 @@ export default class Instagram {
       const response = await this.send_request('accounts/login/', data, true)
 
       if (response['message'] == 'checkpoint_required') {
-        // In case of 'suspicious activity' 
+        // In case of 'suspicious activity'
         console.log('Checkpoing required:', response['checkpoint_url'])
       }
 
@@ -153,10 +153,14 @@ export default class Instagram {
     return this._request(endpoint, 'POST', data, extra_headers)
   }
 
-  send_request(endpoint, data=null) {
-    // if (!this.user_id) {
-    //   console.warn(`'user_id' is undefined! Endpoints that need rank_token will not work. Try to relogin.`)
-    // }
+  send_request(endpoint, data = null, doLogin = false) {
+    if (!this.is_logged_in && !doLogin) {
+      throw new Error(`Not logged in! Tried to call ${endpoint}`)
+    }
+
+    if (!this.user_id) {
+      console.warn(`'user_id' is undefined! Endpoints that need rank_token will not work. Try to relogin.`)
+    }
 
     try {
       if (data) {
