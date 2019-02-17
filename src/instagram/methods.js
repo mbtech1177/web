@@ -14,6 +14,12 @@ export const get_hashtag_feed = (self, hashtag, max_id='') => {
     return self.send_request(url)
 }
 
+export const get_location_feed = (self, location_id, max_id='') => {
+    const rank_token = self.rank_token()
+    const url = `feed/location/${location_id}/?max_id=${max_id}&rank_token=${rank_token}&ranked_content=true&`
+    return self.send_request(url)
+}
+
 // def like(self, media_id):
 //     data = self.json_data({'media_id': media_id})
 //     url = 'media/{media_id}/like/'.format(media_id=media_id)
