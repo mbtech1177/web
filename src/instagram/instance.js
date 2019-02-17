@@ -11,7 +11,6 @@ import {
 
 
 import axios from 'axios'
-import login from './login'
 import * as methods from './methods'
 import { prefixUnsecureHeaders } from './unsecure_headers'
 import { generate_uuid, generate_device_id_from_username, generate_signature } from './helpers'
@@ -85,17 +84,14 @@ export default class Instagram {
       // const response = await this._post('accounts/login/', signed_data)
       const response = await this.send_request('accounts/login/', data, true)
 
-      print()
-      print("---> Details of what is happened:")
-      print(" - BODY:", response)
+      if (response['message'] == 'checkpoint_required') {
+        // In case of 'suspicious activity' 
+        console.log('Checkpoing required:', response['checkpoint_url'])
+      }
 
       return response
 
     } catch (err) {
-      print()
-      print(' - This error again')
-      print(err)
-
       throw err
     }
   }
@@ -157,59 +153,20 @@ export default class Instagram {
     return this._request(endpoint, 'POST', data, extra_headers)
   }
 
-  send_request(endpoint, post = false, doLogin = false, with_signature = true) {
-    if (!this.is_logged_in && !doLogin) {
-      throw new Error(`Not logged in! Tried to call ${endpoint}`)
-    }
-
-    if (!this.user_id) {
-      console.warn(`user_id is undefined! Endpoints that need rank_token will not work`)
-    }
-
-    // if (this.queue.length) {
-    //   await this.whenQueueEnds(this.queue)
+  send_request(endpoint, data=null) {
+    // if (!this.user_id) {
+    //   console.warn(`'user_id' is undefined! Endpoints that need rank_token will not work. Try to relogin.`)
     // }
 
     try {
-      this.total_requests += 1
-
-      if (!post) {
+      if (data) {
+        return this._post(endpoint, generate_signature(data))
+      } else {
         return this._get(endpoint)
       }
-
-      if (with_signature) {
-        // Only `send_direct_item` doesn't need a signature
-        const data = generate_signature(post)
-
-        return this._post(endpoint, data)
-      } else {
-        return this._post(endpoint, post)
-      }
     } catch (err) {
-      console.error(err)
+      console.error(`Request failed:`, err, `Data:`, endpoint, data, )
     }
-
-
-        //
-        // self.session.headers.update(config.REQUEST_HEADERS)
-        // self.session.headers.update({'User-Agent': self.user_agent})
-        // try:
-        //     self.total_requests += 1
-        //     if post is not None:  # POST
-        //         if with_signature:
-        //             # Only `send_direct_item` doesn't need a signature
-        //             post = self.generate_signature(post)
-        //         response = self.session.post(
-        //             config.API_URL + endpoint, data=post)
-        //     else:  # GET
-        //         response = self.session.get(
-        //             config.API_URL + endpoint)
-        // except Exception as e:
-        //     self.logger.warning(str(e))
-        //     return False
-
-
-
   }
 
   callMethod(name, ...args) {
