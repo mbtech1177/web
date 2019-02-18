@@ -49,17 +49,25 @@ export default class Instagram {
       throw new Error(`Already logged in`)
     }
 
+    // this.is_logged_in = true
+    //
+    // return { pk: '111' }
+
     const USERNAME = username || this.username
     const PASSWORD = password || this.password
 
-    const { logged_in_user} = await this._login(USERNAME, PASSWORD)
+    try {
+      const { logged_in_user} = await this._login(USERNAME, PASSWORD)
 
-    if (logged_in_user) {
-      this.is_logged_in = true
-      this.user_id = logged_in_user.pk
-      return logged_in_user
-    } else {
-      throw new Error(`Could not log in: ${response}`)
+      if (logged_in_user) {
+        this.is_logged_in = true
+        this.user_id = logged_in_user.pk
+        return logged_in_user
+      } else {
+        throw new Error(`Could not log in: ${response}`)
+      }
+    } catch (err) {
+      console.error(`LoginError: ${err.message}`)
     }
   }
 
@@ -158,7 +166,7 @@ export default class Instagram {
       throw new Error(`Not logged in! Tried to call ${endpoint}`)
     }
 
-    if (!this.user_id) {
+    if (!this.user_id && !doLogin) {
       console.warn(`'user_id' is undefined! Endpoints that need rank_token will not work. Try to relogin.`)
     }
 

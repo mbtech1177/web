@@ -29,22 +29,23 @@
   <meta property="og:description" content="Send me crypto" />
   <meta property="og:site_name" content="Flight wallet" />
 
-  <script src="main.js" charset="utf-8"></script>
-  <script src="credentials.js" charset="utf-8"></script>
-  <script src="popup.js" charset="utf-8"></script>
+  <script src="chrome-ext/main.js" charset="utf-8"></script>
+  <script type="text/javascript">
+
+    console.log('index.html', window)
+    console.log('index.html', chrome)
+
+  </script>
 </head>
 
 <style>
 </style>
 
 <body>
-  <div id="container" style="justify-content: center; align-items: center; text-align: center;">
-    <form id="instalogin">
-      <input type="text" name="username" id="username" /> <br>
-      <input type="password" name="password" id="password" /> <br>
-      <input type="submit" value="Login">
-    </form>
-  </div>
+  <form>
+    <input type="text" id="media_id" name="media_id" />
+    <button id="likeButton">Like!</button>
+  </form>
 
   <footer  style="display: flex; justify-content: center; position: fixed; left: 0; width: 100%;">
     <span> &#183; </span>

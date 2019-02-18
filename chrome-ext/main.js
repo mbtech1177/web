@@ -3108,39 +3108,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _instagram__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./instagram */ "./src/instagram/index.js");
 
 
-const whenLogged = async (instagram) => {
-
-  const { user } = await instagram.callMethod('get_user_info', 'instagram') // .then(data => alert(data.user.pk))
-
-  console.log('current user id', user.pk, user)
-
-  const follow = await instagram.callMethod('follow', user.pk)
-
-  console.log('follow request', follow)
-}
-
-window.onload = () => {
-  const login_form = document.forms.instalogin
-
-  window.Instagram = _instagram__WEBPACK_IMPORTED_MODULE_0__["default"]
-
-  login_form.onsubmit = (event) => {
-    event.preventDefault()
-
-    const { username, password } = instalogin.elements
-
-    const instagram = new _instagram__WEBPACK_IMPORTED_MODULE_0__["default"]()
-
-    instagram.login(username.value, password.value)
-      .then(user => alert('logged in as @' + user.full_name))
-      .then(() => window.instagram = instagram)
-      .then(whenLogged)
-      .catch(err => alert(err.message))
-
-    // const user_info = instagram.callMethod('get_user_info', 'instagram')
-    // alert(user_info)
-  }
-}
+window.Instagram = _instagram__WEBPACK_IMPORTED_MODULE_0__["default"]
 
 
 /***/ }),
@@ -3283,12 +3251,10 @@ const generate_signature = (data) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./login */ "./src/instagram/login.js");
-/* harmony import */ var _instance__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./instance */ "./src/instagram/instance.js");
+/* harmony import */ var _instance__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./instance */ "./src/instagram/instance.js");
 
 
-
-/* harmony default export */ __webpack_exports__["default"] = (_instance__WEBPACK_IMPORTED_MODULE_1__["default"]);
+/* harmony default export */ __webpack_exports__["default"] = (_instance__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
 /***/ }),
@@ -3353,17 +3319,25 @@ class Instagram {
       throw new Error(`Already logged in`)
     }
 
+    // this.is_logged_in = true
+    //
+    // return { pk: '111' }
+
     const USERNAME = username || this.username
     const PASSWORD = password || this.password
 
-    const { logged_in_user} = await this._login(USERNAME, PASSWORD)
+    try {
+      const { logged_in_user} = await this._login(USERNAME, PASSWORD)
 
-    if (logged_in_user) {
-      this.is_logged_in = true
-      this.user_id = logged_in_user.pk
-      return logged_in_user
-    } else {
-      throw new Error(`Could not log in: ${response}`)
+      if (logged_in_user) {
+        this.is_logged_in = true
+        this.user_id = logged_in_user.pk
+        return logged_in_user
+      } else {
+        throw new Error(`Could not log in: ${response}`)
+      }
+    } catch (err) {
+      console.error(`LoginError: ${err.message}`)
     }
   }
 
@@ -3462,7 +3436,7 @@ class Instagram {
       throw new Error(`Not logged in! Tried to call ${endpoint}`)
     }
 
-    if (!this.user_id) {
+    if (!this.user_id && !doLogin) {
       console.warn(`'user_id' is undefined! Endpoints that need rank_token will not work. Try to relogin.`)
     }
 
@@ -3488,116 +3462,6 @@ class Instagram {
   }
 
 }
-
-
-/***/ }),
-
-/***/ "./src/instagram/login.js":
-/*!********************************!*\
-  !*** ./src/instagram/login.js ***!
-  \********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/instagram/constants.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var blueimp_md5__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! blueimp-md5 */ "./node_modules/blueimp-md5/js/md5.js");
-/* harmony import */ var blueimp_md5__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(blueimp_md5__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _unsecure_headers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./unsecure_headers */ "./src/instagram/unsecure_headers.js");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helpers */ "./src/instagram/helpers.js");
-const print = console.log
-
-
-
-
-
-
-
-// import sha256 from 'js-sha256'
-//
-// import uuidjs from 'uuid-js'
-// import hmac from 'hmac'
-
-
-
-
-const user_agent = Object(_constants__WEBPACK_IMPORTED_MODULE_0__["USER_AGENT_BASE"])(_constants__WEBPACK_IMPORTED_MODULE_0__["DEVICE"]) // just insert params
-
-print("USER_AGENT:", user_agent)
-
-/* harmony default export */ __webpack_exports__["default"] = (async (username, password) => {
-
-  const phone_id = Object(_helpers__WEBPACK_IMPORTED_MODULE_4__["generate_uuid"])()
-  print("PHONE_ID (just another uuid):", phone_id)
-
-  const uuid = Object(_helpers__WEBPACK_IMPORTED_MODULE_4__["generate_uuid"])()
-  print("UUID:", uuid)
-
-  const USERNAME = username
-  const PASSWORD = password
-
-  const device_id = Object(_helpers__WEBPACK_IMPORTED_MODULE_4__["generate_device_id"])(blueimp_md5__WEBPACK_IMPORTED_MODULE_2___default()(`${USERNAME}${USERNAME}`))
-  print("DEVICE_ID:", device_id)
-
-  // ##############################################
-  // # The hardest part - sign data the proper way
-
-  const data = JSON.stringify({
-      'phone_id': phone_id,
-      'username': USERNAME,
-      'guid': uuid,
-      'device_id': device_id,
-      'password': PASSWORD,
-      'login_attempt_count': '0',
-  })
-
-  print()
-  print("Final POST DATA before signing:\n", data)
-  const signed_data = Object(_helpers__WEBPACK_IMPORTED_MODULE_4__["generate_signature"])(data)
-  print()
-  print("Final POST DATA after signing:\n", signed_data)
-
-
-  // console.log(`username: ${username}\npassword: ${password}`)
-  print()
-  print(" ---> POSTing to url:", _constants__WEBPACK_IMPORTED_MODULE_0__["LOGIN_URL"])
-
-  // session = requests.Session()
-  // session.headers.update(REQUEST_HEADERS)
-  // session.headers.update({'User-Agent': user_agent})
-  // response = session.post(LOGIN_URL, data=data)
-
-  try {
-    const response = await axios__WEBPACK_IMPORTED_MODULE_1___default()({
-      url: _constants__WEBPACK_IMPORTED_MODULE_0__["LOGIN_URL"],
-      method: 'POST',
-      data: signed_data,
-      headers: Object(_unsecure_headers__WEBPACK_IMPORTED_MODULE_3__["prefixUnsecureHeaders"])({
-        // 'User-Agent': user_agent,
-        'User-Agent': user_agent,
-        ..._constants__WEBPACK_IMPORTED_MODULE_0__["REQUEST_HEADERS"],
-      }, 'replace')
-    })
-
-    print()
-    print("---> Details of what is happened:")
-    print(" - BODY:", response.data)
-    print(" - HEADERS:", response.headers)
-    print(" - RESPONSE:", response.status)
-
-    return response.data
-  } catch (err) {
-    print()
-    print(' - This error again')
-    print(err)
-
-    throw err
-  }
-
-});
 
 
 /***/ }),

@@ -1,5 +1,3 @@
-console.log('chrome', chrome)
-
 chrome.webRequest.onBeforeSendHeaders.addListener(
     function(info) {
       // xhr.js:126 Refused to set unsafe header "User-Agent"
@@ -43,13 +41,75 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
     {
         // Modify the headers for these pages
         urls: [
-          "*://*/*",
-          // "*://*.instagram.com/"
-            // "http://stackoverflow.com/*",
-            // "http://127.0.0.1:6789/*"
+          "https://caffeinum.github.io/*",
+          "https://instagrambot.github.io/*",
+          "*://localhost/*",
+          "file://*/*",
+          "chrome-extension://*/*",
+          // TODO: remove wildcard
+          "*://*/*"
         ],
         // In the main window and frames
         types: ["main_frame", "sub_frame", "xmlhttprequest"]
     },
     ["blocking", "requestHeaders", "extraHeaders"]
 );
+
+let user = {}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const { username, password } = await getCredentials()
+
+  window.instagram = new Instagram(username, password)
+
+  user = await window.instagram.login()
+
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    console.log('message', message)
+    console.log('sender', sender)
+
+    const { method, params } = message
+
+    if (method === 'get_user_info') {
+      chrome.tabs.sendMessage(sender.tab.id, { user })
+    } else {
+      instagram.callMethod(method, ...params)
+        .then(res => chrome.tabs.sendMessage(sender.tab.id, res))
+    }
+
+  })
+
+}, false);
+
+// chrome.tabs.getSelected(null, function(tab) {
+//    console.log(tab.url);
+//    const analyzeUrl = `https://morejust.media/read?url=${tab.url}`;
+//    window.open(analyzeUrl);
+//  });
+//
+
+function sendIntoActiveTab(data) {
+  if (!activeTab || !data) return
+
+  console.log('sending message to', activeTab.id, data)
+  chrome.tabs.sendMessage(activeTab.id, data)
+}
+
+let activeTab = null
+
+function updateActive(tab) {
+    activeTab = tab
+}
+function onActivated(info) {
+    chrome.tabs.get(info.tabId, updateActive)
+}
+function onUpdated(info, tab) {
+    if (tab.active)
+        updateActive(tab)
+}
+chrome.tabs.query({active: true, lastFocusedWindow: true}, function(tabs) {
+    updateActive(tabs[0])
+})
+
+chrome.tabs.onActivated.addListener(onActivated)
+chrome.tabs.onUpdated.addListener(onUpdated)
