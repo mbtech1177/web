@@ -11,7 +11,7 @@ const saveCredentials = (username, password) => {
 const getCredentials = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(['credentials'], (result) => {
-      resolve(result.credentials)
+      resolve(result.credentials || {})
     })
 
     setTimeout(() => reject('storage error'), 5000)
