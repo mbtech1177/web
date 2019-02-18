@@ -42,12 +42,18 @@
 </style>
 
 <body>
-  <form>
-    <input type="text" id="media_id" name="media_id" />
-    <button id="likeButton">Like!</button>
-  </form>
+  <div id="container" style="justify-content: center; align-items: center; text-align: center;">
+    <form>
+      <label for="media_id">media_id</label>
+      <input type="text" id="media_id" name="media_id" />
 
-  <footer  style="display: flex; justify-content: center; position: fixed; left: 0; width: 100%;">
+      <button id="connect">Connect</button>
+      <button id="likeButton">Like!</button>
+      <button id="unlikeButton">Unlike!</button>
+    </form>
+  </div>
+
+  <footer style="display: flex; justify-content: center; position: fixed; left: 0; width: 100%;">
     <span> &#183; </span>
     <a href="https://github.com/flightwallet/pay/">github</a>
     <span> &#183; </span>
