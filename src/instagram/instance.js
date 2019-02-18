@@ -68,6 +68,7 @@ export default class Instagram {
       }
     } catch (err) {
       console.error(`LoginError: ${err.message}`)
+      throw err
     }
   }
 
