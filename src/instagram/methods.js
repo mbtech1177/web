@@ -8,7 +8,7 @@ export const get_user_info = (self, user_id_or_username) => {
   if (is_user_id(user_id_or_username)) {
     const user_id = user_id_or_username
     return self.send_request(`users/${user_id}/info/`)
-  } else { 
+  } else {
     const username = user_id_or_username
     return self.send_request(`users/${username}/usernameinfo/`)
   }
@@ -26,6 +26,10 @@ export const get_location_feed = (self, location_id, max_id='') => {
     return self.send_request(url)
 }
 
+export const media_info = (self, media_id) => {
+  return self.send_request(`media/${media_id}/info/`)
+}
+
 export const like = (self, media_id) => {
   return self.send_request(`media/${media_id}/like/`, {})
 }
@@ -41,5 +45,3 @@ export const follow = (self, user_id) => {
 export const unfollow = (self, user_id) => {
   return self.send_request(`friendships/destroy/${user_id}/`, {})
 }
-
-

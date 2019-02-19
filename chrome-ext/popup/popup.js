@@ -9,10 +9,18 @@ const whenLogged = async (instagram) => {
   console.log('follow request', follow)
 }
 
-window.onload = () => {
+window.onload = async () => {
   const login_form = document.forms.instalogin
 
   if (!login_form) return
+
+  const creds = await getCredentials()
+
+  if (creds) {
+    // document.getElementById('instalogin').style.display = 'none'
+    document.getElementById('logged_in').style.display = ''
+    document.getElementById('not_logged_in').style.display = 'none'
+  }
 
   login_form.onsubmit = (event) => {
     event.preventDefault()

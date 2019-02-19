@@ -29,13 +29,6 @@
   <meta property="og:description" content="Send me crypto" />
   <meta property="og:site_name" content="Flight wallet" />
 
-  <script src="chrome-ext/main.js" charset="utf-8"></script>
-  <script type="text/javascript">
-
-    console.log('index.html', window)
-    console.log('index.html', chrome)
-
-  </script>
 </head>
 
 <style>
@@ -44,18 +37,39 @@
 <body>
   <div id="container" style="justify-content: center; align-items: center; text-align: center;">
     <form>
-      <label for="media_id">media_id</label>
+      <label for="connect">Connect the extension</label>
+      <button id="connect">Connect</button>
+      <br><br>
+
+      <label for="media_id">media_id </label>
       <input type="text" id="media_id" name="media_id" />
 
-      <button id="connect">Connect</button>
       <button id="likeButton">Like!</button>
       <button id="unlikeButton">Unlike!</button>
+      <button id="viewButton">View photo</button>
+      <br>
+
+      <label for="hashtag">hashtag #</label>
+      <input type="text" id="hashtag" name="hashtag" />
+      <button id="likeHashtagButton">Like 10 photos</button>
+      <br>
+      <button id="killAll">Stop sending requests</button>
+      <br><br>
     </form>
+
+    <div id="loading" style="display: none">
+      Loading...
+    </div>
+    <img id="photo_viewer" src="#">
+    <div id="output">
+    </div>
+    <div id="log">
+    </div>
   </div>
 
   <footer style="display: flex; justify-content: center; position: fixed; left: 0; width: 100%;">
     <span> &#183; </span>
-    <a href="https://github.com/flightwallet/pay/">github</a>
+    <a href="https://github.com/caffeinum/instaweb">github</a>
     <span> &#183; </span>
   </footer>
 
