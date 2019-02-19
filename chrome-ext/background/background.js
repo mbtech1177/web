@@ -28,6 +28,10 @@ const replyToRequest = (sender, req_id, data) => {
 document.addEventListener('DOMContentLoaded', async () => {
   const { username, password } = await getCredentials()
 
+  if (!username || !password) {
+    console.error(`No credentials`)
+  }
+
   window.instagram = new Instagram(username, password)
   window.user = await instagram.login()
 

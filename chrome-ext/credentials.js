@@ -18,5 +18,15 @@ const getCredentials = () => {
   })
 }
 
+const clearCredentials = () => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.set({ credentials: null }, (result) => {
+      resolve(result)
+    })
+
+    setTimeout(() => reject('storage error'), 5000)
+  })
+}
+
 window.saveCredentials = saveCredentials
 window.getCredentials = getCredentials

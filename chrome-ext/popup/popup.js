@@ -7,6 +7,21 @@ const whenLogged = async (instagram) => {
   const follow = await instagram.callMethod('follow', user.pk)
 
   console.log('follow request', follow)
+
+  updateView()
+}
+
+const updateView = async () => {
+  const creds = await getCredentials()
+
+  if (creds && creds.username && creds.password) {
+    document.querySelectorAll('.logged_in')    .forEach(elem => elem.style.display = '')
+    document.querySelectorAll('.not_logged_in').forEach(elem => elem.style.display = 'none')
+  }
+  else {
+    document.querySelectorAll('.logged_in')    .forEach(elem => elem.style.display = 'none')
+    document.querySelectorAll('.not_logged_in').forEach(elem => elem.style.display = '')
+  }
 }
 
 window.onload = async () => {
@@ -14,12 +29,11 @@ window.onload = async () => {
 
   if (!login_form) return
 
-  const creds = await getCredentials()
+  updateView()
 
-  if (creds) {
-    // document.getElementById('instalogin').style.display = 'none'
-    document.getElementById('logged_in').style.display = ''
-    document.getElementById('not_logged_in').style.display = 'none'
+  document.querySelector('#exit').onclick = async () => {
+    await clearCredentials()
+    updateView()
   }
 
   login_form.onsubmit = (event) => {
