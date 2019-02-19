@@ -6,8 +6,6 @@
   <meta name="keywords" content="Instagram,instabot,automate,autolike,mass follower,mass liker,free">
   <meta name="author" content="Alexey Bykhun, Daniil Okhlopkov">
 
-  <title>Instaweb</title>
-
   <!-- Schema.org markup for Google+ -->
   <meta itemprop="name" content="Instagram yourself!">
   <meta itemprop="description" content="Automate your Instagram free: likes, follows, comments, replies">
@@ -29,38 +27,47 @@
   <meta property="og:description" content="Automate your Instagram free: likes, follows, comments, replies" />
   <meta property="og:site_name" content="Instagram yourself" />
 
+  <title>Instaweb dashboard</title>
+
 </head>
 
-<style>
-</style>
 
 <body>
   <div id="container" style="justify-content: center; align-items: center; text-align: center;">
-    <form>
-      <label for="connect">Connect the extension</label>
-      <button id="connect">Connect</button>
-      <br><br>
+    <h1>Instagram yourself</h1>
 
-      <label for="media_id">media_id </label>
+    <h2>1</h2>
+    <p>Install <a href="https://chrome.google.com/webstore/detail/instagram-yourself/njonkbhnmmjgancfbncekpgkmidhbbpo">extension</a></p>
+
+    <form>
+      <h2>2</h2>
+      <label for="connect">Connect to the extension: </label>
+      <button id="connect">Connect</button>
+      <br>
+      <br>
+      <!-- <label for="media_id">media_id </label>
       <input type="text" id="media_id" name="media_id" />
 
       <button id="likeButton">Like!</button>
       <button id="unlikeButton">Unlike!</button>
       <button id="viewButton">View photo</button>
       <br>
-
+      <br> -->
+      <h2>3</h2>
       <label for="hashtag">hashtag #</label>
       <input type="text" id="hashtag" name="hashtag" />
       <button id="likeHashtagButton">Like 10 photos</button>
       <br>
+      <br>
       <button id="killAll">Stop sending requests</button>
-      <br><br>
+      <br>
+      <br>
     </form>
 
     <div id="loading" style="display: none">
       Loading...
     </div>
-    <img id="photo_viewer" src="#">
+    <!-- <img id="photo_viewer" src="#"> -->
     <div id="output">
     </div>
     <div id="log">
@@ -69,7 +76,11 @@
 
   <footer style="display: flex; justify-content: center; position: fixed; left: 0; width: 100%;">
     <span> &#183; </span>
+    <a href="https://github.com/caffeinum/instaweb#installing-extension">troubleshooting</a>
+    <span> &#183; </span>
     <a href="https://github.com/caffeinum/instaweb">github</a>
+    <span> &#183; </span>
+    <a href="https://t.me/instabotproject">chat</a>
     <span> &#183; </span>
   </footer>
 
