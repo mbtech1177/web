@@ -9,7 +9,7 @@
     "scripts": [
       "main.js",
       "credentials.js",
-      "background/unsecure_headers.js",
+      "background/insecure_headers.js",
       "background/background.js"
     ]
   },
