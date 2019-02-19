@@ -1,3 +1,6 @@
+// Inspired with Instabot API:
+// https://github.com/instagrambot/instabot/blob/master/instabot/api/api.py
+
 
 function is_user_id(user_id_or_username){
   return !isNaN(user_id_or_username)
@@ -12,6 +15,24 @@ export const get_user_info = (self, user_id_or_username) => {
     const username = user_id_or_username
     return self.send_request(`users/${username}/usernameinfo/`)
   }
+}
+
+export const get_user_followers = (self, user_id, max_id='') => {
+  const rank_token = self.rank_token()
+  const url = `friendships/${user_id}/followers/?max_id=${max_id}&rank_token=${rank_token}&`
+  return self.send_request(url)
+}
+
+export const get_user_followings = (self, user_id, max_id='') => {
+  const rank_token = self.rank_token()
+  const url = `friendships/${user_id}/following/?max_id=${max_id}&rank_token=${rank_token}&`
+  return self.send_request(url)
+}
+
+export const get_user_feed = (self, user_id, max_id='') => {
+  const rank_token = self.rank_token()
+  const url = `feed/user/${user_id}/?max_id=${max_id}&rank_token=${rank_token}&ranked_content=true&`
+  return self.send_request(url)
 }
 
 export const get_hashtag_feed = (self, hashtag, max_id='') => {
