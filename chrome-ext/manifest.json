@@ -24,15 +24,16 @@
     "webRequest",
     "webRequestBlocking",
     "*://*.instagram.com/",
-    "*://*/*"
+    "file://*/*",
+    "https://caffeinum.github.io/*",
+    "https://instagrambot.github.io/*"
   ],
   "content_scripts": [
    {
      "matches": [
+       "file://*/*",
        "https://caffeinum.github.io/*",
-       "https://instagrambot.github.io/*",
-       "*://localhost/*",
-       "file://*/*"
+       "https://instagrambot.github.io/*"
      ],
      "js": [
        "main.js",
