@@ -20,6 +20,7 @@ export default class Instagram {
   constructor(username, password) {
     this.is_logged_in = false
     this.user_id = null
+    this.user = null
 
     this.user_agent = USER_AGENT_BASE(DEVICE) // just insert params
 
@@ -62,6 +63,7 @@ export default class Instagram {
       if (logged_in_user) {
         this.is_logged_in = true
         this.user_id = logged_in_user.pk
+        this.user = logged_in_user
         return logged_in_user
       } else {
         throw new Error(`Could not log in: ${response}`)
