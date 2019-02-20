@@ -8,7 +8,7 @@
 2. Install our Browser extension from the [Official store](https://chrome.google.com/webstore/detail/instagram-yourself/njonkbhnmmjgancfbncekpgkmidhbbpo)
 3. Press our pink icon
 6. Login into your Instagram account
-7. Open https://instagrambot.github.io/web
+7. Open https://caffeinum.github.io/instaweb/
 8. Enjoy!
 
 ## Troubleshooting
