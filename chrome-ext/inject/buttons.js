@@ -1,5 +1,12 @@
+const initButtons = () => {
+  document.getElementById("likeHashtagButton").addEventListener("click", onHashtagButton, false)
+  document.getElementById("likeUsernameButton").addEventListener("click", onLikeUsernameButton, false)
+  document.getElementById("killAll").addEventListener("click", onKillAll, false)
+}
+
 const onHashtagButton = async (event) => {
   event.preventDefault()
+  instagram.start()
 
   try {
     const form = document.forms[0]
@@ -18,47 +25,55 @@ const onHashtagButton = async (event) => {
 
     printLog(`OK, ${items.length} results`, false)
 
-    const firstTenItems = items.slice(0, 10)
-
-    if (!confirm(`Will put 10 likes at:\n${firstTenItems.map(i => instagramUrl(i)).join("\n")}. OK?`))
-      return
-
-    firstTenItems.reduce((queue, item) => queue.then(async () => {
-      const url = instagramUrl(item)
-
-      if (instagram.isStopped) {
-        printLog(`Skipping <a href="${url}" target="_blank">${url}</a>...`)
-        return
-      }
-
-      printLog(`Sending like <a href="${url}" target="_blank">${url}</a>...`)
-
-      const { status } = await request({
-        method: 'like',
-        params: [ item.id ],
-      }, true)
-
-      printLog(`${status}`, false)
-
-      console.log('Liked item', item, url)
-
-      const sec = 5 + 10 * Math.random()
-      printLog(`Sleeping ${sec.toFixed(2)} seconds`)
-
-      await sleep(sec * 1000)
-
-    }), Promise.resolve())
-
+    likeItems(items, 10)
 
   } catch(err) {
     alert(err.message)
   }
 }
 
+const onLikeUsernameButton = async (event) => {
+  event.preventDefault()
+  instagram.start()
+
+  try {
+    const form = document.forms[0]
+    const username = form.username.value
+
+    if (!username) {
+      throw new Error(`Empty field!`)
+    }
+
+    printLog(`Fetching photos by username @${username}: ... `)
+
+    const { user } = await request({
+      method: 'get_user_info',
+      params: [ username ]
+    })
+
+    const { items } = await request({
+      method: 'get_user_feed',
+      params: [ user.pk ]
+    })
+
+    printLog(`OK, ${items.length} results`, false)
+
+    likeItems(items, 10)
+
+  } catch(err) {
+    alert(err.message)
+  }
+
+}
+
 const onKillAll = async (event) => {
   event.preventDefault()
-
   instagram.kill()
 
   printLog(`Stopping...`)
+
+  alert(`
+    Please wait until all requests are finished.
+    Else, some old requests may be not stopped.
+  `)
 }

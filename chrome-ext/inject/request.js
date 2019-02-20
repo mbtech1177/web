@@ -1,5 +1,3 @@
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
 const request = async (data, passError = false) => {
   try {
     showLoader()
@@ -16,9 +14,4 @@ const request = async (data, passError = false) => {
   } finally {
     hideLoader()
   }
-}
-
-const instagramUrl = (item = {}) => {
-  if (!item.code) return ``
-  return `https://instagram.com/p/${item.code}`
 }

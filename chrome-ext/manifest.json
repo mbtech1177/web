@@ -38,8 +38,9 @@
      ],
      "js": [
        "shared/instagram_connector.js",
-       "inject/helpers.js",
        "inject/document_connector.js",
+       "inject/request.js",
+       "inject/likeItems.js",
        "inject/buttons.js",
        "inject/main.js"
      ]

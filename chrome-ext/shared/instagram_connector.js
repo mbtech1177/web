@@ -11,6 +11,7 @@ class InstagramConnector {
 
   isStopped = false
 
+  start = () => this.isStopped = false
   kill = () => this.isStopped = true
 
   request = (data) => new Promise((resolve, reject) => {

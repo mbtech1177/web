@@ -18,7 +18,5 @@ const doConnect = async () => {
 
 if (document.getElementById("extension-connected")) {
   doConnect()
-
-  document.getElementById("likeHashtagButton").addEventListener("click", onHashtagButton, false)
-  document.getElementById("killAll").addEventListener("click", onKillAll, false)
+  initButtons()
 }
