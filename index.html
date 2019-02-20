@@ -30,7 +30,6 @@
   <title>Instaweb dashboard</title>
 
   <!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(52144714, "init", { id:52144714, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/52144714" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
-
 </head>
 
 
@@ -38,13 +37,20 @@
   <div id="container" style="justify-content: center; align-items: center; text-align: center;">
     <h1>Instagram yourself</h1>
 
-    <h2>1</h2>
-    <p>Install <a href="https://chrome.google.com/webstore/detail/instagram-yourself/njonkbhnmmjgancfbncekpgkmidhbbpo">extension</a></p>
+    <span id="connectionStatus">Connection status: NOT_INSTALLED</span>
 
-    <form>
+    <h2>1</h2>
+    <p>
+      Install <a href="https://chrome.google.com/webstore/detail/instagram-yourself/njonkbhnmmjgancfbncekpgkmidhbbpo">extension</a>
+      <span id="extensionInstalled" style="display: none">EXTENSION INSTALLED</span>
+    </p>
+
+    <form id="extension-connected">
       <h2>2</h2>
-      <label for="connect">Connect to the extension: </label>
-      <button id="connect">Connect</button>
+      <label for="connect" id="connectLabel">Login into the extension: </label>
+
+      <span id="loggedIn" style="display: none">LOGGED IN</span>
+      <span id="notLoggedIn">NOT LOGGED IN</span>
       <br>
       <br>
       <!-- <label for="media_id">media_id </label>
@@ -56,7 +62,7 @@
       <br>
       <br> -->
       <h2>3</h2>
-      <label for="hashtag">hashtag #</label>
+      <label for="hashtag">Put hashtag: #</label>
       <input type="text" id="hashtag" name="hashtag" />
       <button id="likeHashtagButton">Like 10 photos</button>
       <br>

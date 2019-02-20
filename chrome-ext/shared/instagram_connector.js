@@ -9,9 +9,12 @@ class InstagramError extends Error {
 
 class InstagramConnector {
 
-  kill = false
+  isStopped = false
+
+  kill = () => this.isStopped = true
+
   request = (data) => new Promise((resolve, reject) => {
-    if (this.kill) return reject(`Request was killed`)
+    if (this.isStopped) return reject(new InstagramError(null, `Request was killed`))
 
     // { method, params } = method
 

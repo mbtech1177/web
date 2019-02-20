@@ -7,7 +7,7 @@
   },
   "background": {
     "scripts": [
-      "credentials.js",
+      "shared/credentials.js",
       "background/main.js",
       "background/request_history.js",
       "background/insecure_headers.js",
@@ -37,9 +37,11 @@
        "https://instagrambot.github.io/*"
      ],
      "js": [
-       "instagram_connector.js",
-       "inject/inject.js",
-       "inject/output.js"
+       "shared/instagram_connector.js",
+       "inject/helpers.js",
+       "inject/document_connector.js",
+       "inject/buttons.js",
+       "inject/main.js"
      ]
    }
  ],
