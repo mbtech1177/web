@@ -7,10 +7,33 @@ class InstagramError extends Error {
   }
 }
 
+class TimeoutError extends Error {}
+
 class InstagramConnector {
   _instaweb_id = "kmdamjjnlpjgbnaeaboghopmcchjpaep"
 
   isStopped = false
+  isConnected = false
+
+  init = async () => {
+    try {
+      const ping = await this.request({
+        method: 'ping'
+      })
+
+      console.log('ping', ping)
+
+      this.isConnected = ping.status === 'ok' && Boolean(ping.pong)
+    } catch (err) {
+      if (err instanceof TimeoutError) {
+        this.isConnected = false
+        return
+      }
+
+      throw err
+    }
+
+  }
 
   start = () => this.isStopped = false
   kill = () => this.isStopped = true
@@ -38,7 +61,7 @@ class InstagramConnector {
       }
     }
 
-    setTimeout(() => reject(new Error(`Request timeout`)), 10000)
+    setTimeout(() => reject(new TimeoutError(`Request timeout`)), 10000)
 
     chrome.runtime.onMessage && chrome.runtime.onMessage.addListener(handler)
 
@@ -46,7 +69,7 @@ class InstagramConnector {
       console.log(`send_message`, null, { req_id, ...data })
       chrome.runtime.sendMessage(null, { req_id, ...data })
     } else {
-      console.log(`send_message`, this._instaweb_id, { req_id, ...data }, null, handler)
+      console.log(`send_message`, this._instaweb_id, { req_id, ...data })
       chrome.runtime.sendMessage(this._instaweb_id, data, null, handler)
     }
   })

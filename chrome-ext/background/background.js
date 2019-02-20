@@ -26,9 +26,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const { method, params } = message
 
-    const _ = (async () => {
+    // const _ = (async () => {
 
       try {
+        if (method === 'ping') {
+          return sendResponse({ status: 'ok', pong: 'pong' })
+        }
+
         if (method === 'login') {
           const [ username, password ] = params || []
 
@@ -72,9 +76,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error(err)
         return sendResponse({ status: 'error', error: err.message })
       }
-    })()
-
-    return true
+    // })()
+    //
+    // return true
 
   });
 

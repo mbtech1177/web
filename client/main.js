@@ -1,5 +1,11 @@
 const doConnect = async () => {
   try {
+    await instagram.init()
+
+    if (!instagram.isConnected) {
+      updateConnectionStatus(CONNECTION.NOT_INSTALLED)
+    }
+
     const { user } = await request({ method: 'check_login' }, true)
 
     if (user && user.pk) {
