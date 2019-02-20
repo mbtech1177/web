@@ -8,6 +8,7 @@ class InstagramError extends Error {
 }
 
 class InstagramConnector {
+  _instaweb_id = "kmdamjjnlpjgbnaeaboghopmcchjpaep"
 
   isStopped = false
 
@@ -24,7 +25,7 @@ class InstagramConnector {
     const handler = (message, sender) => {
       const { status, error } = message
       if (req_id === message.req_id) {
-        chrome.runtime.onMessage.removeListener(handler)
+        chrome.runtime.onMessage && chrome.runtime.onMessage.removeListener(handler)
 
         console.log('request', data.method, '->', status, message)
 
@@ -36,9 +37,13 @@ class InstagramConnector {
       }
     }
 
-    chrome.runtime.onMessage.addListener(handler)
+    chrome.runtime.onMessage && chrome.runtime.onMessage.addListener(handler)
 
-    chrome.runtime.sendMessage(null, { req_id, ...data })
+    if (chrome.runtime.onMessage) {
+      chrome.runtime.sendMessage(null, { req_id, ...data })
+    } else {
+      chrome.runtime.sendMessage(this._instaweb_id, { req_id, ...data }, null, handler)
+    }
   })
 
 }
