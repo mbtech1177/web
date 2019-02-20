@@ -24,7 +24,9 @@
     "dev": "webpack --watch --mode=development --output chrome-ext/background/main.js",
     "build": "webpack --mode=production --output chrome-ext/background/main.js",
     "build:chrome": "npm run build && npm run zip",
+    "postbuild:chrome": "npm run open-chrome-store",
     "zip": "rm -rf chrome-ext.zip && zip -r -X chrome-ext.zip chrome-ext",
+    "open-chrome-store": "open https://chrome.google.com/webstore/developer/dashboard",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
