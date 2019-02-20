@@ -6,6 +6,12 @@ const initButtons = () => {
 
 const onHashtagButton = async (event) => {
   event.preventDefault()
+
+  if (!instagram.isStopped) {
+    alert(`Please stop all other tasks before running!`)
+    return
+  }
+
   instagram.start()
 
   try {
@@ -35,6 +41,12 @@ const onHashtagButton = async (event) => {
 
 const onLikeUsernameButton = async (event) => {
   event.preventDefault()
+
+  if (!instagram.isStopped) {
+    alert(`Please stop all other tasks before running!`)
+    return
+  }
+
   instagram.start()
 
   try {

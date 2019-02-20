@@ -10,6 +10,8 @@ const doConnect = async () => {
       alert(`Connected to the extension, but it's not logged in. Please login via pressing extension logo`)
     }
 
+    instagram.kill()
+
   } catch (err) {
     alert(err.message)
     updateConnectionStatus(CONNECTION.UNKNOWN)
