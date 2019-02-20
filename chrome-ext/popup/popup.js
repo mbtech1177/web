@@ -14,6 +14,10 @@ const whenLogged = async () => {
   await updateView()
 }
 
+const openControlPanel = () => {
+  window.open(`https://caffeinum.github.io/instaweb`)
+}
+
 const updateView = async () => {
   const { user } = await instagram.request({
     method: 'check_login'
@@ -81,6 +85,7 @@ window.onload = async () => {
       // window.instagram = instagram)
       await saveCredentials(username.value, password.value)
       await whenLogged()
+      openControlPanel()
     } catch (err) {
       alert(err.message)
       console.error(err)
