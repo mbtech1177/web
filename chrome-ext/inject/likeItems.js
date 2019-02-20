@@ -44,7 +44,9 @@ const likeItems = async (items, n = 10) => {
 
   })
 
-  queue.then(() => printLog(`Finished!`))
+  queue
+    .then(() => printLog(`Finished!`))
+    .then(() => instagram.kill())
 
 }
 
