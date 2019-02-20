@@ -30,10 +30,33 @@
   <title>Instaweb dashboard</title>
 
   <!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(52144714, "init", { id:52144714, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/52144714" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+
+
+   <!-- Compiled and minified CSS -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+   <!-- Compiled and minified JavaScript -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+           
+
 </head>
 
 
 <body>
+
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Instagram Yourself</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="https://github.com/caffeinum/instaweb">Github</a></li>
+        <li><a href="https://t.me/instabotproject">Chat</a></li>
+        <li><a href="https://github.com/caffeinum/instaweb#installing-extension">Troubleshooting</a></li>
+      </ul>
+    </div>
+  </nav>
+            
+
+
   <div id="container" style="justify-content: center; align-items: center; text-align: center;">
     <h1>Instagram yourself</h1>
 
@@ -64,13 +87,15 @@
       <h2>3</h2>
       <label for="hashtag">Put hashtag: #</label>
       <input type="text" id="hashtag" name="hashtag" />
-      <button id="likeHashtagButton">Like 10 photos</button>
+      <!-- <button id="likeHashtagButton">Like 10 photos</button> -->
+      <a class="waves-effect waves-light btn" id="likeHashtagButton">Like 10 photos</a>
       <br>
       <br>
 
       <label for="username">Put username: @</label>
       <input type="text" id="username" name="username" />
-      <button id="likeUsernameButton">Like 10 photos</button>
+      <!-- <button id="likeUsernameButton">Like 10 photos</button> -->
+      <a class="waves-effect waves-light btn" id="likeUsernameButton">Like 10 photos</a>
       <br>
       <br>
       <button id="killAll">Stop sending requests</button>
@@ -99,7 +124,7 @@
   <br>
   <br>
   <br>
-  <footer style="display: flex; justify-content: center; position: fixed; left: 0; width: 100%;">
+  <!-- <footer style="display: flex; justify-content: center; position: fixed; left: 0; width: 100%;">
     <span> &#183; </span>
     <a href="https://github.com/caffeinum/instaweb#installing-extension">troubleshooting</a>
     <span> &#183; </span>
@@ -109,7 +134,7 @@
     <span> &#183; </span>
     <br>
     <br>
-  </footer>
+  </footer> -->
   <br>
   <br>
   <br>
