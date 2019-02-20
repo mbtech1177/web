@@ -16,7 +16,7 @@ const onHashtagButton = async (event) => {
       throw new Error(`Empty hashtag field!`)
     }
 
-    printLog(`Fetching photos by hashtag: ... `)
+    printLog(`Fetching photos by hashtag: #${hashtag} ... `)
 
     const { items } = await request({
       method: 'get_hashtag_feed',
@@ -24,6 +24,7 @@ const onHashtagButton = async (event) => {
     })
 
     printLog(`OK, ${items.length} results`, false)
+    console.log(`URLS:`, items.map(instagramUrl))
 
     likeItems(items, 10)
 
