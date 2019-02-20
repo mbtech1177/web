@@ -1,6 +1,6 @@
 const doConnect = async () => {
   try {
-    const { user } = await request({ method: 'check_login' })
+    const { user } = await request({ method: 'check_login' }, true)
 
     if (user && user.pk) {
       updateConnectionStatus(CONNECTION.LOGGED_IN)
@@ -13,12 +13,15 @@ const doConnect = async () => {
     instagram.kill()
 
   } catch (err) {
+    console.error(err)
     alert(err.message)
     updateConnectionStatus(CONNECTION.UNKNOWN)
   }
 }
 
-if (document.getElementById("extension-connected")) {
-  doConnect()
-  initButtons()
-}
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.getElementById("extension-connected")) {
+    doConnect()
+    initButtons()
+  }
+}, false)

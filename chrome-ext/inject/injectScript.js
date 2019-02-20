@@ -15,26 +15,3 @@ function injectScript (content) {
     console.error('script injection failed', e)
   }
 }
-
-if (true) {
-  injectScript(`
-    console.log('chrome', chrome);
-    console.log('chrome', chrome.runtime.sendMessage);
-
-    const _instaweb_id = "kmdamjjnlpjgbnaeaboghopmcchjpaep"
-    
-    window.in = {
-      request: (data) => new Promise((resolve, reject) => {
-        chrome.runtime.sendMessage(_instaweb_id, data, null, (...args) => {
-          resolve(...args)
-        });
-
-        setTimeout(() => reject('timeout'), 5000);
-      })
-    }
-  `)
-
-  // setupStreams()
-  // listenForProviderRequest()
-  // checkPrivacyMode()
-}

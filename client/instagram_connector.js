@@ -25,7 +25,7 @@ class InstagramConnector {
     const handler = (message, sender) => {
       const { status, error } = message
 
-      if (req_id && req_id !== message.req_id) return
+      if (message.req_id && req_id !== message.req_id) return
 
       chrome.runtime.onMessage && chrome.runtime.onMessage.removeListener(handler)
 
