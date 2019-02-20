@@ -24,8 +24,6 @@
     "dev": "webpack --watch --mode=development --output chrome-ext/background/main.js",
     "build": "webpack --mode=production --output chrome-ext/background/main.js",
     "build:chrome": "npm run build && npm run zip",
-    "prebuild:chrome": "sed -i\".bak\" '/file:\\/\\//d' chrome-ext/manifest.json",
-    "postbuild:chrome": "mv chrome-ext/manifest.json.bak chrome-ext/manifest.json",
     "zip": "rm -rf chrome-ext.zip && zip -r -X chrome-ext.zip chrome-ext",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

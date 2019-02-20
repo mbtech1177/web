@@ -25,7 +25,6 @@
     "webRequest",
     "webRequestBlocking",
     "*://*.instagram.com/",
-    "file://*/*",
     "https://caffeinum.github.io/*",
     "https://instagrambot.github.io/*"
   ],
