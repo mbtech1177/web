@@ -1,35 +1,28 @@
 let _user = null
-let kill = false
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-const request = (data) => new Promise((resolve, reject) => {
-  if (kill) return reject(`Request was killed`)
+const request = async (data) => {
 
-  const req_id = Date.now()
-  showLoader()
-
-  const handler = (message, sender) => {
-    if (req_id === message.req_id) {
-      chrome.runtime.onMessage.removeListener(handler)
-      console.log('inject.js: request', data.method, '->', message.status, message)
-      printLog(`${data.method} -> status: ${message.status}`)
-      // printOutput(`${JSON.stringify(message)}`)
-      hideLoader()
-      resolve(message)
-    }
+  try {
+    showLoader()
+    const message = await instagram.request(data)
+    printLog(`${data.method} -> status: ${message.status}`)
+    // printOutput(`${JSON.stringify(message)}`)
+    return message
+  } catch (err) {
+    alert(`Request to Instagram service errored: ${err.message}`)
+  } finally {
+    hideLoader()
   }
 
-  chrome.runtime.onMessage.addListener(handler)
-
-  chrome.runtime.sendMessage(null, { req_id, ...data })
-})
+}
 
 const onConnect = async (event) => {
   event.preventDefault()
 
   try {
-    const { user } = await request({ method: 'login' })
+    const { user } = await request({ method: 'check_login' })
 
     _user = user
 
@@ -67,6 +60,10 @@ const onHashtagButton = async (event) => {
           method: 'like',
           params: [ item.id ],
         })
+
+        console.log('Liked item', item)
+        const url = `https://instagram.com/p/${item.code}`
+        printLog(`Liked <a href="${url}" target="_blank">${url}</a>`)
 
         await sleep(5000 + 10000 * Math.random())
 
@@ -136,15 +133,15 @@ const onLoadHistory = async (event) => {
 const onKillAll = async (event) => {
   event.preventDefault()
 
-  kill = true
+  instagram.kill = true
 }
 
 document.getElementById("connect").addEventListener("click", onConnect, false)
 document.getElementById("likeHashtagButton").addEventListener("click", onHashtagButton, false)
 
-document.getElementById("likeButton").addEventListener("click", onLikeButton, false)
-document.getElementById("unlikeButton").addEventListener("click", onUnlikeButton, false)
-document.getElementById("viewButton").addEventListener("click", onViewButton, false)
+// document.getElementById("likeButton").addEventListener("click", onLikeButton, false)
+// document.getElementById("unlikeButton").addEventListener("click", onUnlikeButton, false)
+// document.getElementById("viewButton").addEventListener("click", onViewButton, false)
 
 document.getElementById("killAll").addEventListener("click", onKillAll, false)
 // document.getElementById("loadHistory").addEventListener("click", onLoadHistory, false)

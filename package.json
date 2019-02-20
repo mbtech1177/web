@@ -21,8 +21,8 @@
     "webpack-cli": "^3.2.3"
   },
   "scripts": {
-    "dev": "webpack --watch --mode=development --output chrome-ext/main.js",
-    "build": "webpack --mode=production --output chrome-ext/main.js",
+    "dev": "webpack --watch --mode=development --output chrome-ext/background/main.js",
+    "build": "webpack --mode=production --output chrome-ext/background/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

@@ -1,20 +1,39 @@
-const whenLogged = async (instagram) => {
+const whenLogged = async () => {
 
-  const { user } = await instagram.callMethod('get_user_info', 'instagram') // .then(data => alert(data.user.pk))
+  const { user } = await instagram.request({
+    method: 'get_user_info',
+    params: [ 'instagram' ]
+  })
 
-  console.log('current user id', user.pk, user)
+  console.log('@instagram', user.pk, user)
 
-  const follow = await instagram.callMethod('follow', user.pk)
+  // const follow = await instagram.callMethod('follow', user.pk)
 
-  console.log('follow request', follow)
+  // console.log('follow request', follow)
 
-  updateView()
+  await updateView()
 }
 
 const updateView = async () => {
-  const creds = await getCredentials()
+  const { user } = await instagram.request({
+    method: 'check_login'
+  })
 
-  if (creds && creds.username && creds.password) {
+  console.log('update view, user =', user)
+
+  setView({
+    logged_in: !!user.pk
+  })
+
+  // const creds = await getCredentials()
+  //
+  // setView({
+  //   logged_in: creds && creds.username && creds.password,
+  // })
+}
+
+const setView = ({ logged_in } = {}) => {
+  if (logged_in) {
     document.querySelectorAll('.logged_in')    .forEach(elem => elem.style.display = '')
     document.querySelectorAll('.not_logged_in').forEach(elem => elem.style.display = 'none')
   }
@@ -29,25 +48,49 @@ window.onload = async () => {
 
   if (!login_form) return
 
-  updateView()
+  await updateView()
 
   document.querySelector('#exit').onclick = async () => {
     await clearCredentials()
-    updateView()
+
+    await instagram.request({
+      method: 'exit',
+    })
+
+    await updateView()
   }
 
-  login_form.onsubmit = (event) => {
+  login_form.onsubmit = async (event) => {
     event.preventDefault()
 
     const { username, password } = instalogin.elements
 
-    const instagram = new Instagram()
+    try {
+      const res = await instagram.request({
+        method: 'login',
+        params: [ username.value, password.value ]
+      })
 
-    instagram.login(username.value, password.value)
-      .then(user => alert(`Logged in as @${user.full_name}! You can now use the website`))
-      .then(() => window.instagram = instagram)
-      .then(() => saveCredentials(username.value, password.value))
-      .then(() => whenLogged(instagram))
-      .catch(err => alert(err.message))
+      // const { user } = await instagram.request({
+      //   method: 'get_user_info',
+      // })
+
+      // const instagram = new Instagram()
+      //
+      // instagram.login(username.value, password.value)
+      // window.instagram = instagram)
+      await saveCredentials(username.value, password.value)
+      await whenLogged()
+    } catch (err) {
+      alert(err.message)
+      console.error(err)
+    }
+
+
+      // .then(user => alert(`Logged in as @${user.full_name}! You can now use the website`))
+      // .then(() => window.instagram = instagram)
+      // .then(() => saveCredentials(username.value, password.value))
+      // .then(() => whenLogged(instagram))
+      // .catch(err => alert(err.message))
   }
 }

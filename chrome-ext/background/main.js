@@ -3290,6 +3290,7 @@ class Instagram {
   constructor(username, password) {
     this.is_logged_in = false
     this.user_id = null
+    this.user = null
 
     this.user_agent = Object(_constants__WEBPACK_IMPORTED_MODULE_0__["USER_AGENT_BASE"])(_constants__WEBPACK_IMPORTED_MODULE_0__["DEVICE"]) // just insert params
 
@@ -3332,6 +3333,7 @@ class Instagram {
       if (logged_in_user) {
         this.is_logged_in = true
         this.user_id = logged_in_user.pk
+        this.user = logged_in_user
         return logged_in_user
       } else {
         throw new Error(`Could not log in: ${response}`)
@@ -3471,12 +3473,15 @@ class Instagram {
 /*!**********************************!*\
   !*** ./src/instagram/methods.js ***!
   \**********************************/
-/*! exports provided: get_user_info, get_hashtag_feed, get_location_feed, media_info, like, unlike, follow, unfollow */
+/*! exports provided: get_user_info, get_user_followers, get_user_followings, get_user_feed, get_hashtag_feed, get_location_feed, media_info, like, unlike, follow, unfollow */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_user_info", function() { return get_user_info; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_user_followers", function() { return get_user_followers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_user_followings", function() { return get_user_followings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_user_feed", function() { return get_user_feed; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_hashtag_feed", function() { return get_hashtag_feed; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_location_feed", function() { return get_location_feed; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "media_info", function() { return media_info; });
@@ -3484,6 +3489,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unlike", function() { return unlike; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "follow", function() { return follow; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unfollow", function() { return unfollow; });
+// Inspired with Instabot API:
+// https://github.com/instagrambot/instabot/blob/master/instabot/api/api.py
+
 
 function is_user_id(user_id_or_username){
   return !isNaN(user_id_or_username)
@@ -3498,6 +3506,24 @@ const get_user_info = (self, user_id_or_username) => {
     const username = user_id_or_username
     return self.send_request(`users/${username}/usernameinfo/`)
   }
+}
+
+const get_user_followers = (self, user_id, max_id='') => {
+  const rank_token = self.rank_token()
+  const url = `friendships/${user_id}/followers/?max_id=${max_id}&rank_token=${rank_token}&`
+  return self.send_request(url)
+}
+
+const get_user_followings = (self, user_id, max_id='') => {
+  const rank_token = self.rank_token()
+  const url = `friendships/${user_id}/following/?max_id=${max_id}&rank_token=${rank_token}&`
+  return self.send_request(url)
+}
+
+const get_user_feed = (self, user_id, max_id='') => {
+  const rank_token = self.rank_token()
+  const url = `feed/user/${user_id}/?max_id=${max_id}&rank_token=${rank_token}&ranked_content=true&`
+  return self.send_request(url)
 }
 
 const get_hashtag_feed = (self, hashtag, max_id='') => {
