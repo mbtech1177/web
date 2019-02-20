@@ -19,6 +19,65 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.user = await instagram.login(username, password)
   }
 
+  chrome.runtime.onMessageExternal.addListener(async (message, sender, sendResponse) => {
+
+    console.log('message', message)
+    console.log('sender', sender)
+
+    const { method, params } = message
+
+    const _ = (async () => {
+
+      try {
+        if (method === 'login') {
+          const [ username, password ] = params || []
+
+          try {
+            window.user = await instagram.login(username, password, true)
+
+            return sendResponse({ status: 'ok', user: window.user })
+          } catch (err) {
+            console.error(err)
+            return sendResponse({ status: 'error', error: err.message })
+          }
+        }
+
+        if (method === 'exit') {
+          // TODO: logout
+          window.user = {}
+          return sendResponse({ status: 'ok', user: window.user })
+        }
+
+        if (method === 'check_login') {
+          if (!window.user) {
+            window.user = instagram.user
+          }
+
+          return sendResponse({ status: 'ok', user: window.user })
+        }
+
+        if (method === 'get_history') {
+          return sendResponse({ status: 'ok', history })
+        }
+
+        if (!instagram) {
+          return sendResponse({ status: 'error', error: 'Not initialized' })
+        }
+
+        const res = await instagram.callMethod(method, ...params)
+
+        saveToHistory({ method, params }, res)
+        return sendResponse(res)
+      } catch (err) {
+        console.error(err)
+        return sendResponse({ status: 'error', error: err.message })
+      }
+    })()
+
+    return true
+
+  });
+
   chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     console.log('message', message)
     console.log('sender', sender)

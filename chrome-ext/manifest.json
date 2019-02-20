@@ -29,22 +29,12 @@
     "https://caffeinum.github.io/*",
     "https://instagrambot.github.io/*"
   ],
-  "content_scripts": [
-   {
-     "matches": [
-       "file://*/*",
-       "https://caffeinum.github.io/*",
-       "https://instagrambot.github.io/*"
-     ],
-     "js": [
-       "shared/instagram_connector.js",
-       "inject/document_connector.js",
-       "inject/request.js",
-       "inject/likeItems.js",
-       "inject/buttons.js",
-       "inject/main.js"
-     ]
-   }
- ],
+  "externally_connectable": {
+    "matches": [
+      "http://localhost/*",
+      "https://caffeinum.github.io/*",
+      "https://instagrambot.github.io/*"
+    ]
+  },
   "manifest_version": 2
 }
