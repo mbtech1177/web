@@ -6,7 +6,15 @@ class __App extends React.Component {
     this.props.showLoader()
 
     connectExtension()
-      .then(status => this.props.updateConnectionStatus(status))
+      .then(({ user, status }) => {
+        this.props.updateConnectionStatus(status)
+
+        if (user) {
+          this.props.setUser(user)
+        } else {
+
+        }
+      })
       .finally(() => this.props.hideLoader())
   }
 
@@ -33,7 +41,10 @@ class __App extends React.Component {
   }
 }
 
-const App = connect(null, { updateConnectionStatus, showLoader, hideLoader })(__App)
+const App = connect(
+  null,
+  { updateConnectionStatus, showLoader, hideLoader, setUser }
+)(__App)
 
 ReactDOM.render(
   <Provider store={store}>

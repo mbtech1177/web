@@ -34,3 +34,21 @@ const printLog = (line, newLine = true) => {
     }
   }
 }
+
+const setUser = (user) => {
+  return {
+    type: 'SET_USER',
+    payload: {
+      user,
+    }
+  }
+}
+
+const showErrorMessage = (error) => {
+  return {
+    type: 'SET_USER',
+    payload: {
+      error,
+    }
+  }
+}

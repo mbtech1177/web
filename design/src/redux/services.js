@@ -4,16 +4,23 @@ const connectExtension = async () => {
     await instagram.init()
 
     if (!instagram.isConnected) {
-      return (CONNECTION.NOT_INSTALLED)
+      return {
+        status: (CONNECTION.NOT_INSTALLED),
+      }
     }
 
     const { user } = await request({ method: 'check_login' }, true)
 
     if (user && user.pk) {
-      return (CONNECTION.LOGGED_IN)
+      return {
+        user,
+        status: (CONNECTION.LOGGED_IN),
+      }
       // alert(`Website connected to the extension. Username: @${user.full_name}`)
     } else {
-      return (CONNECTION.NOT_LOGGED_IN)
+      return {
+        status: (CONNECTION.NOT_LOGGED_IN),
+      }
       // alert(`Connected to the extension, but it's not logged in. Please login via pressing extension logo`)
     }
 
@@ -22,7 +29,9 @@ const connectExtension = async () => {
   } catch (err) {
     console.error(err)
     alert(err.message)
-    return (CONNECTION.UNKNOWN)
+    return {
+      status: (CONNECTION.UNKNOWN),
+    }
   }
 }
 

@@ -4,6 +4,8 @@ const initialState = {
   isLoading: false,
   connectionStatus: CONNECTION.UNKNOWN,
   log: [],
+  user: {},
+  error: '',
 }
 
 const reducer = (state = initialState, action) => {
