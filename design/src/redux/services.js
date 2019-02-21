@@ -27,7 +27,7 @@ const connectExtension = async () => {
     instagram.kill()
 
   } catch (err) {
-    console.error(err)
+    console.log(`ExtensionError`, err)
 
     if (err instanceof NotInstalledError) {
       return {

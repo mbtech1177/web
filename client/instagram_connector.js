@@ -11,20 +11,32 @@ class TimeoutError extends Error {}
 class NotInstalledError extends Error {}
 
 class InstagramConnector {
-  _instaweb_id = "kmdamjjnlpjgbnaeaboghopmcchjpaep"
+  _currend_id = ""
+  _instaweb_dev_id = "kmdamjjnlpjgbnaeaboghopmcchjpaep"
+  _instaweb_id = "njonkbhnmmjgancfbncekpgkmidhbbpo"
 
   isStopped = false
   isConnected = false
 
+  _check_working_id = () => new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage(
+      this._instaweb_id,
+      { method: 'ping' }, null,
+      ({ status, pong } = {}) => status === 'ok' && pong && resolve(this._instaweb_id))
+
+    chrome.runtime.sendMessage(
+      this._instaweb_dev_id,
+      { method: 'ping' }, null,
+      ({ status, pong } = {}) => status === 'ok' && pong && resolve(this._instaweb_dev_id))
+
+    setTimeout(() => reject(new NotInstalledError(`Cant find any working extension`)), 500)
+  })
+
   init = async () => {
     try {
-      const ping = await this.request({
-        method: 'ping'
-      })
+      this._currend_id = await this._check_working_id()
 
-      console.log('ping', ping)
-
-      this.isConnected = ping.status === 'ok' && Boolean(ping.pong)
+      this.isConnected = true
     } catch (err) {
       if (err instanceof TimeoutError) {
         this.isConnected = false
@@ -53,8 +65,6 @@ class InstagramConnector {
 
       if (message.req_id && req_id !== message.req_id) return
 
-      chrome.runtime.onMessage && chrome.runtime.onMessage.removeListener(handler)
-
       console.log('request', data.method, '->', status, message)
 
       if (status !== 'ok') {
@@ -66,10 +76,8 @@ class InstagramConnector {
 
     setTimeout(() => reject(new TimeoutError(`Request timeout`)), 1000)
 
-    chrome.runtime.onMessage && chrome.runtime.onMessage.addListener(handler)
-
-    console.log(`send_message`, this._instaweb_id, data)
-    chrome.runtime.sendMessage(this._instaweb_id, data, null, handler)
+    console.log(`send_message`, this._currend_id, data)
+    chrome.runtime.sendMessage(this._currend_id, data, null, handler)
   })
 
 }
