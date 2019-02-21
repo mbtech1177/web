@@ -28,9 +28,18 @@ const connectExtension = async () => {
 
   } catch (err) {
     console.error(err)
+
+    if (err instanceof NotInstalledError) {
+      return {
+        status: (CONNECTION.NOT_INSTALLED),
+        error: `Extension is not installed or cannot be detected`,
+      }
+    }
+
     alert(err.message)
     return {
       status: (CONNECTION.UNKNOWN),
+      error: err.message,
     }
   }
 }
