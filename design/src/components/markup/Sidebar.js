@@ -1,23 +1,26 @@
+const { Link } = ReactRouterDOM
+
 const Sidebar = () => (
   <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
   {/* Sidebar */}
 
     {/* <!-- Sidebar - Brand  --> */}
-    <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <Link className="sidebar-brand d-flex align-items-center justify-content-center" to="/">
       <div className="sidebar-brand-icon rotate-n-15">
         <i className="fas fa-laugh-wink"></i>
       </div>
       <div className="sidebar-brand-text mx-3">Instagram yourself</div>
-    </a>
+    </Link>
 
     {/* <!-- Divider  --> */}
     <hr className="sidebar-divider my-0" />
 
     {/* <!-- Nav Item - Dashboard  --> */}
     <li className="nav-item active">
-      <a className="nav-link" href="index.html">
+      <Link className="nav-link" to="/">
         <i className="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
+        <span>Dashboard</span>
+      </Link>
     </li>
 
     {/* <!-- Divider  --> */}
@@ -37,8 +40,11 @@ const Sidebar = () => (
       <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div className="bg-white py-2 collapse-inner rounded">
           {/* <!-- <h6 className="collapse-header">Custom Components:</h6>  --> */}
-          <a className="collapse-item" href="like/hashtag.html">Hashtag</a>
-          <a className="collapse-item" href="like/user-medias.html">User Medias</a>
+          <Link className="collapse-item" to="/like/hashtag">Hashtag</Link>
+          <Link className="collapse-item" to="/like/user-medias">User Medias</Link>
+
+          {/* <a className="collapse-item" href="like/hashtag.html">Hashtag</a> */}
+          {/* <a className="collapse-item" href="like/user-medias.html">User Medias</a> */}
         </div>
       </div>
     </li>
@@ -52,8 +58,8 @@ const Sidebar = () => (
       <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div className="bg-white py-2 collapse-inner rounded">
           {/* <!-- <h6 className="collapse-header">Custom Utilities:</h6>  --> */}
-          <a className="collapse-item" href="follow/followers.html">Followers of</a>
-          <a className="collapse-item" href="follow/followings.html">Followees of</a>
+          <Link className="collapse-item" to="/follow/followers">Followers of</Link>
+          <Link className="collapse-item" to="/follow/followings">Followees of</Link>
         </div>
       </div>
     </li>
