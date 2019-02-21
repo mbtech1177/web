@@ -19,24 +19,28 @@ const openControlPanel = () => {
 }
 
 const updateView = async () => {
-  const { user } = await instagram.request({
-    method: 'check_login'
-  })
+  try {
+    const { user } = await instagram.request({
+      method: 'check_login'
+    })
 
-  console.log('update view, user =', user)
+    console.log('update view, user =', user)
 
-  setView({
-    logged_in: !!user.pk
-  })
+    const logged_in = !!user.pk
 
-  // const creds = await getCredentials()
-  //
-  // setView({
-  //   logged_in: creds && creds.username && creds.password,
-  // })
+    setView({
+      logged_in,
+      user,
+    })
+  } catch (err) {
+    setView({
+      logged_in: false,
+      user: null,
+    })
+  }
 }
 
-const setView = ({ logged_in } = {}) => {
+const setView = ({ logged_in, user = {}} = {}) => {
   if (logged_in) {
     document.querySelectorAll('.logged_in')    .forEach(elem => elem.style.display = '')
     document.querySelectorAll('.not_logged_in').forEach(elem => elem.style.display = 'none')
@@ -45,6 +49,9 @@ const setView = ({ logged_in } = {}) => {
     document.querySelectorAll('.logged_in')    .forEach(elem => elem.style.display = 'none')
     document.querySelectorAll('.not_logged_in').forEach(elem => elem.style.display = '')
   }
+
+  document.querySelector('.username-field').innerText = user.username
+
 }
 
 window.onload = async () => {
@@ -75,27 +82,16 @@ window.onload = async () => {
         params: [ username.value, password.value ]
       })
 
-      // const { user } = await instagram.request({
-      //   method: 'get_user_info',
-      // })
-
-      // const instagram = new Instagram()
-      //
-      // instagram.login(username.value, password.value)
-      // window.instagram = instagram)
       await saveCredentials(username.value, password.value)
       await whenLogged()
       openControlPanel()
     } catch (err) {
-      alert(err.message)
+      if (err.message.includes(`status code 400`)) {
+        alert(`InstagramError: Probably wrong password:` + err.message)
+      } else {
+        alert(err.message)
+      }
       console.error(err)
     }
-
-
-      // .then(user => alert(`Logged in as @${user.full_name}! You can now use the website`))
-      // .then(() => window.instagram = instagram)
-      // .then(() => saveCredentials(username.value, password.value))
-      // .then(() => whenLogged(instagram))
-      // .catch(err => alert(err.message))
   }
 }
