@@ -1,6 +1,10 @@
-class MainPage extends React.Component {
+const { connect } = ReactRedux
+
+class __MainPage extends React.Component {
   handleRefresh = () => {
-    alert('Refresh')
+    // redux/actions.js -> printLog action
+    this.props.printLog('Refreshing... ')
+    this.props.printLog('ok', false)
   }
 
   render () {
@@ -10,7 +14,7 @@ class MainPage extends React.Component {
           {/* <!-- Page Heading  --> */}
           <h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
 
-          <Button onClick={() => alert('Refresh!')}>
+          <Button onClick={this.handleRefresh}>
             <i className="fas fa-sync fa-sm text-white-50"></i>
             Refresh Your Data
           </Button>
@@ -110,7 +114,11 @@ class MainPage extends React.Component {
               </div>
               {/* <!-- Card Body  --> */}
               <div className="card-body">
-                logggs
+                {this.props.log.map((piece, index) => (
+                  piece == `<br>`
+                    ? <br key={index} />
+                    : <span key={index}>{piece}</span>
+                ))}
               </div>
             </div>
           </div>
@@ -119,3 +127,8 @@ class MainPage extends React.Component {
   )
   }
 }
+
+const MainPage = connect(
+  ({ showLoader, log }) => ({ showLoader, log }),
+  { showLoader, hideLoader, printLog }
+)(__MainPage)

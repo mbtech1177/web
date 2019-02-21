@@ -1,4 +1,5 @@
 const { BrowserRouter, HashRouter, Switch, Route } = ReactRouterDOM
+const { Provider } = ReactRedux
 
 class App extends React.Component {
   render() {
@@ -25,8 +26,10 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-  <HashRouter>
-    <App />
-  </HashRouter>,
+  <Provider store={store}>
+    <HashRouter>
+      <App />
+    </HashRouter>
+  </Provider>,
   document.getElementById('root')
 );
