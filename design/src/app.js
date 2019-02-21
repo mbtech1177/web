@@ -1,7 +1,15 @@
 const { BrowserRouter, HashRouter, Switch, Route } = ReactRouterDOM
 const { Provider } = ReactRedux
 
-class App extends React.Component {
+class __App extends React.Component {
+  componentWillMount() {
+    this.props.showLoader()
+
+    connectExtension()
+      .then(status => this.props.updateConnectionStatus(status))
+      .finally(() => this.props.hideLoader())
+  }
+
   render() {
     return (
       <div>
@@ -24,6 +32,8 @@ class App extends React.Component {
     )
   }
 }
+
+const App = connect(null, { updateConnectionStatus, showLoader, hideLoader })(__App)
 
 ReactDOM.render(
   <Provider store={store}>

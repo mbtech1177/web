@@ -11,7 +11,7 @@ const showLoader = () => {
   return {
     type: 'LOADER',
     payload: {
-      showLoader: true,
+      isLoading: true,
     }
   }
 }
@@ -20,7 +20,7 @@ const hideLoader = () => {
   return {
     type: 'LOADER',
     payload: {
-      showLoader: false,
+      isLoading: false,
     }
   }
 }

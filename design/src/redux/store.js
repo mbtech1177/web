@@ -1,12 +1,13 @@
 const { createStore, combineReducers } = Redux
 
 const initialState = {
-  showLoader: false,
+  isLoading: false,
   connectionStatus: CONNECTION.UNKNOWN,
   log: [],
 }
 
 const reducer = (state = initialState, action) => {
+  console.log('action', action)
   if (action.type === 'PRINT_LOG') {
     return {
       ...state,

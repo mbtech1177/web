@@ -5,6 +5,10 @@ class __MainPage extends React.Component {
     // redux/actions.js -> printLog action
     this.props.printLog('Refreshing... ')
     this.props.printLog('ok', false)
+
+    this.props.isLoading
+      ? this.props.hideLoader()
+      : this.props.showLoader()
   }
 
   render () {
@@ -12,7 +16,21 @@ class __MainPage extends React.Component {
       <div className="container-fluid">
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
           {/* <!-- Page Heading  --> */}
-          <h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
+          <h1 className="h3 mb-0 text-gray-800">
+            Dashboard
+          </h1>
+
+          <span className="connection-status">
+            {this.props.connectionStatus}
+          </span>
+
+          {
+            this.props.isLoading && (
+              <span className="loading-status">
+                Loading...
+              </span>
+            )
+          }
 
           <Button onClick={this.handleRefresh}>
             <i className="fas fa-sync fa-sm text-white-50"></i>
@@ -129,6 +147,6 @@ class __MainPage extends React.Component {
 }
 
 const MainPage = connect(
-  ({ showLoader, log }) => ({ showLoader, log }),
+  ({ isLoading, log, connectionStatus }) => ({ isLoading, log, connectionStatus }),
   { showLoader, hideLoader, printLog }
 )(__MainPage)
