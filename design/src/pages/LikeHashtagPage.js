@@ -10,3 +10,4 @@ const LikeHashtagPage = () => (
       </div>
     </div>
   </div>
+)
