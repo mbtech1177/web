@@ -39,7 +39,7 @@ const __Topbar = (props) => (
           <span className="mr-2 d-none d-lg-inline text-gray-600 small">
             {props.user.username}
           </span>
-          <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60" />
+          <img className="img-profile rounded-circle" src={props.user.profile_pic_url} />
         </a>
       </li>
 
