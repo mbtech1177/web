@@ -6,13 +6,13 @@ class __App extends React.Component {
     this.props.showLoader()
 
     connectExtension()
-      .then(({ user, status }) => {
+      .then(({ user, status, error }) => {
         this.props.updateConnectionStatus(status)
 
         if (user) {
           this.props.setUser(user)
-        } else {
-
+        } else if (error) {
+          this.props.showErrorMessage(error)
         }
       })
       .finally(() => this.props.hideLoader())
@@ -43,7 +43,7 @@ class __App extends React.Component {
 
 const App = connect(
   null,
-  { updateConnectionStatus, showLoader, hideLoader, setUser }
+  { updateConnectionStatus, showLoader, hideLoader, setUser, showErrorMessage }
 )(__App)
 
 ReactDOM.render(

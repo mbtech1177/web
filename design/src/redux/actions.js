@@ -46,7 +46,7 @@ const setUser = (user) => {
 
 const showErrorMessage = (error) => {
   return {
-    type: 'SET_USER',
+    type: 'SHOW_ERROR',
     payload: {
       error,
     }

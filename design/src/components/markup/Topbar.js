@@ -23,6 +23,16 @@ const __Topbar = (props) => (
         </li>
       )}
 
+      {props.error && (
+        <li className="nav-item dropdown no-arrow">
+          <span className="nav-link">
+            <span className="error-status mr-2 d-none d-lg-inline text-grey-600 small">
+              {props.error}
+            </span>
+          </span>
+        </li>
+      )}
+
       <li className="nav-item dropdown no-arrow">
         <span className="nav-link">
           <span className="connection-status mr-2 d-none d-lg-inline text-gray-600 small">
@@ -50,6 +60,6 @@ const __Topbar = (props) => (
 )
 
 const Topbar = connect(
-  ({ user, isLoading, connectionStatus }) => ({ user, isLoading, connectionStatus }),
+  ({ user, isLoading, error, connectionStatus }) => ({ user, isLoading, error, connectionStatus }),
   {}
 )(__Topbar)
