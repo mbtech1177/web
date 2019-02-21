@@ -58,7 +58,7 @@ export default class Instagram {
     const PASSWORD = password || this.password
 
     try {
-      const { logged_in_user} = await this._login(USERNAME, PASSWORD)
+      const { logged_in_user } = await this._login(USERNAME, PASSWORD)
 
       if (logged_in_user) {
         this.is_logged_in = true
@@ -91,20 +91,14 @@ export default class Instagram {
     const signed_data = generate_signature(data)
     print("Final POST DATA after signing:\n", signed_data)
 
-    try {
-      // const response = await this._post('accounts/login/', signed_data)
-      const response = await this.send_request('accounts/login/', data, true)
+    const response = await this.send_request('accounts/login/', data, true)
 
-      if (response['message'] == 'checkpoint_required') {
-        // In case of 'suspicious activity'
-        console.log('Checkpoing required:', response['checkpoint_url'])
-      }
-
-      return response
-
-    } catch (err) {
-      throw err
+    if (response['message'] == 'checkpoint_required') {
+      // In case of 'suspicious activity'
+      console.log('Checkpoing required:', response['checkpoint_url'])
     }
+
+    return response
   }
 
   async _request(endpoint, method = 'GET', post_data, extra_headers = {}) {
@@ -151,6 +145,7 @@ export default class Instagram {
       const error_type = data.error_type
 
       console.log(`Instagram's error message: ${error_message}, Error type: ${error_type}`)
+      throw new Error(`InstagramError: ${error_type}: ${error_message}`)
     }
 
     return false
@@ -181,6 +176,7 @@ export default class Instagram {
       }
     } catch (err) {
       console.error(`Request failed:`, err, `Data:`, endpoint, data, )
+      throw err
     }
   }
 
