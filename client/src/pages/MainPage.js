@@ -15,18 +15,6 @@ const convertRawURL = (text) => {
 }
 
 class __MainPage extends React.Component {
-  handleRefresh = () => {
-    // redux/actions.js -> printLog action
-    this.props.printLog('Refreshing... ')
-    this.props.printLog('ok', false)
-  }
-
-  handleLoader = () => {
-    this.props.isLoading
-      ? this.props.hideLoader()
-      : this.props.showLoader()
-  }
-
   render () {
     return (
       <div className="container-fluid">
@@ -38,17 +26,9 @@ class __MainPage extends React.Component {
 
           <Button
             className="d-none d-sm-inline-block btn-sm btn-primary shadow-sm"
-            onClick={this.handleLoader}>
-
+            onClick={() => alert(this.props.connection.description)}>
             <i className="fas fa-sync fa-sm text-white-50"></i>
-            Toggle Loader
-          </Button>
-
-          <Button
-            className="d-none d-sm-inline-block btn-sm btn-primary shadow-sm"
-            onClick={this.handleRefresh}>
-            <i className="fas fa-sync fa-sm text-white-50"></i>
-            Refresh Your Data
+            Check Extension Connection
           </Button>
 
           {
@@ -165,6 +145,6 @@ class __MainPage extends React.Component {
 }
 
 const MainPage = connect(
-  ({ isLoading, log, connectionStatus }) => ({ isLoading, log, connectionStatus }),
+  ({ isLoading, log, connection }) => ({ isLoading, log, connection }),
   { showLoader, hideLoader, printLog }
 )(__MainPage)

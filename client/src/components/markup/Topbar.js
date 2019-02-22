@@ -23,11 +23,11 @@ const __Topbar = (props) => (
         </li>
       )}
 
-      {props.error && (
+      {props.connection.status !== CONNECTION.LOGGED_IN && (
         <li className="nav-item dropdown no-arrow">
           <span className="nav-link">
-            <span className="error-status mr-2 d-none d-lg-inline text-grey-600 small">
-              {props.error}
+            <span className="connection-status mr-2 d-none d-lg-inline text-grey-600 small">
+              {props.connection.description}
             </span>
           </span>
         </li>
@@ -45,42 +45,36 @@ const __Topbar = (props) => (
         </li>
       )}
 
-      <li className="nav-item no-arrow">
-        <a className="nav-link" href="#" onClick={() => alert(props.connection.description)}>
-          <span title={props.connection.description} className="connection-status mr-2 d-none d-lg-inline text-gray-600 small">
-            {props.connection.status}
-          </span>
-        </a>
-      </li>
-
       <div className="topbar-divider d-none d-sm-block"></div>
 
-      <li className="nav-item dropdown no-arrow">
-        <span className="nav-link">
-          <span className="instagram-status mr-2 d-none d-lg-inline text-gray-600 small">
-            {props.instagram.isStopped && (
-              <span>
-                Instagram Service: No current task
-              </span>
-            )}
+      {props.connection.status === CONNECTION.LOGGED_IN && (
+        <li className="nav-item dropdown no-arrow">
+          <span className="nav-link">
+            <span className="instagram-status mr-2 d-none d-lg-inline text-gray-600 small">
+              {props.instagram.isStopped && (
+                <span>
+                  Instagram Service: No current task
+                </span>
+              )}
 
-            {!props.instagram.isStopped && (
-              <span>
-                Instagram Service: Working
-              </span>
-            )}
+              {!props.instagram.isStopped && (
+                <span>
+                  Instagram Service: Working
+                </span>
+              )}
 
-            {!props.instagram.isStopped && (
-              <Button
-                className="btn-danger btn-sm shadow-sm"
-                onClick={() => onKillAll(props.printLog)}>
-                Stop
-              </Button>
-            )}
+              {!props.instagram.isStopped && (
+                <Button
+                  className="btn-danger d-sm-block btn-sm shadow-sm"
+                  onClick={() => onKillAll(props.printLog)}>
+                  Stop
+                </Button>
+              )}
 
+            </span>
           </span>
-        </span>
-      </li>
+        </li>
+      )}
 
       <div className="topbar-divider d-none d-sm-block"></div>
 
