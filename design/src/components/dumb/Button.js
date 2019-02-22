@@ -5,7 +5,7 @@ const onClick = (handler) => (event) => {
 }
 
 const Button = props => (
-  <a href="#" onClick={onClick(props.onClick)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+  <a href="#" onClick={onClick(props.onClick)} className={`btn ${props.className}`}>
     {props.children}
   </a>
 )

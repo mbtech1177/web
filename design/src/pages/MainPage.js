@@ -22,12 +22,17 @@ class __MainPage extends React.Component {
             Dashboard
           </h1>
 
-          <Button onClick={this.handleLoader}>
+          <Button
+            className="d-none d-sm-inline-block btn-sm btn-primary shadow-sm"
+            onClick={this.handleLoader}>
+
             <i className="fas fa-sync fa-sm text-white-50"></i>
             Toggle Loader
           </Button>
 
-          <Button onClick={this.handleRefresh}>
+          <Button
+            className="d-none d-sm-inline-block btn-sm btn-primary shadow-sm"
+            onClick={this.handleRefresh}>
             <i className="fas fa-sync fa-sm text-white-50"></i>
             Refresh Your Data
           </Button>
