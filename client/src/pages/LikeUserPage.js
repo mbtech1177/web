@@ -1,50 +1,152 @@
 const { connect } = ReactRedux
+const { Redirect } = ReactRouterDOM
 
 class __LikeUserPage extends React.Component {
 
   state = {
-    username: ''
+    username: '',
+    nPhotos: 10,
+    showAlertAfterFinish: false,
+    shouldRedirectToLogs: false,
   }
 
   handleLikeUserButton = async () => {
     this.props.showLoader()
 
-    const { username } = this.state
-    await likePhotosByUsername(username, 10, this.props.printLog)
+    const { username, nPhotos, showAlertAfterFinish } = this.state
 
-    this.props.hideLoader()
+    showAlertAfterFinish && this.props.notifyWhenQueueFinished()
+
+    try {
+      await likePhotosByUsername(username, nPhotos, this.props.printLog)
+
+      this.handleRedirectToLogs()
+    } catch (err) {
+      alert(err.message)
+    } finally {
+      this.props.hideLoader()
+    }
   }
 
   handleChange = (event) => {
-    // const name = event.target.name
-    const username = event.target.value
+    const name = event.target.name
+    const value = event.target.value
 
-    this.setState({ username })
+    this.setState({ [name]: value })
+  }
+
+  handlePhotosNumberChange = (num = 10) => (event) => {
+    this.setState({
+      nPhotos: num,
+    })
+  }
+
+  handleRedirectToLogs = () => {
+    this.setState({
+      shouldRedirectToLogs: true,
+    })
   }
 
   render () {
+    const { nPhotos, username, showAlertAfterFinish, shouldRedirectToLogs } = this.state
+
+    if (shouldRedirectToLogs) {
+      return <Redirect to="/logs" />
+    }
+
     return (
       <div className="container-fluid">
-        <h1 className="h3 mb-4 text-gray-800">Like user's medias</h1>
 
+        {/* <!-- Content Row  --> */}
         <div className="row">
-          <div className="col-lg-6">
-            <label htmlFor="username">Put username: @</label>
 
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={this.state.username}
-              onChange={this.handleChange}
-            />
+          {/* <!-- Total Liked  --> */}
+          <div className="col-xl-12 col-md-12 mb-12">
+            <div className="card border-left-primary shadow h-150 py-2">
+              <div className="card-body">
+                <div className="row no-gutters align-items-center">
+                  <div className="col mr-12">
+                    <div className="text-xs font-weight-bold text-primary text-uppercase mb-12">
+                      Like Users media
+                    </div>
+                  </div>
+                </div>
 
-            <Button
-              className="btn-primary"
-              onClick={this.handleLikeUserButton}>
-              Like 10 photos
-            </Button>
+                <div className="row">
+                  <div className="col-auto">
+                      <label htmlFor="username">Username</label>
+                      <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text" id="hash-symbol">#</span>
+                        </div>
+                        <input
+                          type="text"
+                          className="form-control form-control-lg"
+                          id="username"
+                          name="username"
+                          aria-describedby="hash-symbol"
+                          value={username}
+                          onChange={this.handleChange}
+                        />
+                      </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-auto">
+                    <div className="form-check">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id="showAlertAfterFinish"
+                        name="showAlertAfterFinish"
+                        value={showAlertAfterFinish}
+                        onChange={this.handleChange}
+                      />
+                      <label 
+                        className="form-check-label" 
+                        htmlFor="showAlertAfterFinish">Notify when queue finishes
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-auto">
+                    <div className="btn-group">
+                      {[10, 20, 50].map((num, index) => (
+                        <Button
+                          className="btn-secondary"
+                          key={index}
+                          data-value={num}
+                          onClick={this.handlePhotosNumberChange(num)}
+                        >
+                          {num}
+                        </Button>
+                      ))}
+
+                    </div>
+                  </div>
+                </div>
+
+                <br />
+
+                <div className="row">
+                  <div className="col-auto">
+                    <div>
+                        <Button
+                          className="btn-primary"
+                          onClick={this.handleLikeUserButton}>
+                          Like {nPhotos} photos
+                        </Button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
     )
@@ -53,5 +155,5 @@ class __LikeUserPage extends React.Component {
 
 const LikeUserPage = connect(
   null,
-  { likePhotosByUsername, showLoader, hideLoader, printLog }
+  { likePhotosByUsername, notifyWhenQueueFinished, showLoader, hideLoader, printLog }
 )(__LikeUserPage)
