@@ -9,6 +9,9 @@ class __App extends React.Component {
       .then(({ user, status, error }) => {
         this.props.updateConnectionStatus(status)
 
+        this.props.printLog(`App loaded ${new Date()}`)
+        this.props.printLog(status)
+
         if (user) {
           this.props.setUser(user)
         } else if (error) {
@@ -49,7 +52,7 @@ class __App extends React.Component {
 
 const App = withRouter(connect(
   null,
-  { updateConnectionStatus, updateInstagramServiceStatus, showLoader, hideLoader, setUser, showErrorMessage }
+  { updateConnectionStatus, updateInstagramServiceStatus, showLoader, hideLoader, setUser, showErrorMessage, printLog }
 )(__App))
 
 ReactDOM.render(
