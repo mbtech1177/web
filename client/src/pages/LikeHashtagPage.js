@@ -1,4 +1,5 @@
 const { connect } = ReactRedux
+const { Redirect } = ReactRouterDOM
 
 class __LikeHashtagPage extends React.Component {
 
@@ -6,6 +7,7 @@ class __LikeHashtagPage extends React.Component {
     hashtag: '',
     nPhotos: 10,
     showAlertAfterFinish: false,
+    shouldRedirectToLogs: false,
   }
 
   handleLikeHashtagButton = async () => {
@@ -17,6 +19,8 @@ class __LikeHashtagPage extends React.Component {
 
     try {
       await likePhotosByHashtag(hashtag, nPhotos, this.props.printLog)
+
+      this.handleRedirectToLogs()
     } catch (err) {
       alert(err.message)
     } finally {
@@ -37,8 +41,19 @@ class __LikeHashtagPage extends React.Component {
     })
   }
 
+  handleRedirectToLogs = () => {
+    this.setState({
+      shouldRedirectToLogs: true,
+    })
+  }
+
   render () {
-    const { nPhotos, hashtag, showAlertAfterFinish } = this.state
+    const { nPhotos, hashtag, showAlertAfterFinish, shouldRedirectToLogs } = this.state
+
+    if (shouldRedirectToLogs) {
+      return <Redirect to="/logs" />
+    }
+
     return (
       <div className="container-fluid">
 
