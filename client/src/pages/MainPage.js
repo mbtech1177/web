@@ -1,5 +1,19 @@
 const { connect } = ReactRedux
 
+const convertRawURL = (text) => {
+  const [ _, head, url, link_text, tail ] = text.match(/^(.*)<a href="(.*)" target="_blank">(.*)<\/a>(.*)$/)
+
+  return (
+    <span>
+      {head}
+      <a href={url} target="_blank">
+        {link_text}
+      </a>
+      {tail}
+    </span>
+  )
+}
+
 class __MainPage extends React.Component {
   handleRefresh = () => {
     // redux/actions.js -> printLog action
@@ -135,7 +149,11 @@ class __MainPage extends React.Component {
                 {this.props.log.map((piece, index) => (
                   piece == `<br>`
                     ? <br key={index} />
-                    : <span key={index}>{piece}</span>
+                    : (
+                      <span key={index}>
+                        {piece.includes('<a href') ? convertRawURL(piece) : piece}
+                      </span>
+                    )
                 ))}
               </div>
             </div>
