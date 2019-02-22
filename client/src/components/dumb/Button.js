@@ -1,11 +1,15 @@
-const onClick = (handler) => (event) => {
+const _onClick = (handler) => (event) => {
   event.preventDefault()
 
-  return handler()
+  return handler(event)
 }
 
 const Button = props => (
-  <a href="#" onClick={onClick(props.onClick)} className={`btn ${props.className}`}>
+  <button
+    type="button"
+    className={`btn ${props.className}`}
+    onClick={props.onClick && _onClick(props.onClick)}
+  >
     {props.children}
-  </a>
+  </button>
 )
