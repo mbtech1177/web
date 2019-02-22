@@ -31,7 +31,7 @@ class __App extends React.Component {
       <div>
         <Wrapper>
           <Switch>
-            <Route exact path='/' component={MainPage}/>
+            <Route exact path='/' component={DashboardPage}/>
             <Route path='/logs' component={LogsPage}/>
             <Route path='/like/user-medias' component={LikeUserPage}/>
             <Route path='/like/hashtag' component={LikeHashtagPage}/>

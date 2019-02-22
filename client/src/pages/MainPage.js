@@ -1,7 +1,7 @@
 const { connect } = ReactRedux
 
 
-class __MainPage extends React.Component {
+class __DashboardPage extends React.Component {
   render () {
     return (
       <div className="container-fluid">
@@ -114,7 +114,7 @@ class __MainPage extends React.Component {
   }
 }
 
-const MainPage = connect(
+const DashboardPage = connect(
   ({ isLoading, log, connection }) => ({ isLoading, log, connection }),
   { showLoader, hideLoader, printLog }
-)(__MainPage)
+)(__DashboardPage)
