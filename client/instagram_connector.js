@@ -19,6 +19,9 @@ class InstagramConnector {
   isConnected = false
 
   _check_working_id = () => new Promise((resolve, reject) => {
+
+    setTimeout(() => reject(new NotInstalledError(`Cant find any working extension`)), 500)
+
     chrome.runtime.sendMessage(
       this._instaweb_id,
       { method: 'ping' }, null,
@@ -29,7 +32,6 @@ class InstagramConnector {
       { method: 'ping' }, null,
       ({ status, pong } = {}) => status === 'ok' && pong && resolve(this._instaweb_dev_id))
 
-    setTimeout(() => reject(new NotInstalledError(`Cant find any working extension`)), 500)
   })
 
   init = async () => {
@@ -54,16 +56,12 @@ class InstagramConnector {
   request = (data) => new Promise((resolve, reject) => {
     if (this.isStopped) return reject(new Error(`Request was killed`))
 
-    // { method, params } = method
+    setTimeout(() => reject(new TimeoutError(`Request timeout`)), 1000)
 
-    const req_id = Date.now()
-
-    const handler = (message, sender) => {
+    const onResponse = (message) => {
       if (!message) return reject(new NotInstalledError())
 
       const { status, error } = message
-
-      if (message.req_id && req_id !== message.req_id) return
 
       console.log('request', data.method, '->', status, message)
 
@@ -74,10 +72,8 @@ class InstagramConnector {
       }
     }
 
-    setTimeout(() => reject(new TimeoutError(`Request timeout`)), 1000)
-
     console.log(`send_message`, this._currend_id, data)
-    chrome.runtime.sendMessage(this._currend_id, data, null, handler)
+    chrome.runtime.sendMessage(this._currend_id, data, null, onResponse)
   })
 
 }
