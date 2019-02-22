@@ -8,7 +8,7 @@ class __LogsPage extends React.Component {
         <div className="row">
           {/* <!-- Area Chart  --> */}
           <div className="col-xl-12 col-lg-7">
-            <LogCard log={this.props.log}/>
+            <LogCard autoScroll={true} log={this.props.log}/>
           </div>
         </div>
       </div>
