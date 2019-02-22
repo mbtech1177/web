@@ -30,13 +30,15 @@ class __DashboardPage extends React.Component {
         <div className="row">
 
           {/* <!-- Total Liked  --> */}
-          <div className="col-xl-4 col-md-6 mb-4">
+          <div className="col-xl-6 col-md-6 mb-4">
             <div className="card border-left-primary shadow h-100 py-2">
               <div className="card-body">
                 <div className="row no-gutters align-items-center">
                   <div className="col mr-2">
                     <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Liked</div>
-                    <div className="h5 mb-0 font-weight-bold text-gray-800">123</div>
+                    <div className="h5 mb-0 font-weight-bold text-gray-800">
+                      Will count soon
+                    </div>
                   </div>
                   <div className="col-auto">
                     <i className="fas fa-heart fa-2x text-gray-300"></i>
@@ -47,13 +49,15 @@ class __DashboardPage extends React.Component {
           </div>
 
           {/* <!-- Total Followed  --> */}
-          <div className="col-xl-4 col-md-6 mb-4">
+          <div className="col-xl-6 col-md-6 mb-4">
             <div className="card border-left-success shadow h-100 py-2">
               <div className="card-body">
                 <div className="row no-gutters align-items-center">
                   <div className="col mr-2">
                     <div className="text-xs font-weight-bold text-success text-uppercase mb-1">Total Followed</div>
-                    <div className="h5 mb-0 font-weight-bold text-gray-800">37</div>
+                    <div className="h5 mb-0 font-weight-bold text-gray-800">
+                      Will count soon
+                    </div>
                   </div>
                   <div className="col-auto">
                     <i className="fas fa-user-friends fa-2x text-gray-300"></i>
@@ -63,8 +67,9 @@ class __DashboardPage extends React.Component {
             </div>
           </div>
 
+          {/* Uncomment when readly, don't forget to change layout to let all numbers be in a row */}
           {/* <!-- Total Commented  --> */}
-          <div className="col-xl-4 col-md-6 mb-4">
+          {/* <div className="col-xl-4 col-md-6 mb-4">
             <div className="card border-left-warning shadow h-100 py-2">
               <div className="card-body">
                 <div className="row no-gutters align-items-center">
@@ -79,13 +84,13 @@ class __DashboardPage extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* <!-- Content Row  --> */}
 
         <div className="row">
           {/* <!-- Area Chart  --> */}
-          <div className="col-xl-12 col-lg-7">
+          <div className="col-xl-12 col-lg-12">
             <div className="card shadow mb-4">
               {/* <!-- Card Header - Dropdown  --> */}
               <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
