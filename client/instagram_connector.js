@@ -55,8 +55,9 @@ class InstagramConnector {
 
   request = (data) => new Promise((resolve, reject) => {
     if (this.isStopped) return reject(new Error(`Request was killed`))
+    if (!this.isConnected) return reject(new NotInstalledError())
 
-    setTimeout(() => reject(new TimeoutError(`Request timeout`)), 1000)
+    setTimeout(() => reject(new TimeoutError(`Request timeout`)), 10000)
 
     const onResponse = (message) => {
       if (!message) return reject(new NotInstalledError())
