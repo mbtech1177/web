@@ -41,7 +41,7 @@ class __LikeUserPage extends React.Component {
 
             <Button
               className="btn-primary"
-              onClick={this.handleLikeUsernameButton}>
+              onClick={this.handleLikeUserButton}>
               Like 10 photos
             </Button>
           </div>
