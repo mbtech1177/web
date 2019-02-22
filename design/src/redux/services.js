@@ -9,7 +9,9 @@ const connectExtension = async () => {
       }
     }
 
-    const { user } = await request({ method: 'check_login' }, true)
+    const { user } = await instagram.request({ method: 'check_login' })
+
+    instagram.kill()
 
     if (user && user.pk) {
       return {
@@ -23,8 +25,6 @@ const connectExtension = async () => {
       }
       // alert(`Connected to the extension, but it's not logged in. Please login via pressing extension logo`)
     }
-
-    instagram.kill()
 
   } catch (err) {
     console.log(`ExtensionError`, err)
@@ -44,26 +44,24 @@ const connectExtension = async () => {
   }
 }
 
-const onHashtagButton = async () => {
+const likePhotosByHashtag = async (hashtag, n, printLog = console.log) => {
 
   if (!instagram.isStopped) {
     alert(`Please stop all other tasks before running!`)
     return
   }
 
+  if (!hashtag) {
+    throw new Error(`Empty hashtag field!`)
+  }
+
   instagram.start()
 
   try {
-    const form = document.forms[0]
-    const hashtag = form.hashtag.value
-
-    if (!hashtag) {
-      throw new Error(`Empty hashtag field!`)
-    }
 
     printLog(`Fetching photos by hashtag: #${hashtag} ... `)
 
-    const { items } = await request({
+    const { items } = await instagram.request({
       method: 'get_hashtag_feed',
       params: [ hashtag ]
     })
@@ -71,52 +69,51 @@ const onHashtagButton = async () => {
     printLog(`OK, ${items.length} results`, false)
     console.log(`URLS:`, items.map(instagramUrl))
 
-    likeItems(items, 10)
+    likeItems(items, n, printLog)
 
   } catch(err) {
+    console.error(err)
     alert(err.message)
   }
 }
 
-const onLikeUsernameButton = async () => {
+const likePhotosByUsername = async (username, n, printLog) => {
   if (!instagram.isStopped) {
     alert(`Please stop all other tasks before running!`)
     return
   }
 
-  instagram.start()
+  if (!username) {
+    throw new Error(`Empty field!`)
+  }
 
   try {
-    const form = document.forms[0]
-    const username = form.username.value
-
-    if (!username) {
-      throw new Error(`Empty field!`)
-    }
+    instagram.start()
 
     printLog(`Fetching photos by username @${username}: ... `)
 
-    const { user } = await request({
+    const { user } = await instagram.request({
       method: 'get_user_info',
       params: [ username ]
     })
 
-    const { items } = await request({
+    const { items } = await instagram.request({
       method: 'get_user_feed',
       params: [ user.pk ]
     })
 
     printLog(`OK, ${items.length} results`, false)
 
-    likeItems(items, 10)
+    likeItems(items, n, printLog)
 
   } catch(err) {
+    console.error(err)
     alert(err.message)
   }
 
 }
 
-const onKillAll = async () => {
+const onKillAll = async (printLog = console.log) => {
 
   instagram.kill()
 
