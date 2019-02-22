@@ -55,7 +55,7 @@ class __LikeHashtagPage extends React.Component {
     }
 
     return (
-      <div className="container-fluid">
+    <div className="container-fluid">
 
       {/* <!-- Content Row  --> */}
       <div className="row">
@@ -96,10 +96,8 @@ class __LikeHashtagPage extends React.Component {
                 </div>
               </div>
 
-
               <div className="row">
                 <div className="col-auto">
-
                   <div className="form-check">
 
                     <input
@@ -117,11 +115,8 @@ class __LikeHashtagPage extends React.Component {
                 </div>
               </div>
 
-
-
               <div className="row">
                 <div className="col-auto">
-
 
                   <div className="btn-group">
                     {[10, 20, 50].map((num, index) => (
@@ -134,36 +129,30 @@ class __LikeHashtagPage extends React.Component {
                         {num}
                       </Button>
                     ))}
-
                   </div>
 
-                  </div>
-                  </div>
+                </div>
+              </div>
 
+              <br />
 
-
-                  <div className="row">
-                  <div className="col-auto">
-
+              <div className="row">
+                <div className="col-auto">
                   <div>
                       <Button
                         className="btn-primary"
                         onClick={this.handleLikeHashtagButton}>
                         Like {nPhotos} photos
                       </Button>
-
                   </div>
-
-
                 </div>
-
               </div>
             </div>
           </div>
         </div>
 
-        </div>
-        </div>
+      </div>
+    </div>
     )
   }
 }

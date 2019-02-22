@@ -77,7 +77,7 @@ class __LikeUserPage extends React.Component {
                       <label htmlFor="username">Username</label>
                       <div className="input-group mb-3">
                         <div className="input-group-prepend">
-                          <span className="input-group-text" id="hash-symbol">#</span>
+                          <span className="input-group-text" id="hash-symbol">@</span>
                         </div>
                         <input
                           type="text"
