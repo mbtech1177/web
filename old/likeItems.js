@@ -10,7 +10,7 @@ const likeItems = async (items, n = 10, printLog = console.log) => {
 
   const firstNItems = items.slice(0, n)
 
-  if (!confirm(`Will put 10 likes at:\n${firstNItems.map(i => instagramUrl(i)).join("\n")}. OK?`))
+  if (!confirm(`Will put ${n} likes at:\n${firstNItems.map(i => instagramUrl(i)).join("\n")}. OK?`))
     return instagram.kill()
 
   const queue = makeQueue(firstNItems, item => async () => {
