@@ -5,7 +5,7 @@ const instagramUrl = (item = {}) => {
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-const likeItems = async (items, n = 10) => {
+const likeItems = async (items, n = 10, printLog = console.log) => {
   instagram.start()
 
   const firstNItems = items.slice(0, n)
