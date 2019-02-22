@@ -2,7 +2,10 @@ const updateConnectionStatus = (status) => {
   return {
     type: 'UPDATE_CONNECTION_STATUS',
     payload: {
-      connectionStatus: status
+      connection: {
+        status,
+        description: CONNECTION_MESSAGES[status],
+      }
     }
   }
 }

@@ -2,7 +2,10 @@ const { createStore, combineReducers } = Redux
 
 const initialState = {
   isLoading: false,
-  connectionStatus: CONNECTION.UNKNOWN,
+  connection: {
+    status: CONNECTION.UNKNOWN,
+    description: '',
+  },
   log: [],
   user: {},
   error: '',

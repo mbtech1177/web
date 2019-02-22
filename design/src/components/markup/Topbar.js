@@ -33,19 +33,19 @@ const __Topbar = (props) => (
         </li>
       )}
 
-      <li className="nav-item dropdown no-arrow">
-        <span className="nav-link">
-          <span className="connection-status mr-2 d-none d-lg-inline text-gray-600 small">
-            {props.connectionStatus}
+      <li className="nav-item no-arrow">
+        <a className="nav-link" href="#" onClick={() => alert(props.connection.description)}>
+          <span title={props.connection.description} className="connection-status mr-2 d-none d-lg-inline text-gray-600 small">
+            {props.connection.status}
           </span>
-        </span>
+        </a>
       </li>
 
       <div className="topbar-divider d-none d-sm-block"></div>
 
       {/* <!-- Nav Item - User Information  --> */}
       <li className="nav-item dropdown no-arrow">
-        <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a className="nav-link dropdown-toggle" href={props.user ? `https://www.instagram.com/${props.user.username}/` : `#`} target="_blank">
           <span className="mr-2 d-none d-lg-inline text-gray-600 small">
             {props.user.username}
           </span>
@@ -60,6 +60,6 @@ const __Topbar = (props) => (
 )
 
 const Topbar = connect(
-  ({ user, isLoading, error, connectionStatus }) => ({ user, isLoading, error, connectionStatus }),
+  ({ user, isLoading, error, connection }) => ({ user, isLoading, error, connection }),
   {}
 )(__Topbar)
