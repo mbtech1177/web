@@ -1,5 +1,5 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
   <meta name="description" content="Automate your Instagram free: likes, follows, comments, replies">
@@ -32,124 +32,66 @@
   <!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(52144714, "init", { id:52144714, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/52144714" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
 
 
-   <!-- Compiled and minified CSS -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-   <!-- Compiled and minified JavaScript -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- Custom fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-   <script src="./client/instagram_connector.js"></script>
-   <script src="./client/document_connector.js"></script>
-   <script src="./client/request.js"></script>
-   <script src="./client/likeItems.js"></script>
-   <script src="./client/buttons.js"></script>
-   <script src="./client/main.js"></script>
+  <!-- Custom styles -->
+  <link href="./client/css/sb-admin-2.css" rel="stylesheet">
+
 </head>
 
+<body id="page-top">
 
-<body>
+  <div id="root"></div>
 
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">Instagram Yourself</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="https://github.com/caffeinum/instaweb">Github</a></li>
-        <li><a href="https://t.me/instabotproject">Chat</a></li>
-        <li><a href="https://github.com/caffeinum/instaweb#installing-extension">Troubleshooting</a></li>
-      </ul>
-    </div>
-  </nav>
+  <!-- Bootstrap core JavaScript-->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+  <script crossorigin src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <script crossorigin src="https://unpkg.com/redux@4.0.1/dist/redux.js"></script>
+  <script crossorigin src="https://unpkg.com/react-redux@6.0.1/dist/react-redux.js"></script>
 
 
+  <!-- Custom scripts for all pages-->
+  <script src="./client/js/sb-admin-2.js"></script>
 
-  <div id="container" style="justify-content: center; align-items: center; text-align: center;">
-    <h1>Instagram yourself</h1>
+  <script src="./old/instagram_connector.js"></script>
+  <!-- <script src="../client/document_connector.js"></script> -->
+  <!-- <script src="../client/request.js"></script> -->
+  <script src="./old/likeItems.js"></script>
+  <!-- <script src="../client/buttons.js"></script> -->
+  <!-- <script src="../client/main.js"></script> -->
 
-    <span id="connectionStatus">Connection status: NOT_INSTALLED</span>
+  <script src="./client/src/redux/constants.js" type="text/babel"></script>
+  <script src="./client/src/redux/services.js" type="text/babel"></script>
+  <script src="./client/src/redux/actions.js" type="text/babel"></script>
+  <script src="./client/src/redux/store.js" type="text/babel"></script>
 
-    <h2>1</h2>
-    <p>
-      Install <a href="https://chrome.google.com/webstore/detail/instagram-yourself/njonkbhnmmjgancfbncekpgkmidhbbpo">extension</a>
-      <span id="extensionInstalled" style="display: none">EXTENSION INSTALLED</span>
-    </p>
+  <script src="./client/src/pages/MainPage.js" type="text/babel"></script>
+  <script src="./client/src/pages/BlankPage.js" type="text/babel"></script>
+  <script src="./client/src/pages/LikeHashtagPage.js" type="text/babel"></script>
+  <script src="./client/src/pages/LikeUserPage.js" type="text/babel"></script>
 
-    <form id="extension-connected">
-      <h2>2</h2>
-      <label for="connect" id="connectLabel">Login into the extension: </label>
+  <script src="./client/src/components/dumb/Button.js" type="text/babel"></script>
 
-      <span id="loggedIn" style="display: none">LOGGED IN</span>
-      <span id="notLoggedIn">NOT LOGGED IN</span>
-      <br>
-      <br>
-      <!-- <label for="media_id">media_id </label>
-      <input type="text" id="media_id" name="media_id" />
+  <script src="./client/src/components/markup/LogoutModal.js" type="text/babel"></script>
+  <script src="./client/src/components/markup/ScrollToTop.js" type="text/babel"></script>
+  <script src="./client/src/components/markup/Footer.js" type="text/babel"></script>
+  <script src="./client/src/components/markup/Sidebar.js" type="text/babel"></script>
+  <script src="./client/src/components/markup/Topbar.js" type="text/babel"></script>
+  <script src="./client/src/components/markup/Wrapper.js" type="text/babel"></script>
 
-      <button id="likeButton">Like!</button>
-      <button id="unlikeButton">Unlike!</button>
-      <button id="viewButton">View photo</button>
-      <br>
-      <br> -->
-      <h2>3</h2>
-      <label for="hashtag">Put hashtag: #</label>
-      <input type="text" id="hashtag" name="hashtag" />
-      <!-- <button id="likeHashtagButton">Like 10 photos</button> -->
-      <a class="waves-effect waves-light btn" id="likeHashtagButton">Like 10 photos</a>
-      <br>
-      <br>
 
-      <label for="username">Put username: @</label>
-      <input type="text" id="username" name="username" />
-      <!-- <button id="likeUsernameButton">Like 10 photos</button> -->
-      <a class="waves-effect waves-light btn" id="likeUsernameButton">Like 10 photos</a>
-      <br>
-      <br>
-      <button id="killAll">Stop sending requests</button>
-      <br>
-      <br>
-    </form>
-
-    <div id="loading" style="display: none">
-      Loading...
-    </div>
-    <!-- <img id="photo_viewer" src="#"> -->
-    <div id="output">
-    </div>
-    <div id="log">
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-  </div>
-
-  <br>
-  <br>
-  <br>
-  <!-- <footer style="display: flex; justify-content: center; position: fixed; left: 0; width: 100%;">
-    <span> &#183; </span>
-    <a href="https://github.com/caffeinum/instaweb#installing-extension">troubleshooting</a>
-    <span> &#183; </span>
-    <a href="https://github.com/caffeinum/instaweb">github</a>
-    <span> &#183; </span>
-    <a href="https://t.me/instabotproject">chat</a>
-    <span> &#183; </span>
-    <br>
-    <br>
-  </footer> -->
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+  <script src="./client/src/app.js" type="text/babel"></script>
+  <script src="./client/src/index.js" type="text/babel"></script>
 
 </body>
 
