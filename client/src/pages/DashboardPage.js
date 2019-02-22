@@ -83,8 +83,8 @@ class __DashboardPage extends React.Component {
                 </div>
               </div>
             </div>
-          </div>
-        </div> */}
+          </div> */}
+        </div> 
 
         {/* <!-- Content Row  --> */}
 
