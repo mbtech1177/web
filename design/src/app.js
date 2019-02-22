@@ -1,4 +1,4 @@
-const { BrowserRouter, HashRouter, Switch, Route } = ReactRouterDOM
+const { withRouter, BrowserRouter, HashRouter, Switch, Route } = ReactRouterDOM
 const { Provider } = ReactRedux
 
 class __App extends React.Component {
@@ -41,10 +41,10 @@ class __App extends React.Component {
   }
 }
 
-const App = connect(
+const App = withRouter(connect(
   null,
   { updateConnectionStatus, showLoader, hideLoader, setUser, showErrorMessage }
-)(__App)
+)(__App))
 
 ReactDOM.render(
   <Provider store={store}>
