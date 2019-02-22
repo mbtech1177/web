@@ -33,7 +33,7 @@ const likeItems = async (items, n = 10, printLog = console.log) => {
 
     printLog(`Sending like <a href="${url}" target="_blank">${url}</a>...`)
 
-    const { status } = await request({
+    const { status } = await instagram.request({
       method: 'like',
       params: [ item.id ],
     }, true)
