@@ -52,5 +52,5 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
         // In the main window and frames
         types: ["main_frame", "sub_frame", "xmlhttprequest"]
     },
-    ["blocking", "requestHeaders", "extraHeaders"]
+    ["blocking", "requestHeaders"]
 );
