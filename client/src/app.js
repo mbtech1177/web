@@ -29,6 +29,7 @@ class __App extends React.Component {
         <Wrapper>
           <Switch>
             <Route exact path='/' component={MainPage}/>
+            <Route path='/logs' component={LogsPage}/>
             <Route path='/like/user-medias' component={LikeUserPage}/>
             <Route path='/like/hashtag' component={LikeHashtagPage}/>
             <Route path='/like' component={LikeHashtagPage}/>

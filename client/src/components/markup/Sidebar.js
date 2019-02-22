@@ -64,6 +64,14 @@ const Sidebar = () => (
       </div>
     </li>
 
+
+    <li className="nav-item">
+      <Link className="nav-link" to="/logs">
+        <i className="fas fa-file-alt"></i>
+        <span>Logs</span>
+      </Link>
+    </li>
+
     {/* <!-- Divider  --> */}
     <hr className="sidebar-divider" />
 
