@@ -24,7 +24,7 @@ class __App extends React.Component {
         <Wrapper>
           <Switch>
             <Route exact path='/' component={MainPage}/>
-            <Route path='/like/user-medias' component={BlankPage}/>
+            <Route path='/like/user-medias' component={LikeUserPage}/>
             <Route path='/like/hashtag' component={LikeHashtagPage}/>
             <Route path='/like' component={LikeHashtagPage}/>
             <Route path='/follow/followers' component={BlankPage}/>

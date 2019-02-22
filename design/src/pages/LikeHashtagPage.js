@@ -4,9 +4,9 @@ const LikeHashtagPage = () => (
 
     <div className="row">
       <div className="col-lg-6">
-        <label for="hashtag">Put hashtag: #</label>
+        <label htmlFor="hashtag">Put hashtag: #</label>
         <input type="text" id="hashtag" name="hashtag" />
-        <a class="waves-effect waves-light btn" id="likeHashtagButton">Like 10 photos</a>
+        <a className="btn btn-primary" id="likeHashtagButton">Like 10 photos</a>
       </div>
     </div>
   </div>
