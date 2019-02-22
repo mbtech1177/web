@@ -14,6 +14,11 @@ class __App extends React.Component {
         } else if (error) {
           this.props.showErrorMessage(error)
         }
+
+        // TODO: HACK
+        setInterval(() => {
+          this.props.updateInstagramServiceStatus(instagram)
+        }, 500)
       })
       .finally(() => this.props.hideLoader())
   }
@@ -43,7 +48,7 @@ class __App extends React.Component {
 
 const App = withRouter(connect(
   null,
-  { updateConnectionStatus, showLoader, hideLoader, setUser, showErrorMessage }
+  { updateConnectionStatus, updateInstagramServiceStatus, showLoader, hideLoader, setUser, showErrorMessage }
 )(__App))
 
 ReactDOM.render(

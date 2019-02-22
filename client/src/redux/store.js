@@ -2,6 +2,10 @@ const { createStore, combineReducers } = Redux
 
 const initialState = {
   isLoading: false,
+  notifyWhenQueueFinished: false,
+  instagram: {
+    isStopped: true,
+  },
   connection: {
     status: CONNECTION.UNKNOWN,
     description: '',
@@ -26,6 +30,22 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       log,
+    }
+  }
+
+  if (action.type === 'INSTAGRAM') {
+    const { isStopped } = action.payload.instagram
+
+    if (!state.isStopped && isStopped) {
+      if (state.notifyWhenQueueFinished) {
+        alert(`Queue finished!`)
+
+        return {
+          ...state,
+          notifyWhenQueueFinished: false,
+          isStopped,
+        }
+      }
     }
   }
 

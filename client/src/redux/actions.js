@@ -28,6 +28,26 @@ const hideLoader = () => {
   }
 }
 
+const updateInstagramServiceStatus = ({ isStopped }) => {
+  return {
+    type: 'INSTAGRAM',
+    payload: {
+      instagram: {
+        isStopped,
+      }
+    }
+  }
+}
+
+const notifyWhenQueueFinished = () => {
+  return {
+    type: 'ALERT_WHEN_QUEUE_FINISHED',
+    payload: {
+      notifyWhenQueueFinished: true,
+    }
+  }
+}
+
 const printLog = (line, newLine = true) => {
   return {
     type: 'PRINT_LOG',

@@ -36,7 +36,7 @@ const __Topbar = (props) => (
       {props.connection.status === CONNECTION.NOT_INSTALLED && (
         <li className="nav-item dropdown no-arrow">
           <span className="nav-link">
-            <span className="error-status mr-2 d-none d-lg-inline text-grey-600 small">
+            <span className="install-extension mr-2 d-none d-lg-inline text-grey-600 small">
               <a href="https://chrome.google.com/webstore/detail/instagram-yourself/njonkbhnmmjgancfbncekpgkmidhbbpo" target="_blank">
                 Install extension
               </a>
@@ -51,6 +51,35 @@ const __Topbar = (props) => (
             {props.connection.status}
           </span>
         </a>
+      </li>
+
+      <div className="topbar-divider d-none d-sm-block"></div>
+
+      <li className="nav-item dropdown no-arrow">
+        <span className="nav-link">
+          <span className="instagram-status mr-2 d-none d-lg-inline text-gray-600 small">
+            {props.instagram.isStopped && (
+              <span>
+                Instagram Service: No current task
+              </span>
+            )}
+
+            {!props.instagram.isStopped && (
+              <span>
+                Instagram Service: Working
+              </span>
+            )}
+
+            {!props.instagram.isStopped && (
+              <Button
+                className="btn-danger btn-sm shadow-sm"
+                onClick={() => onKillAll(props.printLog)}>
+                Stop
+              </Button>
+            )}
+
+          </span>
+        </span>
       </li>
 
       <div className="topbar-divider d-none d-sm-block"></div>
@@ -72,6 +101,6 @@ const __Topbar = (props) => (
 )
 
 const Topbar = connect(
-  ({ user, isLoading, error, connection }) => ({ user, isLoading, error, connection }),
-  {}
+  ({ user, isLoading, error, connection, instagram }) => ({ user, isLoading, error, connection, instagram }),
+  { printLog }
 )(__Topbar)
