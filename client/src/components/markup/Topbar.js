@@ -33,6 +33,18 @@ const __Topbar = (props) => (
         </li>
       )}
 
+      {props.connection.status === CONNECTION.NOT_INSTALLED && (
+        <li className="nav-item dropdown no-arrow">
+          <span className="nav-link">
+            <span className="error-status mr-2 d-none d-lg-inline text-grey-600 small">
+              <a href="https://chrome.google.com/webstore/detail/instagram-yourself/njonkbhnmmjgancfbncekpgkmidhbbpo" target="_blank">
+                Install extension
+              </a>
+            </span>
+          </span>
+        </li>
+      )}
+
       <li className="nav-item no-arrow">
         <a className="nav-link" href="#" onClick={() => alert(props.connection.description)}>
           <span title={props.connection.description} className="connection-status mr-2 d-none d-lg-inline text-gray-600 small">
