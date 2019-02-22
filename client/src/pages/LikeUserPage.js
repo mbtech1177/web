@@ -1,13 +1,57 @@
-const LikeUserPage = () => (
-  <div className="container-fluid">
-    <h1 className="h3 mb-4 text-gray-800">Like user medias</h1>
+const { connect } = ReactRedux
 
-    <div className="row">
-      <div className="col-lg-6">
-        <label htmlFor="username">Put username: @</label>
-        <input type="text" id="username" name="username" />
-        <a className="btn btn-primary" id="likeUsernameButton">Like 10 photos</a>
+class __LikeUserPage extends React.Component {
+
+  state = {
+    username: ''
+  }
+
+  handleLikeUserButton = async () => {
+    this.props.showLoader()
+
+    const { username } = this.state
+    await likePhotosByUsername(username, 10, this.props.printLog)
+
+    this.props.hideLoader()
+  }
+
+  handleChange = (event) => {
+    // const name = event.target.name
+    const username = event.target.value
+
+    this.setState({ username })
+  }
+
+  render () {
+    return (
+      <div className="container-fluid">
+        <h1 className="h3 mb-4 text-gray-800">Like user's medias</h1>
+
+        <div className="row">
+          <div className="col-lg-6">
+            <label htmlFor="username">Put username: @</label>
+
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={this.state.username}
+              onChange={this.handleChange}
+            />
+
+            <Button
+              className="btn-primary"
+              onClick={this.handleLikeUsernameButton}>
+              Like 10 photos
+            </Button>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-)
+    )
+  }
+}
+
+const LikeUserPage = connect(
+  null,
+  { likePhotosByUsername, showLoader, hideLoader, printLog }
+)(__LikeUserPage)
