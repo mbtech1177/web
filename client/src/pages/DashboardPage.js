@@ -70,7 +70,7 @@ class __DashboardPage extends React.Component {
                   <div className="col mr-2">
                     <div className="text-xs font-weight-bold text-success text-uppercase mb-1">Total Followed</div>
                     <div className="h5 mb-0 font-weight-bold text-gray-800">
-                      {stats.follows
+                      {stats.follows !== null
                         ? stats.follows
                         : 'Unknown'}
                     </div>
@@ -162,7 +162,7 @@ class __DashboardPage extends React.Component {
               <div className="card-body">
                 <div className="chart-area">
                     {stats.full.follower_count && stats.full.follower_count.map(item => (
-                      <div>
+                      <div key={item.savedAt}>
                         {`${Date(item.savedAt)} - ${item.followers}`}
                       </div>
                     ))}
