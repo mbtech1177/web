@@ -21,6 +21,8 @@ export default class Instagram {
     this.is_logged_in = false
     this.user_id = null
     this.user = null
+    this.history = null
+    this.confirmator = null // new Confirmator()
 
     this.user_agent = USER_AGENT_BASE(DEVICE) // just insert params
 
@@ -50,15 +52,14 @@ export default class Instagram {
       throw new Error(`Already logged in`)
     }
 
-    // this.is_logged_in = true
-    //
-    // return { pk: '111' }
-
     const USERNAME = username || this.username
     const PASSWORD = password || this.password
 
     try {
-      const { logged_in_user } = await this._login(USERNAME, PASSWORD)
+      const { logged_in_user, status } = await this._login(USERNAME, PASSWORD)
+
+      const MASKED_PASSWORD = PASSWORD.split('').fill('*').join('')
+      this.history && this.history.save('login', [USERNAME, MASKED_PASSWORD], { status })
 
       if (logged_in_user) {
         this.is_logged_in = true
@@ -180,14 +181,24 @@ export default class Instagram {
     }
   }
 
-  callMethod(name, ...args) {
+  async callMethod(name, ...args) {
     const _method = methods[name]
 
     if (typeof _method != 'function') {
       throw new Error(`No method: ${name}. Available methods: ${Object.keys(methods).join()}`)
     }
 
-    return _method(this, args)
+    if (this.confirmator) {
+      const ok = await this.confirmator.confirm(`${name} ${args.join(' ')}?`)
+
+      if (!ok) throw new Error(`User rejected request`)
+    }
+
+    const result = await _method(this, args)
+
+    this.history && this.history.save(name, args, result)
+
+    return result
   }
 
 }
