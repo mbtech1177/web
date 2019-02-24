@@ -13,6 +13,13 @@ const initialState = {
   log: JSON.parse(localStorage.getItem('log')) || [],
   user: {},
   error: '',
+  stats: {
+    follower_count: null,
+    following_count: null,
+    likes: null,
+    follows: null,
+    full: {},
+  }
 }
 
 const reducer = (state = initialState, action) => {
@@ -56,3 +63,5 @@ const reducer = (state = initialState, action) => {
 }
 
 const store = createStore(reducer)
+
+const { getState } = store

@@ -75,3 +75,12 @@ const showErrorMessage = (error) => {
     }
   }
 }
+
+const updateStats = (data) => {
+  return {
+    type: 'UPDATE_STATS',
+    payload: {
+      stats: data,
+    }
+  }
+}

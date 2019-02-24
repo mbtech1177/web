@@ -2,7 +2,19 @@ const { connect } = ReactRedux
 
 
 class __DashboardPage extends React.Component {
+  componentWillMount() {
+    setTimeout(async () => {
+      const { status, data } = await instagram.request({ method: 'stats' }, true)
+
+      console.log('status', status, data)
+
+      this.props.updateStats(data)
+    }, 500)
+  }
+
   render () {
+    const { stats } = this.props
+
     return (
       <div className="container-fluid">
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
@@ -37,7 +49,9 @@ class __DashboardPage extends React.Component {
                   <div className="col mr-2">
                     <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Liked</div>
                     <div className="h5 mb-0 font-weight-bold text-gray-800">
-                      Will count soon
+                      {stats.likes
+                        ? stats.likes
+                        : 'Unknown'}
                     </div>
                   </div>
                   <div className="col-auto">
@@ -56,7 +70,55 @@ class __DashboardPage extends React.Component {
                   <div className="col mr-2">
                     <div className="text-xs font-weight-bold text-success text-uppercase mb-1">Total Followed</div>
                     <div className="h5 mb-0 font-weight-bold text-gray-800">
-                      Will count soon
+                      {stats.follows
+                        ? stats.follows
+                        : 'Unknown'}
+                    </div>
+                  </div>
+                  <div className="col-auto">
+                    <i className="fas fa-user-friends fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* <!-- Total Followed  --> */}
+          <div className="col-xl-6 col-md-6 mb-4">
+            <div className="card border-left-success shadow h-100 py-2">
+              <div className="card-body">
+                <div className="row no-gutters align-items-center">
+                  <div className="col mr-2">
+                    <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
+                      Followers
+                    </div>
+                    <div className="h5 mb-0 font-weight-bold text-gray-800">
+                      {stats.follower_count
+                        ? stats.follower_count
+                        : 'Unknown'}
+                    </div>
+                  </div>
+                  <div className="col-auto">
+                    <i className="fas fa-user-friends fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* <!-- Total Followed  --> */}
+          <div className="col-xl-6 col-md-6 mb-4">
+            <div className="card border-left-success shadow h-100 py-2">
+              <div className="card-body">
+                <div className="row no-gutters align-items-center">
+                  <div className="col mr-2">
+                    <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
+                      Following
+                    </div>
+                    <div className="h5 mb-0 font-weight-bold text-gray-800">
+                      {stats.following_count
+                        ? stats.following_count
+                        : 'Unknown'}
                     </div>
                   </div>
                   <div className="col-auto">
@@ -84,7 +146,7 @@ class __DashboardPage extends React.Component {
               </div>
             </div>
           </div> */}
-        </div> 
+        </div>
 
         {/* <!-- Content Row  --> */}
 
@@ -99,7 +161,11 @@ class __DashboardPage extends React.Component {
               {/* <!-- Card Body  --> */}
               <div className="card-body">
                 <div className="chart-area">
-                    Comming soon
+                    {stats.full.follower_count && stats.full.follower_count.map(item => (
+                      <div>
+                        {`${Date(item.savedAt)} - ${item.followers}`}
+                      </div>
+                    ))}
                   <canvas id="myAreaChart">
                   </canvas>
                 </div>
@@ -120,6 +186,6 @@ class __DashboardPage extends React.Component {
 }
 
 const DashboardPage = connect(
-  ({ isLoading, log, connection }) => ({ isLoading, log, connection }),
-  { showLoader, hideLoader, printLog }
+  ({ isLoading, log, connection, stats }) => ({ isLoading, log, connection, stats }),
+  { showLoader, hideLoader, printLog, updateStats }
 )(__DashboardPage)
