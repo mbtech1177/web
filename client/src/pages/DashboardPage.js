@@ -42,7 +42,7 @@ class __DashboardPage extends React.Component {
         <div className="row">
 
           {/* <!-- Total Liked  --> */}
-          <div className="col-xl-6 col-md-6 mb-4">
+          <div className="col-xl-3 col-md-3 mb-4">
             <div className="card border-left-primary shadow h-100 py-2">
               <div className="card-body">
                 <div className="row no-gutters align-items-center">
@@ -63,7 +63,7 @@ class __DashboardPage extends React.Component {
           </div>
 
           {/* <!-- Total Followed  --> */}
-          <div className="col-xl-6 col-md-6 mb-4">
+          <div className="col-xl-3 col-md-3 mb-4">
             <div className="card border-left-success shadow h-100 py-2">
               <div className="card-body">
                 <div className="row no-gutters align-items-center">
@@ -84,8 +84,8 @@ class __DashboardPage extends React.Component {
           </div>
 
           {/* <!-- Total Followed  --> */}
-          <div className="col-xl-6 col-md-6 mb-4">
-            <div className="card border-left-success shadow h-100 py-2">
+          <div className="col-xl-3 col-md-3 mb-4">
+            <div className="card border-left-info shadow h-100 py-2">
               <div className="card-body">
                 <div className="row no-gutters align-items-center">
                   <div className="col mr-2">
@@ -107,8 +107,8 @@ class __DashboardPage extends React.Component {
           </div>
 
           {/* <!-- Total Followed  --> */}
-          <div className="col-xl-6 col-md-6 mb-4">
-            <div className="card border-left-success shadow h-100 py-2">
+          <div className="col-xl-3 col-md-3 mb-4">
+            <div className="card border-left-warning shadow h-100 py-2">
               <div className="card-body">
                 <div className="row no-gutters align-items-center">
                   <div className="col mr-2">
@@ -128,24 +128,6 @@ class __DashboardPage extends React.Component {
               </div>
             </div>
           </div>
-
-          {/* Uncomment when readly, don't forget to change layout to let all numbers be in a row */}
-          {/* <!-- Total Commented  --> */}
-          {/* <div className="col-xl-4 col-md-6 mb-4">
-            <div className="card border-left-warning shadow h-100 py-2">
-              <div className="card-body">
-                <div className="row no-gutters align-items-center">
-                  <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Commented</div>
-                    <div className="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                  </div>
-                  <div className="col-auto">
-                    <i className="fas fa-comment fa-2x text-gray-300"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>
 
         {/* <!-- Content Row  --> */}
@@ -176,7 +158,7 @@ class __DashboardPage extends React.Component {
 
         <div className="row">
           {/* <!-- Area Chart  --> */}
-          <div className="col-xl-12 col-lg-7">
+          <div className="col-xl-12 col-lg-12">
             <LogCard log={this.props.log}/>
           </div>
         </div>
