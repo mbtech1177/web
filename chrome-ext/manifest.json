@@ -8,10 +8,15 @@
   "background": {
     "scripts": [
       "shared/credentials.js",
+      "background/services/insecure_headers.js",
+      "background/services/active_tab.js",
       "background/main.js",
-      "background/request_history.js",
-      "background/insecure_headers.js",
-      "background/background.js"
+      "background/storage/collection.js",
+      "background/storage/storage_promise.js",
+      "background/storage/instagram_stats.js",
+      "background/storage/chrome_history.js",
+      "background/window_confirmator.js",
+      "background/main_service.js"
     ]
   },
   "browser_action": {
