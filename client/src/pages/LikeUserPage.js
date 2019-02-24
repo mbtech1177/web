@@ -55,15 +55,7 @@ class __LikeUserPage extends React.Component {
     }
 
     return (
-      <div className="container-fluid">
-
-        {/* <!-- Content Row  --> */}
-        <div className="row">
-
-          {/* <!-- Total Liked  --> */}
-          <div className="col-xl-12 col-md-12 mb-12">
-            <div className="card border-left-primary shadow h-150 py-2">
-              <div className="card-body">
+      <CardFullWidthPage>
                 <div className="row no-gutters align-items-center">
                   <div className="col mr-12">
                     <div className="text-xs font-weight-bold text-primary text-uppercase mb-12">
@@ -103,8 +95,8 @@ class __LikeUserPage extends React.Component {
                         value={showAlertAfterFinish}
                         onChange={this.handleChange}
                       />
-                      <label 
-                        className="form-check-label" 
+                      <label
+                        className="form-check-label"
                         htmlFor="showAlertAfterFinish">Notify when queue finishes
                       </label>
                     </div>
@@ -143,12 +135,7 @@ class __LikeUserPage extends React.Component {
                   </div>
                 </div>
 
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
+      </CardFullWidthPage>
     )
   }
 }
