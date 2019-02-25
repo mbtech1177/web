@@ -38,8 +38,8 @@ class __App extends React.Component {
             <Route path='/like/user-medias' component={LikeUserPage}/>
             <Route path='/like/hashtag' component={LikeHashtagPage}/>
             <Route path='/like' component={LikeHashtagPage}/>
-            <Route path='/follow/followers' component={BlankPage}/>
-            <Route path='/follow/followings' component={BlankPage}/>
+            <Route path='/follow/followers' component={FollowUserPeersPage}/>
+            <Route path='/follow/followings' component={FollowUserPeersPage}/>
             <Route path='/blank' component={BlankPage}/>
             <Route path='/empty' component={BlankPage}/>
             <Route path='/404' component={BlankPage}/>
