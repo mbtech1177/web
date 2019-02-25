@@ -97,7 +97,7 @@ const followList = async (users, n = 10, printLog = console.log) => {
       return
     }
 
-    printLog(`${num}: Sending like <a href="${url}" target="_blank">${url}</a>... `)
+    printLog(`${num}: Following <a href="${url}" target="_blank">${url}</a>... `)
 
     try {
       const { status } = await instagram.request({

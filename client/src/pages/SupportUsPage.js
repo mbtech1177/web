@@ -7,11 +7,21 @@ class __SupportUsPage extends React.Component {
     try {
       this.props.showLoader()
 
-      const { user: caffeinum } = await instagram.request({ method: 'get_user_info', params: ['caffeinum'] }, true)
 
-      const { user: ohld } = await instagram.request({ method: 'get_user_info', params: ['ohld'] }, true)
-
-      const users = [ ohld, caffeinum ]
+      const users = [
+        {
+          pk: 352300017,
+          username: 'ohld',
+        },
+        {
+          pk: 45786877,
+          username: 'caffeinum',
+        },
+        {
+          pk: 376163936,
+          username: 'ermolaeva.liuba',
+        },
+      ]
 
       followList(users, users.length, this.props.printLog)
     } catch (err) {
