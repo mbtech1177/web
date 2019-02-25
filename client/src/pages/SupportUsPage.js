@@ -73,12 +73,12 @@ class __SupportUsPage extends React.Component {
 
                 <div class="my-2"></div>
 
-                <Button className="btn btn-success btn-icon-split" onClick={this.likeUs}>
+                {/* <Button className="btn btn-success btn-icon-split" onClick={this.likeUs}>
                   <span className="icon text-white-50">
                       <i className="fas fa-heart"></i>
                   </span>
                   <span className="text">Like Us on Instagram</span>
-                </Button> 
+                </Button>  */}
 
               </div>
             </div>
