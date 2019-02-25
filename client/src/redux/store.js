@@ -23,7 +23,9 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-  console.log('action', action)
+  if (action.type !== 'INSTAGRAM') {
+    console.log('action', action)
+  }
 
   if (action.type === 'CLEAR_LOG') {
     localStorage.setItem('log', JSON.stringify([]))
