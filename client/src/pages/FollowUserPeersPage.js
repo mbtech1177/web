@@ -151,7 +151,7 @@ class __FollowUserPeersPage extends React.Component {
                 <div className="row">
                   <div className="col-auto">
                     <div className="btn-group">
-                      {[1, 2, 5, 10, 20, 30, 50].map((num, index) => (
+                      {[1, 2, 5, 10, 20, 30, 50, 100].map((num, index) => (
                         <Button
                           className="btn-secondary"
                           key={index}
