@@ -44,7 +44,7 @@ class __App extends React.Component {
             <Route path='/support-us' component={SupportUsPage}/>
             <Route path='/blank' component={BlankPage}/>
             <Route path='/empty' component={BlankPage}/>
-            <Route path='/404' component={BlankPage}/>
+            <Route path='/404' component={NotFoundPage}/>
           </Switch>
         </Wrapper>
         <ScrollToTop />
