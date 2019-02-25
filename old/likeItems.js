@@ -13,7 +13,7 @@ const likeItems = async (items, n = 10, printLog = console.log) => {
   if (!confirm(`Will put ${n} likes at:\n${firstNItems.map(i => instagramUrl(i)).join("\n")}. OK?`))
     return instagram.kill()
 
-  const queue = makeQueue(firstNItems, item => async () => {
+  const queue = makeQueue(firstNItems, async item => {
     const url = instagramUrl(item)
 
     if (instagram.isStopped) {
@@ -36,12 +36,11 @@ const likeItems = async (items, n = 10, printLog = console.log) => {
     const { status } = await instagram.request({
       method: 'like',
       params: [ item.id ],
-    }, true)
+    })
 
     printLog(`${status}`, false)
 
     console.log('Liked item', item, url)
-
   })
 
   queue
@@ -52,7 +51,7 @@ const likeItems = async (items, n = 10, printLog = console.log) => {
 
 const makeQueue = (items, step) => {
   return items.reduce(
-      (queue, item) => queue.then(step(item)),
+      (queue, item) => queue.then(() => step(item)),
       Promise.resolve()
     )
 
