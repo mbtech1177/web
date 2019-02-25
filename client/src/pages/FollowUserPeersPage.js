@@ -16,14 +16,6 @@ class __FollowUserPeersPage extends React.Component {
 
     const { username, nUsers, showAlertAfterFinish } = this.state
 
-    const { match } = this.props
-
-    const user_list_type = match.path === '/follow/followings'
-      ? 'followings'
-      : 'followers'
-
-    console.log('match', match)
-
     showAlertAfterFinish && this.props.notifyWhenQueueFinished()
 
     const { printLog } = this.props
@@ -47,9 +39,10 @@ class __FollowUserPeersPage extends React.Component {
         params: [ username ]
       })
 
-      const user_list_method = user_list_type === 'followings'
-        ? 'get_user_followings'
-        : 'get_user_followers'
+      const user_list_method =
+        this.getUserListType() === 'followings'
+          ? 'get_user_followings'
+          : 'get_user_followers'
 
       const { users } = await instagram.request({
         method: user_list_method,
@@ -93,6 +86,10 @@ class __FollowUserPeersPage extends React.Component {
     })
   }
 
+  getUserListType = () => this.props.match.path === '/follow/followings'
+    ? 'followings'
+    : 'followers'
+
   render () {
     const { nUsers, username, showAlertAfterFinish, shouldRedirectToLogs } = this.state
 
@@ -105,7 +102,9 @@ class __FollowUserPeersPage extends React.Component {
                 <div className="row no-gutters align-items-center">
                   <div className="col mr-12">
                     <div className="text-xs font-weight-bold text-primary text-uppercase mb-12">
-                      Follow Users Peers
+                      {this.getUserListType() === 'followings'
+                        ? 'Follow User Followees'
+                        : 'Follow User Followers'}
                     </div>
                   </div>
                 </div>
