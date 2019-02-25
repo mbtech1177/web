@@ -171,7 +171,7 @@ class __DashboardPage extends React.Component {
 
           {/* <!-- Area Chart  --> */}
           <div className="col-xl-6 col-lg-6">
-            <LogCard log={this.props.log}/>
+            <LogCard log={this.props.log} clearLog={this.props.clearLog} />
           </div>
         </div>
       </div>
@@ -181,5 +181,5 @@ class __DashboardPage extends React.Component {
 
 const DashboardPage = connect(
   ({ isLoading, log, connection, stats }) => ({ isLoading, log, connection, stats }),
-  { showLoader, hideLoader, printLog, updateStats }
+  { showLoader, hideLoader, printLog, clearLog, updateStats }
 )(__DashboardPage)

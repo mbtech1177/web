@@ -1,6 +1,6 @@
 class LogCard extends React.Component {
-  scrollToBottom = () => {
-    if (!this.props.autoScroll) return
+  scrollToBottom = (force = false) => {
+    if (!this.props.autoScroll && !force) return
 
     this.messagesEnd.scrollIntoView({ behavior: "smooth" })
   }
@@ -28,29 +28,39 @@ class LogCard extends React.Component {
   }
 
   render () {
-   return (
-     <div className="card shadow mb-4">
-       {/* <!-- Card Header - Dropdown  --> */}
-       <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-         <h6 className="m-0 font-weight-bold text-primary">Logs</h6>
-       </div>
-       {/* <!-- Card Body  --> */}
-       <div className="card-body" style={{ height: "70vh", overflowY: "scroll" }}>
-         {this.props.log.map((piece, index) => (
-           piece == `<br>`
-             ? <br key={index} />
-             : (
-               <span key={index}>
-                 {piece.includes('<a href') ? this.convertRawURL(piece) : piece}
-               </span>
-             )
-         ))}
+    return (
+      <div className="card shadow mb-4">
+        {/* <!-- Card Header - Dropdown  --> */}
+        <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 className="m-0 font-weight-bold text-primary">Logs</h6>
 
-         <div style={{ float: "left", clear: "both" }}
+          {this.props.clearLog && (
+          <a style={{ cursor: 'pointer' }} className="m-0 text-danger" onClick={() => confirm(`Clear log?`) && this.props.clearLog()}>
+            Clear Log
+          </a>
+          )}
+
+          <a style={{ cursor: 'pointer' }} className="m-0" onClick={() => this.scrollToBottom(true)}>
+            Scroll to End
+          </a>
+        </div>
+        {/* <!-- Card Body  --> */}
+        <div className="card-body" style={{ height: "70vh", overflowY: "scroll" }}>
+          {this.props.log.map((piece, index) => (
+             piece == `<br>`
+               ? <br key={index} />
+               : (
+                 <span key={index}>
+                   {piece.includes('<a href') ? this.convertRawURL(piece) : piece}
+                 </span>
+               )
+          ))}
+
+          <div style={{ float: "left", clear: "both" }}
               ref={(el) => { this.messagesEnd = el; }}>
-         </div>
-       </div>
-     </div>
-   )
+          </div>
+        </div>
+      </div>
+    )
   }
 }

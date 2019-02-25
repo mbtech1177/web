@@ -58,6 +58,13 @@ const printLog = (line, newLine = true) => {
   }
 }
 
+const clearLog = () => {
+  return {
+    type: 'CLEAR_LOG',
+    payload: {}
+  }
+}
+
 const setUser = (user) => {
   return {
     type: 'SET_USER',
