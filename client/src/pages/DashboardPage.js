@@ -3,6 +3,12 @@ const { connect } = ReactRedux
 
 class __DashboardPage extends React.Component {
 
+  updateStats = () => {
+    fetchStats()
+      .then(stats => this.props.updateStats(stats))
+      .then(() => alert(`Updated stats`))
+  }
+
   render () {
     const { stats } = this.props
 
@@ -13,6 +19,13 @@ class __DashboardPage extends React.Component {
           <h1 className="h3 mb-0 text-gray-800">
             Dashboard
           </h1>
+
+          <Button
+            className="d-none d-sm-inline-block btn-sm btn-secondary shadow-sm"
+            onClick={this.updateStats}>
+            <i className="fas fa-sync fa-sm text-white-50"></i>
+            Update
+          </Button>
 
           <Button
             className="d-none d-sm-inline-block btn-sm btn-primary shadow-sm"

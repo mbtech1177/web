@@ -47,14 +47,15 @@ const connectExtension = async () => {
 }
 
 const fetchStats = async () => {
-  
-  instagram.start()
+  const isWorking = !instagram.isStopped
+
+  if (!isWorking) instagram.start()
 
   const { data } = await instagram.request({ method: 'stats' })
 
   console.log('stats', data)
 
-  instagram.kill()
+  if (!isWorking) instagram.kill()
 
   return data
 }
