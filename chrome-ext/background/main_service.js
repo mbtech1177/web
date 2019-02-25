@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const res = await instagram.callMethod(method, ...params)
 
-      return sendResponse({ status: res.status })
+      return sendResponse(res)
     } catch (err) {
       console.error(err)
       return sendResponse({ status: 'error', error: err.message })
