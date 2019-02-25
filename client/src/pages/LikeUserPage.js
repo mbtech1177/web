@@ -108,7 +108,7 @@ class __LikeUserPage extends React.Component {
                 <div className="row">
                   <div className="col-auto">
                     <div className="btn-group">
-                      {[10, 20, 50].map((num, index) => (
+                      {[1, 2, 3, 5, 10].map((num, index) => (
                         <Button
                           className="btn-secondary"
                           key={index}
