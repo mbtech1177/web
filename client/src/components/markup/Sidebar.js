@@ -74,6 +74,14 @@ const Sidebar = () => (
 
     {/* <!-- Nav Item -   --> */}
     <li className="nav-item">
+      <Link className="nav-link" to="/support-us">
+        <i className="fas fa-fw fa-file-alt"></i>
+        <span>Support us</span>
+      </Link>
+    </li>
+
+    {/* <!-- Nav Item -   --> */}
+    <li className="nav-item">
       <a className="nav-link" href="https://t.me/instabotproject">
         <i className="fab fa-fw fa-telegram"></i>
         <span>Telegram</span></a>
@@ -98,7 +106,7 @@ const Sidebar = () => (
 
     <li className="nav-item">
       <Link className="nav-link" to="/logs">
-        <i className="fas fa-file-alt"></i>
+        <i className="fas fa-fw fa-file-alt"></i>
         <span>Logs</span>
       </Link>
     </li>
