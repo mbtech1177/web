@@ -64,14 +64,6 @@ const Sidebar = () => (
       </div>
     </li>
 
-
-    <li className="nav-item">
-      <Link className="nav-link" to="/logs">
-        <i className="fas fa-file-alt"></i>
-        <span>Logs</span>
-      </Link>
-    </li>
-
     {/* <!-- Divider  --> */}
     <hr className="sidebar-divider" />
 
@@ -104,10 +96,17 @@ const Sidebar = () => (
     {/* <!-- Divider  --> */}
     <hr className="sidebar-divider d-none d-md-block" />
 
+    <li className="nav-item">
+      <Link className="nav-link" to="/logs">
+        <i className="fas fa-file-alt"></i>
+        <span>Logs</span>
+      </Link>
+    </li>
+
     {/* <!-- Sidebar Toggler (Sidebar)  --> */}
-    <div className="text-center d-none d-md-inline">
+    {/* <div className="text-center d-none d-md-inline">
       <button className="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
+    </div> */}
 
     {/* <!-- End of Sidebar  --> */}
   </ul>
