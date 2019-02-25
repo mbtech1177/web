@@ -2,6 +2,12 @@
 
 <img width="300" alt="Instagram Web" src="https://user-images.githubusercontent.com/1909384/52903490-47be0d00-322f-11e9-954c-9035f4d9ac7f.png">
 
+## Requirements
+
+1. Updated Chrome browser
+2. Installed [Extension](https://chrome.google.com/webstore/detail/instagram-yourself/njonkbhnmmjgancfbncekpgkmidhbbpo)
+3. Disabled 2FA on your Instagram account
+
 ## Installing Extension:
 
 1. Install and update your Google Chrome browser
@@ -11,22 +17,30 @@
 7. Open https://caffeinum.github.io/instaweb/
 8. Enjoy!
 
+## Updating the extension
+
+1. Go to [chrome://extensions](chrome://extensions)
+2. Press update button on the top
+
 ## Troubleshooting
 
 If nothing worked, try to 
 
 1. Restart the browser
-2. Logout and login again
-3. Delete extension and reinstall it
+2. Check for [extension updates](chrome://extensions) on chrome://extensions
+3. Logout and login again in the extension
+4. Delete extension and reinstall it
 
-## Build Chrome Extension Menually
+## For developers
+
+### Build Chrome Extension Manually
 
 ``` bash
 npm i
 npm run build
 ```
 
-## Add built Extension to Google Chrome
+### Add built Extension to Google Chrome
 
 1. Build extension manually
 2. Open [chrome://extensions](chrome://extensions) in Chrome
