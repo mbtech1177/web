@@ -18,7 +18,9 @@ class __App extends React.Component {
           this.props.showErrorMessage(error)
         }
 
-        fetchStats().then(stats => this.props.updateStats(stats))
+        fetchStats()
+          .then(stats => this.props.updateStats(stats))
+          .catch(err => console.error(err))
 
         // TODO: HACK
         setInterval(() => {
