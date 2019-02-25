@@ -35,14 +35,20 @@ class LogCard extends React.Component {
           <h6 className="m-0 font-weight-bold text-primary">Logs</h6>
 
           {this.props.clearLog && (
-          <a style={{ cursor: 'pointer' }} className="m-0 text-danger" onClick={() => confirm(`Clear log?`) && this.props.clearLog()}>
+          <InlineButton
+            className="m-0 text-danger"
+            onClick={() => confirm(`Clear log?`) && this.props.clearLog()}
+          >
             Clear Log
-          </a>
+          </InlineButton>
           )}
 
-          <a style={{ cursor: 'pointer' }} className="m-0" onClick={() => this.scrollToBottom(true)}>
+          <InlineButton
+            className="m-0"
+            onClick={() => this.scrollToBottom(true)}
+          >
             Scroll to End
-          </a>
+          </InlineButton>
         </div>
         {/* <!-- Card Body  --> */}
         <div className="card-body" style={{ height: "70vh", overflowY: "scroll" }}>

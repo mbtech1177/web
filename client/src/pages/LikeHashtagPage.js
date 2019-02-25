@@ -119,6 +119,7 @@ class __LikeHashtagPage extends React.Component {
                         className="btn-secondary"
                         key={index}
                         data-value={num}
+                        ym={`like-hashtag-select-${num}`}
                         onClick={this.handlePhotosNumberChange(num)}
                       >
                         {num}
@@ -136,6 +137,7 @@ class __LikeHashtagPage extends React.Component {
                   <div>
                       <Button
                         className="btn-primary"
+                        ym="like-hashtag-submit"
                         onClick={this.handleLikeHashtagButton}>
                         Like {nPhotos} photos
                       </Button>

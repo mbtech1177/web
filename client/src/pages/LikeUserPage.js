@@ -113,6 +113,7 @@ class __LikeUserPage extends React.Component {
                           className="btn-secondary"
                           key={index}
                           data-value={num}
+                          ym={`like-user-select-${num}`}
                           onClick={this.handlePhotosNumberChange(num)}
                         >
                           {num}
@@ -130,6 +131,7 @@ class __LikeUserPage extends React.Component {
                     <div>
                         <Button
                           className="btn-primary"
+                          ym={`like-user-submit`}
                           onClick={this.handleLikeUserButton}>
                           Like {nPhotos} photos
                         </Button>
