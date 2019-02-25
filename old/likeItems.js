@@ -31,7 +31,12 @@ const likeItems = async (items, n = 10, printLog = console.log) => {
       return
     }
 
-    printLog(`Sending like <a href="${url}" target="_blank">${url}</a>...`)
+    printLog(`Sending like <a href="${url}" target="_blank">${url}</a>... `)
+
+    if (item.has_liked) {
+      printLog(`SKIPPING (Already liked)`, false)
+      return
+    }
 
     const { status } = await instagram.request({
       method: 'like',
