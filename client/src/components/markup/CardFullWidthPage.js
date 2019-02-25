@@ -12,7 +12,7 @@ class CardFullWidthPage extends React.Component {
             <div className="card border-left-primary shadow h-150 py-2">
               <div className="card-body">
 
-                {props.children}
+                {this.props.children}
 
               </div>
             </div>
