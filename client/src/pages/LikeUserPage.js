@@ -53,7 +53,7 @@ class __LikeUserPage extends React.Component {
     const { nPhotos, username, showAlertAfterFinish, shouldRedirectToLogs } = this.state
 
     if (shouldRedirectToLogs) {
-      return <Redirect to="/logs" />
+      return <Redirect push to="/logs" />
     }
 
     return (

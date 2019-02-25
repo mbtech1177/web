@@ -53,7 +53,7 @@ class __LikeHashtagPage extends React.Component {
     const { nPhotos, hashtag, showAlertAfterFinish, shouldRedirectToLogs } = this.state
 
     if (shouldRedirectToLogs) {
-      return <Redirect to="/logs" />
+      return <Redirect push to="/logs" />
     }
 
     return (
