@@ -75,7 +75,7 @@ const Sidebar = () => (
     {/* <!-- Nav Item -   --> */}
     <li className="nav-item">
       <Link className="nav-link" to="/support-us">
-        <i className="fas fa-fw fa-file-alt"></i>
+        <i className="fas fa-fw fa-grin-hearts"></i>
         <span>Support us</span>
       </Link>
     </li>
