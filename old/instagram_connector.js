@@ -54,7 +54,9 @@ class InstagramConnector {
   kill = () => this.isStopped = true
 
   request = (data, wake = false) => new Promise((resolve, reject) => {
-    if (wake) this.start()
+    const wasWorking = !this.isStopped
+
+    if (wake && !wasWorking) this.start()
 
     if (this.isStopped) return reject(new Error(`Request was killed`))
     if (!this.isConnected) return reject(new NotInstalledError())
@@ -78,7 +80,7 @@ class InstagramConnector {
     console.log(`send_message`, this._currend_id, data)
     chrome.runtime.sendMessage(this._currend_id, data, null, onResponse)
 
-    if (wake) this.kill()
+    if (wake && !wasWorking) this.kill()
   })
 
 }
