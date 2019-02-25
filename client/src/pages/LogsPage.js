@@ -6,8 +6,7 @@ class __LogsPage extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          {/* <!-- Area Chart  --> */}
-          <div className="col-xl-12 col-lg-7">
+          <div className="col-xl-12 col-lg-12">
             <LogCard autoScroll={true} log={this.props.log} clearLog={this.props.clearLog} />
           </div>
         </div>
