@@ -13,16 +13,17 @@ const likeItems = async (items, n = 10, printLog = console.log) => {
   if (!confirm(`Will put ${n} likes at:\n${firstNItems.map(i => instagramUrl(i)).join("\n")}. OK?`))
     return instagram.kill()
 
-  const queue = makeQueue(firstNItems, async item => {
+  const queue = makeQueue(firstNItems, async (item, index) => {
     const url = instagramUrl(item)
+    const num = `${index+1}/${n}`
 
     if (instagram.isStopped) {
-      printLog(`Skipping <a href="${url}" target="_blank">${url}</a>...`)
+      printLog(`${num}: Skipping <a href="${url}" target="_blank">${url}</a>...`)
       return
     }
 
     if (item.has_liked) {
-      printLog(`SKIPPING (Already liked) <a href="${url}" target="_blank">${url}</a>`)
+      printLog(`${num}: SKIPPING (Already liked) <a href="${url}" target="_blank">${url}</a>`)
       return
     }
 
@@ -32,11 +33,11 @@ const likeItems = async (items, n = 10, printLog = console.log) => {
     await sleep(sec * 1000)
 
     if (instagram.isStopped) {
-      printLog(`Skipping <a href="${url}" target="_blank">${url}</a>...`)
+      printLog(`${num}: Skipping <a href="${url}" target="_blank">${url}</a>...`)
       return
     }
 
-    printLog(`Sending like <a href="${url}" target="_blank">${url}</a>... `)
+    printLog(`${num}: Sending like <a href="${url}" target="_blank">${url}</a>... `)
 
     const { status } = await instagram.request({
       method: 'like',
@@ -45,18 +46,18 @@ const likeItems = async (items, n = 10, printLog = console.log) => {
 
     printLog(`${status}`, false)
 
-    console.log('Liked item', item, url)
+    console.log('Liked item', num, item, url)
   })
 
   queue
-    .then(() => printLog(`Finished!`))
+    .then(() => printLog(`Finished! ${n} photos.`))
     .finally(() => instagram.kill())
 
 }
 
 const makeQueue = (items, step) => {
   return items.reduce(
-      (queue, item) => queue.then(() => step(item)),
+      (queue, item, index) => queue.then(() => step(item, index)),
       Promise.resolve()
     )
 
