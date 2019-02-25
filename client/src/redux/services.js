@@ -46,6 +46,19 @@ const connectExtension = async () => {
   }
 }
 
+const fetchStats = async () => {
+  
+  instagram.start()
+
+  const { data } = await instagram.request({ method: 'stats' })
+
+  console.log('stats', data)
+
+  instagram.kill()
+
+  return data
+}
+
 const likePhotosByHashtag = async (hashtag, n, printLog = console.log) => {
 
   if (!instagram.isStopped) {

@@ -18,6 +18,8 @@ class __App extends React.Component {
           this.props.showErrorMessage(error)
         }
 
+        fetchStats().then(stats => this.props.updateStats(stats))
+
         // TODO: HACK
         setInterval(() => {
           this.props.updateInstagramServiceStatus(instagram)
@@ -52,7 +54,7 @@ class __App extends React.Component {
 
 const App = withRouter(connect(
   null,
-  { updateConnectionStatus, updateInstagramServiceStatus, showLoader, hideLoader, setUser, showErrorMessage, printLog }
+  { updateConnectionStatus, updateInstagramServiceStatus, showLoader, hideLoader, setUser, showErrorMessage, printLog, updateStats }
 )(__App))
 
 ReactDOM.render(

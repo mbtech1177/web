@@ -2,15 +2,6 @@ const { connect } = ReactRedux
 
 
 class __DashboardPage extends React.Component {
-  componentWillMount() {
-    setTimeout(async () => {
-      const { status, data } = await instagram.request({ method: 'stats' }, true)
-
-      console.log('status', status, data)
-
-      this.props.updateStats(data)
-    }, 500)
-  }
 
   render () {
     const { stats } = this.props
