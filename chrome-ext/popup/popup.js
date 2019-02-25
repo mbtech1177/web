@@ -50,7 +50,9 @@ const setView = ({ logged_in, user = {}} = {}) => {
     document.querySelectorAll('.not_logged_in').forEach(elem => elem.style.display = '')
   }
 
-  document.querySelector('.username-field').innerText = user.username
+  if (user) {
+    document.querySelector('.username-field').innerText = user.username
+  }
 
 }
 

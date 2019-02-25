@@ -129,7 +129,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const res = await instagram.callMethod(method, ...params)
 
-      saveToHistory({ method, params }, res)
       return replyToRequest(sender, req_id, res)
     } catch (err) {
       console.error(err)
