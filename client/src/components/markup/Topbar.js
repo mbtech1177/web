@@ -23,16 +23,24 @@ const __Topbar = (props) => (
         </li>
       )}
 
-      {props.connection.status !== CONNECTION.LOGGED_IN && (
+      <div className="topbar-divider d-none d-sm-block"></div>
+
+
+      {props.connection.status === CONNECTION.NOT_INSTALLED && (
         <li className="nav-item dropdown no-arrow">
           <span className="nav-link">
             <span className="connection-status mr-2 d-none d-lg-inline text-danger">
               <i className="fas fa-exclamation-triangle"></i>
-              {' '}
-              {props.connection.description}
+              Website works only with our extension installed.
+              Please make sure that you have an extension installed,
+              you are using the latest Chrome, you are not on mobile.
             </span>
           </span>
         </li>
+      )}
+
+      {props.connection.status === CONNECTION.NOT_INSTALLED && (
+        <div className="topbar-divider d-none d-sm-block"></div>
       )}
 
       {props.connection.status === CONNECTION.NOT_INSTALLED && (
@@ -47,7 +55,20 @@ const __Topbar = (props) => (
         </li>
       )}
 
-      <div className="topbar-divider d-none d-sm-block"></div>
+      {( props.connection.status === CONNECTION.NOT_LOGGED_IN
+      || props.connection.status === CONNECTION.UNKNOWN)
+      && (
+        <li className="nav-item dropdown no-arrow">
+          <span className="nav-link">
+            <span className="connection-status mr-2 d-none d-lg-inline text-danger">
+              <i className="fas fa-exclamation-triangle"></i>
+              {' '}
+              {props.connection.description}
+            </span>
+          </span>
+        </li>
+      )}
+
 
       {props.connection.status === CONNECTION.LOGGED_IN && (
         <li className="nav-item dropdown no-arrow">

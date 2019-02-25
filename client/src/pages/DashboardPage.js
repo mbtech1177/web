@@ -12,12 +12,6 @@ class __DashboardPage extends React.Component {
   render () {
     const { stats } = this.props
 
-    if (this.props.connection.status === CONNECTION.NOT_INSTALLED) {
-      return (
-        <Redirect push to="/install-extension" />
-      )
-    }
-
     return (
       <div className="container-fluid">
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
