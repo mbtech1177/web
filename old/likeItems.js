@@ -59,7 +59,7 @@ const likeItems = async (items, n = 10, printLog = console.log) => {
   })
 
   queue
-    .then(() => printLog(`Finished! ${Math.min(n, users.length)} photos.`))
+    .then(() => printLog(`Finished! ${Math.min(n, items.length)} photos.`))
     .finally(() => instagram.kill())
 
 }
