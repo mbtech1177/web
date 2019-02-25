@@ -142,10 +142,10 @@ class __DashboardPage extends React.Component {
               </div>
               {/* <!-- Card Body  --> */}
               <div className="card-body">
-                <div className="chart-area">
+                <div className="chart-area" style={{ overflowY: 'scroll' }}>
                     {stats.full.follower_count && stats.full.follower_count.map(item => (
                       <div key={item.savedAt}>
-                        {`${Date(item.savedAt)} - ${item.followers}`}
+                        {`${new Date(item.savedAt)} - ${item.followers}`}
                       </div>
                     ))}
                   <canvas id="myAreaChart">
