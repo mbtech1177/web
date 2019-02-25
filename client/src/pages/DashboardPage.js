@@ -125,7 +125,7 @@ class __DashboardPage extends React.Component {
 
         <div className="row">
           {/* <!-- Area Chart  --> */}
-          <div className="col-xl-12 col-lg-12">
+          <div className="col-xl-6 col-lg-6">
             <div className="card shadow mb-4">
               {/* <!-- Card Header - Dropdown  --> */}
               <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -133,23 +133,44 @@ class __DashboardPage extends React.Component {
               </div>
               {/* <!-- Card Body  --> */}
               <div className="card-body">
-                <div className="chart-area" style={{ overflowY: 'scroll' }}>
+                {!stats.full.follower_count && (
+                  'No data'
+                )}
+
+                {stats.full.follower_count && (
+                  <div className="chart-area" style={{ height: '500px'}}>
+                    <Plot
+                      data={[{
+                        type: 'scatter',
+                        x: stats.full.follower_count.map(d => new Date(d.savedAt)),
+                        y: stats.full.follower_count.map(d => d.followers),
+                      }]}
+                      layout={{
+                        autosize: true,
+                        margin: {
+                          l: 50, r: 20, b: 30, t: 30,
+                        }
+                      }}
+                    />
+                  </div>
+                )}
+
+                {false && stats.full.follower_count && (
+                  <div className="data-area" style={{ overflowY: 'scroll' }}>
                     {stats.full.follower_count && stats.full.follower_count.map(item => (
                       <div key={item.savedAt}>
-                        {`${new Date(item.savedAt)} - ${item.followers}`}
+                      {`${new Date(item.savedAt)} - ${item.followers}`}
                       </div>
                     ))}
-                  <canvas id="myAreaChart">
-                  </canvas>
-                </div>
+                  </div>
+                )}
+
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="row">
           {/* <!-- Area Chart  --> */}
-          <div className="col-xl-12 col-lg-12">
+          <div className="col-xl-6 col-lg-6">
             <LogCard log={this.props.log}/>
           </div>
         </div>
