@@ -26,7 +26,9 @@ const __Topbar = (props) => (
       {props.connection.status !== CONNECTION.LOGGED_IN && (
         <li className="nav-item dropdown no-arrow">
           <span className="nav-link">
-            <span className="connection-status mr-2 d-none d-lg-inline text-grey-600 small">
+            <span className="connection-status mr-2 d-none d-lg-inline text-danger">
+              <i className="fas fa-exclamation-triangle"></i>
+              {' '}
               {props.connection.description}
             </span>
           </span>
@@ -36,7 +38,7 @@ const __Topbar = (props) => (
       {props.connection.status === CONNECTION.NOT_INSTALLED && (
         <li className="nav-item dropdown no-arrow">
           <span className="nav-link">
-            <span className="install-extension mr-2 d-none d-lg-inline text-grey-600 small">
+            <span className="install-extension mr-2 d-none d-lg-inline text-grey-600">
               <a href="https://chrome.google.com/webstore/detail/instagram-yourself/njonkbhnmmjgancfbncekpgkmidhbbpo" target="_blank">
                 Install extension
               </a>
