@@ -22,6 +22,8 @@ class __LikeUserPage extends React.Component {
 
       this.handleRedirectToLogs()
     } catch (err) {
+      console.error(err)
+      this.props.printLog(`Error: ${err.message}`, false)
       alert(err.message)
     } finally {
       this.props.hideLoader()

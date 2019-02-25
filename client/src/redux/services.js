@@ -72,24 +72,18 @@ const likePhotosByHashtag = async (hashtag, n, printLog = console.log) => {
 
   instagram.start()
 
-  try {
+  printLog(`Fetching photos by hashtag: #${hashtag} ... `)
 
-    printLog(`Fetching photos by hashtag: #${hashtag} ... `)
+  const { items } = await instagram.request({
+    method: 'get_hashtag_feed',
+    params: [ hashtag ]
+  })
 
-    const { items } = await instagram.request({
-      method: 'get_hashtag_feed',
-      params: [ hashtag ]
-    })
+  printLog(`OK, ${items.length} results`, false)
+  console.log(`URLS:`, items.map(instagramUrl))
 
-    printLog(`OK, ${items.length} results`, false)
-    console.log(`URLS:`, items.map(instagramUrl))
+  likeItems(items, n, printLog)
 
-    likeItems(items, n, printLog)
-
-  } catch(err) {
-    console.error(err)
-    alert(err.message)
-  }
 }
 
 const likePhotosByUsername = async (username, n, printLog) => {
@@ -102,30 +96,23 @@ const likePhotosByUsername = async (username, n, printLog) => {
     throw new Error(`Empty field!`)
   }
 
-  try {
-    instagram.start()
+  instagram.start()
 
-    printLog(`Fetching photos by username @${username}: ... `)
+  printLog(`Fetching photos by username @${username}: ... `)
 
-    const { user } = await instagram.request({
-      method: 'get_user_info',
-      params: [ username ]
-    })
+  const { user } = await instagram.request({
+    method: 'get_user_info',
+    params: [ username ]
+  })
 
-    const { items } = await instagram.request({
-      method: 'get_user_feed',
-      params: [ user.pk ]
-    })
+  const { items } = await instagram.request({
+    method: 'get_user_feed',
+    params: [ user.pk ]
+  })
 
-    printLog(`OK, ${items.length} results`, false)
+  printLog(`OK, ${items.length} results`, false)
 
-    likeItems(items, n, printLog)
-
-  } catch(err) {
-    console.error(err)
-    alert(err.message)
-  }
-
+  likeItems(items, n, printLog)
 }
 
 const onKillAll = async (printLog = console.log) => {
