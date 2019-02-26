@@ -21,17 +21,21 @@ class __DashboardPage extends React.Component {
           </h1>
 
           <Button
-            className="d-none d-sm-inline-block btn-sm btn-secondary shadow-sm"
+            className="btn btn-warning btn-icon-split"
             onClick={this.updateStats}>
-            <i className="fas fa-sync fa-sm text-white-50"></i>
-            Update
+            <span className="icon text-white-50">
+                <i className="fas fa-sync"></i>
+              </span>
+              <span className="text">Update Stats</span>
           </Button>
 
           <Button
-            className="d-none d-sm-inline-block btn-sm btn-primary shadow-sm"
+            className="btn btn-secondary btn-icon-split"
             onClick={() => alert(this.props.connection.description)}>
-            <i className="fas fa-sync fa-sm text-white-50"></i>
-            Check Extension Connection
+            <span className="icon text-white-50">
+                <i className="fas fa-check"></i>
+              </span>
+              <span className="text">Check Extension Connection</span>
           </Button>
 
           {
