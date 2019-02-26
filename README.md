@@ -1,20 +1,22 @@
 # Instagram yourself!
 
-<img width="300" alt="Instagram Web" src="https://user-images.githubusercontent.com/1909384/52903490-47be0d00-322f-11e9-954c-9035f4d9ac7f.png">
+<img width="200" alt="Instagram Web" src="https://user-images.githubusercontent.com/1909384/52903490-47be0d00-322f-11e9-954c-9035f4d9ac7f.png">
 
-Automate your Instagram with your browser! Yes, we just moved [Instabot](https://github.com/instagrambot/instabot) to the browser. No coding skills needed! 
+## Automate your Instagram with your browser!
+
+> Yes, we moved [Instabot](https://github.com/instagrambot/instabot) to the browser. No coding skills needed! 
 
 ## Minimal Requirements
 
-While we are in early alpha version, to use our servise you should fit these requirements:
+While we are in early alpha version, to use our service you should fit these requirements:
 
 1. Update Google Chrome browser
 2. Install [Extension](https://chrome.google.com/webstore/detail/instagram-yourself/njonkbhnmmjgancfbncekpgkmidhbbpo)
 3. Disable 2FA on your Instagram account
 
-## How to start to automate your Instagram
+## How to start automating your Instagram
 
-1. Install and update your Google Chrome browser
+1. Install and update your [Google Chrome browser](https://chrome.google.com)
 2. Install our extension from the [Official store](https://chrome.google.com/webstore/detail/instagram-yourself/njonkbhnmmjgancfbncekpgkmidhbbpo)
 3. Press our pink icon and login with your Instagram account
 <img width="200" alt="Developer mode" src="https://user-images.githubusercontent.com/1909384/53411632-0ae4d980-39d8-11e9-8a2a-c313faa7495b.png">
@@ -31,7 +33,7 @@ While we are in early alpha version (again, sorry), please keep our Extension up
 
 ## Troubleshooting
 
-If you passed all steps in Installation guide and you sure that you sutisfied all conditions but something went wrong, please try to handle the issue my yourself. Just follow this 'reset' steps:
+If you passed all steps in Installation guide and you sure that you satisfied all conditions but something went wrong, please try to handle the issue by yourself. Just follow this 'reset' steps:
 
 1. Restart the browser
 2. Check for [extension updates](chrome://extensions) on chrome://extensions
@@ -42,7 +44,7 @@ If it still fails, please follow [the guide](https://github.com/caffeinum/instaw
 
 
 # For developers Only
-If you want to code some features to the website, you can just 
+If you want to code some features to the website, you can clone the repo and: 
 
 ## Build Chrome Extension Manually
 
