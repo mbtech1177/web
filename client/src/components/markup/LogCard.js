@@ -32,7 +32,9 @@ class LogCard extends React.Component {
       <div className="card shadow mb-4">
         {/* <!-- Card Header - Dropdown  --> */}
         <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 className="m-0 font-weight-bold text-primary">Logs</h6>
+          <h6 className="m-0 font-weight-bold text-primary">
+            <Link to="/logs">Logs</Link>
+          </h6>
 
           {this.props.clearLog && !!this.props.log.length && (
           <InlineButton
