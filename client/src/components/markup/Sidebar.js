@@ -89,14 +89,14 @@ const Sidebar = () => (
 
     {/* <!-- Nav Item -   --> */}
     <li className="nav-item">
-      <a className="nav-link" href="https://github.com/caffeinum/instaweb">
+      <a className="nav-link" href="https://github.com/instagrambot/web">
         <i className="fab fa-fw fa-github"></i>
         <span>GitHub</span></a>
     </li>
 
     {/* <!-- Nav Item -   --> */}
     <li className="nav-item">
-        <a className="nav-link" href="https://github.com/caffeinum/instaweb#installing-extension">
+        <a className="nav-link" href="https://github.com/instagrambot/web#installing-extension">
           <i className="fas fa-fw fa-question"></i>
           <span>FAQ</span></a>
       </li>
