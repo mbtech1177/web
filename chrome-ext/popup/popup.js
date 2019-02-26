@@ -15,7 +15,7 @@ const whenLogged = async () => {
 }
 
 const openControlPanel = () => {
-  window.open(`https://caffeinum.github.io/instaweb`)
+  window.open(`https://instagrambot.github.io/web`)
 }
 
 const updateView = async () => {
