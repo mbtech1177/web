@@ -146,7 +146,13 @@ class __DashboardPage extends React.Component {
             <div className="card shadow mb-4">
               {/* <!-- Card Header - Dropdown  --> */}
               <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 className="m-0 font-weight-bold text-primary">Followers over time</h6>
+                <h6 className="m-0 font-weight-bold text-primary">
+                  Followers over time
+                  {' '}
+                    <a href={userUrl(this.props.user)} target="_blank">
+                      @{this.props.user.username}
+                    </a>
+                </h6>
               </div>
               {/* <!-- Card Body  --> */}
               <div className="card-body">
@@ -197,6 +203,6 @@ class __DashboardPage extends React.Component {
 }
 
 const DashboardPage = connect(
-  ({ isLoading, log, connection, stats }) => ({ isLoading, log, connection, stats }),
+  ({ user, isLoading, log, connection, stats }) => ({ user, isLoading, log, connection, stats }),
   { showLoader, hideLoader, printLog, clearLog, updateStats }
 )(__DashboardPage)
