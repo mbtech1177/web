@@ -40,7 +40,7 @@ If you passed all steps in Installation guide and you sure that you satisfied al
 3. Logout and login again in the extension
 4. Delete extension and reinstall it
 
-If it still fails, please follow [the guide](https://github.com/caffeinum/instaweb/issues/1) to provide us with all data we may need to fix this. Send all screenshots to [GitHub Issues](https://github.com/caffeinum/instaweb/issues/new). Thanks! 
+If it still fails, please follow [the guide](https://github.com/instagrambot/web/issues/1) to provide us with all data we may need to fix this. Send all screenshots to [GitHub Issues](https://github.com/instagrambot/web/issues/new). Thanks! 
 
 
 # For developers Only
