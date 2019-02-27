@@ -8,7 +8,57 @@ const userUrl = (item = {}) => {
   return `https://instagram.com/${item.username}`
 }
 
+const getURL = (item) => {
+  const isUser = !!item.username
+
+  return isUser ? userUrl(item) : instagramUrl(item)
+}
+
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+
+const safeMap = async (items, transform, timeout = 5, n, printLog = console.log) => {
+  instagram.start()
+
+  const firstNItems = isNaN(n) ? items : items.slice(0, n)
+
+  const queue = makeQueue(firstNItems, async (item, index) => {
+    const num = `${index+1}/${firstNItems.length}`
+    const url = getURL(item)
+
+    if (instagram.isStopped) {
+      printLog(`${num}: Skipping <a href="${url}" target="_blank">${url}</a>...`)
+      return { status: 'skipped' }
+    }
+
+    const amp = 0.9
+    const randomTimeout = timeout * (1 + amp * (0.5 - Math.random()))
+    const sec = Math.max(0.5, randomTimeout)
+    printLog(`Sleeping ${sec.toFixed(2)} seconds`)
+
+    await sleep(sec * 1000)
+
+    if (instagram.isStopped) {
+      printLog(`${num}: Skipping <a href="${url}" target="_blank">${url}</a>...`)
+      return { status: 'skipped' }
+    }
+
+    printLog(`${num}: Fetching <a href="${url}" target="_blank">${url}</a>... `)
+
+    try {
+      return await transform(item, index)
+    } catch (err) {
+      return { status: 'error', error: err.message }
+    }
+  })
+
+  queue
+    .then((res) => printLog(`Finished! Successful: ${res.filter(r => r.status == 'ok').length} items.`))
+    .finally(() => instagram.kill())
+
+  return queue
+}
+
 
 const likeItems = async (items, n = 10, printLog = console.log) => {
   instagram.start()
@@ -120,8 +170,9 @@ const followList = async (users, n = 10, printLog = console.log) => {
 
 const makeQueue = (items, step) => {
   return items.reduce(
-      (queue, item, index) => queue.then(() => step(item, index)),
-      Promise.resolve()
+      (queue, item, index) => queue.then(
+        (results) => step(item, index).then(res => [ ...results, res ])
+      ),
+      Promise.resolve([])
     )
-
 }
