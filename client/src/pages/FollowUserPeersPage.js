@@ -156,7 +156,7 @@ class __FollowUserPeersPage extends React.Component {
                           className="btn-secondary"
                           key={index}
                           data-value={num}
-                          ym={`like-user-select-${num}`}
+                          ym={`follow-select-${num}`}
                           onClick={this.handlePhotosNumberChange(num)}
                         >
                           {num}
@@ -174,7 +174,7 @@ class __FollowUserPeersPage extends React.Component {
                     <div>
                         <Button
                           className="btn-primary"
-                          ym={`like-user-submit`}
+                          ym={`follow-submit`}
                           onClick={this.handleFollowUserPeersButton}>
                           Follow {nUsers} Users
                         </Button>
