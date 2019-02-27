@@ -31,7 +31,7 @@
 
   <!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(52144714, "init", { id:52144714, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/52144714" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
 
-  <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -40,8 +40,39 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles -->
-  <link href="./client/css/sb-admin-2.css" rel="stylesheet">
+  <link href="/client/css/sb-admin-2.css" rel="stylesheet">
 
+  <!-- Start Single Page Apps for GitHub Pages -->
+  <script type="text/javascript">
+    // Single Page Apps for GitHub Pages
+    // https://github.com/rafrex/spa-github-pages
+    // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+    // ----------------------------------------------------------------------
+    // This script checks to see if a redirect is present in the query string
+    // and converts it back into the correct url and adds it to the
+    // browser's history using window.history.replaceState(...),
+    // which won't cause the browser to attempt to load the new url.
+    // When the single page app is loaded further down in this file,
+    // the correct url will be waiting in the browser's history for
+    // the single page app to route accordingly.
+    (function(l) {
+      if (l.search) {
+        var q = {};
+        l.search.slice(1).split('&').forEach(function(v) {
+          var a = v.split('=');
+          q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
+        });
+        if (q.p !== undefined) {
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + (q.p || '') +
+            (q.q ? ('?' + q.q) : '') +
+            l.hash
+          );
+        }
+      }
+    }(window.location))
+  </script>
+  <!-- End Single Page Apps for GitHub Pages -->
 </head>
 
 <body id="page-top">
@@ -64,43 +95,43 @@
   <!-- <script crossorigin src=""></script> -->
 
   <!-- Custom scripts for all pages-->
-  <script src="./client/js/sb-admin-2.js"></script>
+  <script src="/client/js/sb-admin-2.js"></script>
 
-  <script src="./old/instagram_connector.js"></script>
-  <script src="./old/likeItems.js"></script>
+  <script src="/old/instagram_connector.js"></script>
+  <script src="/old/likeItems.js"></script>
 
-  <script src="./client/src/scripts.js" type="text/babel"></script>
+  <script src="/client/src/scripts.js" type="text/babel"></script>
 
-  <script src="./client/src/redux/constants.js" type="text/babel"></script>
-  <script src="./client/src/redux/services.js" type="text/babel"></script>
-  <script src="./client/src/redux/actions.js" type="text/babel"></script>
-  <script src="./client/src/redux/store.js" type="text/babel"></script>
+  <script src="/client/src/redux/constants.js" type="text/babel"></script>
+  <script src="/client/src/redux/services.js" type="text/babel"></script>
+  <script src="/client/src/redux/actions.js" type="text/babel"></script>
+  <script src="/client/src/redux/store.js" type="text/babel"></script>
 
-  <script src="./client/src/pages/DashboardPage.js" type="text/babel"></script>
-  <script src="./client/src/pages/BlankPage.js" type="text/babel"></script>
-  <script src="./client/src/pages/LikeHashtagPage.js" type="text/babel"></script>
-  <script src="./client/src/pages/LikeUserPage.js" type="text/babel"></script>
-  <script src="./client/src/pages/FollowUserPeersPage.js" type="text/babel"></script>
-  <script src="./client/src/pages/LogsPage.js" type="text/babel"></script>
-  <script src="./client/src/pages/SupportUsPage.js" type="text/babel"></script>
-  <script src="./client/src/pages/ScriptPage.js" type="text/babel"></script>
-  <script src="./client/src/pages/NotFoundPage.js" type="text/babel"></script>
+  <script src="/client/src/pages/DashboardPage.js" type="text/babel"></script>
+  <script src="/client/src/pages/BlankPage.js" type="text/babel"></script>
+  <script src="/client/src/pages/LikeHashtagPage.js" type="text/babel"></script>
+  <script src="/client/src/pages/LikeUserPage.js" type="text/babel"></script>
+  <script src="/client/src/pages/FollowUserPeersPage.js" type="text/babel"></script>
+  <script src="/client/src/pages/LogsPage.js" type="text/babel"></script>
+  <script src="/client/src/pages/SupportUsPage.js" type="text/babel"></script>
+  <script src="/client/src/pages/ScriptPage.js" type="text/babel"></script>
+  <script src="/client/src/pages/NotFoundPage.js" type="text/babel"></script>
 
-  <script src="./client/src/components/dumb/Button.js" type="text/babel"></script>
-  <script src="./client/src/components/dumb/Plot.js" type="text/babel"></script>
+  <script src="/client/src/components/dumb/Button.js" type="text/babel"></script>
+  <script src="/client/src/components/dumb/Plot.js" type="text/babel"></script>
 
-  <script src="./client/src/components/markup/LogoutModal.js" type="text/babel"></script>
-  <script src="./client/src/components/markup/ScrollToTop.js" type="text/babel"></script>
-  <script src="./client/src/components/markup/Footer.js" type="text/babel"></script>
-  <script src="./client/src/components/markup/Sidebar.js" type="text/babel"></script>
-  <script src="./client/src/components/markup/Topbar.js" type="text/babel"></script>
-  <script src="./client/src/components/markup/Wrapper.js" type="text/babel"></script>
-  <script src="./client/src/components/markup/LogCard.js" type="text/babel"></script>
-  <script src="./client/src/components/markup/CardFullWidthPage.js" type="text/babel"></script>
+  <script src="/client/src/components/markup/LogoutModal.js" type="text/babel"></script>
+  <script src="/client/src/components/markup/ScrollToTop.js" type="text/babel"></script>
+  <script src="/client/src/components/markup/Footer.js" type="text/babel"></script>
+  <script src="/client/src/components/markup/Sidebar.js" type="text/babel"></script>
+  <script src="/client/src/components/markup/Topbar.js" type="text/babel"></script>
+  <script src="/client/src/components/markup/Wrapper.js" type="text/babel"></script>
+  <script src="/client/src/components/markup/LogCard.js" type="text/babel"></script>
+  <script src="/client/src/components/markup/CardFullWidthPage.js" type="text/babel"></script>
 
 
-  <script src="./client/src/app.js" type="text/babel"></script>
-  <script src="./client/src/index.js" type="text/babel"></script>
+  <script src="/client/src/app.js" type="text/babel"></script>
+  <script src="/client/src/index.js" type="text/babel"></script>
 
 </body>
 
