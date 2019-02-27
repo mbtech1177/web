@@ -17,7 +17,7 @@ const getURL = (item) => {
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 
-const safeMap = async (items, transform, timeout = 5, n, printLog = console.log) => {
+const safeMap = async (items, transform, printLog = console.log, timeout = 5, n) => {
   instagram.start()
 
   const firstNItems = isNaN(n) ? items : items.slice(0, n)
