@@ -21,6 +21,13 @@ const scripts = {
         labelText: 'Username',
         defaultValue: 'burkinafan',
       },
+      {
+        name: 'isFullInfo',
+        type: 'checkbox',
+        prefix: '',
+        labelText: 'Download full profile for each followers (takes much longer)',
+        defaultValue: false,
+      },
     ],
     run: async ({ username, isFullInfo = false }, printLog = console.log, timeout) => {
       const { user: { pk } } = await instagram.request({ method: 'get_user_info', params: [username] }, true)

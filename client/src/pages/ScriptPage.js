@@ -67,6 +67,13 @@ class __ScriptPage extends React.Component {
     this.setState({ [name]: value })
   }
 
+  handleCheckboxChange = (event) => {
+    const name = event.target.name
+    const value = event.target.checked
+
+    this.setState({ [name]: value })
+  }
+
   handleNumberChange = (name, value) => (event) => {
     this.setState({
       [name]: value,
@@ -109,7 +116,9 @@ class __ScriptPage extends React.Component {
         {params.map(({ labelText, name, type, prefix, values }, index) => (
           <div className="row" key={index}>
             <div className="col-auto">
-                <label htmlFor={name}>{labelText || name}</label>
+                {(type === 'text' || type === 'number')&& (
+                  <label htmlFor={name}>{labelText || name}</label>
+                )}
 
                 {type === 'text' && (
                   <div className="input-group mb-3">
@@ -130,6 +139,23 @@ class __ScriptPage extends React.Component {
                       value={this.state[name]}
                       onChange={this.handleChange}
                     />
+                  </div>
+                )}
+
+
+                {type === 'checkbox' && (
+                  <div className="form-check d-inline-block">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      id={name}
+                      name={name}
+                      value={this.state[name]}
+                      onChange={this.handleCheckboxChange}
+                    />
+                    <label className="form-check-label" htmlFor={name}>
+                      {labelText || name}
+                    </label>
                   </div>
                 )}
 
