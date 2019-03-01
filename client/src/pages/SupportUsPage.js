@@ -64,7 +64,11 @@ class __SupportUsPage extends React.Component {
               <div className="card-body">
                 <p>We would be very happy if you follow us on Instagram! Moreover, this is a good place to test our website.</p>
 
-                <Button className="btn btn-success btn-icon-split" onClick={this.followUs}>
+                <Button 
+                  className="btn-success btn-icon-split" 
+                  onClick={this.followUs}
+                  ym={`supportUs-follow`}
+                >
                   <span className="icon text-white-50">
                       <i className="fas fa-user-friends"></i>
                   </span>
@@ -73,7 +77,12 @@ class __SupportUsPage extends React.Component {
 
                 <div className="my-2"></div>
 
-                {/* <Button className="btn btn-success btn-icon-split" onClick={this.likeUs}>
+                {/* TODO: */}
+                {/* <Button 
+                  className="btn-success btn-icon-split" 
+                  onClick={this.likeUs}
+                  ym={`supportUs-like`}
+                >
                   <span className="icon text-white-50">
                       <i className="fas fa-heart"></i>
                   </span>
