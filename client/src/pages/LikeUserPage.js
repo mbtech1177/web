@@ -137,7 +137,8 @@ class __LikeUserPage extends React.Component {
                         <Button
                           className="btn-success"
                           ym={`like-user-submit`}
-                          onClick={this.handleLikeUserButton}>
+                          onClick={this.handleLikeUserButton}
+                        >
                           Like {nPhotos} photos
                         </Button>
                     </div>

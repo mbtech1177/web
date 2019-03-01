@@ -143,7 +143,8 @@ class __LikeHashtagPage extends React.Component {
                       <Button
                         className="btn-success"
                         ym="like-hashtag-submit"
-                        onClick={this.handleLikeHashtagButton}>
+                        onClick={this.handleLikeHashtagButton}
+                      >
                         Like {nPhotos} photos
                       </Button>
                   </div>

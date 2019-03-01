@@ -175,7 +175,8 @@ class __FollowUserPeersPage extends React.Component {
                         <Button
                           className="btn-success"
                           ym={`follow-submit`}
-                          onClick={this.handleFollowUserPeersButton}>
+                          onClick={this.handleFollowUserPeersButton}
+                        >
                           Follow {nUsers} Users
                         </Button>
                     </div>
