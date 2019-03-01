@@ -33,11 +33,11 @@ const Sidebar = () => (
 
     {/* <!-- Nav Item - Pages Collapse Menu  --> */}
     <li className="nav-item">
-      <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+      <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLike" aria-expanded="true" aria-controls="collapseLike">
         <i className="fas fa-fw fa-heart"></i>
         <span>Like</span>
       </a>
-      <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div id="collapseLike" className="collapse" aria-labelledby="headingLike" data-parent="#accordionSidebar">
         <div className="bg-white py-2 collapse-inner rounded">
           {/* <!-- <h6 className="collapse-header">Custom Components:</h6>  --> */}
           <Link className="collapse-item" to="/like/hashtag">Hashtag</Link>
@@ -51,11 +51,11 @@ const Sidebar = () => (
 
     {/* <!-- Nav Item - Utilities Collapse Menu  --> */}
     <li className="nav-item">
-      <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+      <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFollow" aria-expanded="true" aria-controls="collapseFollow">
         <i className="fas fa-fw fa-user-friends"></i>
         <span>Follow</span>
       </a>
-      <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+      <div id="collapseFollow" className="collapse" aria-labelledby="headingFollow" data-parent="#accordionSidebar">
         <div className="bg-white py-2 collapse-inner rounded">
           {/* <!-- <h6 className="collapse-header">Custom Utilities:</h6>  --> */}
           <Link className="collapse-item" to="/follow/followers">Followers</Link>
@@ -67,11 +67,11 @@ const Sidebar = () => (
 
     {/* <!-- Nav Item - Utilities Collapse Menu  --> */}
     <li className="nav-item">
-      <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+      <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDownload" aria-expanded="true" aria-controls="collapseDownload">
         <i className="fas fa-fw fa-file-download"></i>
         <span>Download</span>
       </a>
-      <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+      <div id="collapseDownload" className="collapse" aria-labelledby="headingDownload" data-parent="#accordionSidebar">
         <div className="bg-white py-2 collapse-inner rounded">
           {/* <!-- <h6 className="collapse-header">Custom Utilities:</h6>  --> */}
           <Link className="collapse-item" to="/script/load_followers">Followers</Link>
