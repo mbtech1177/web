@@ -4,7 +4,7 @@ const { Redirect } = ReactRouterDOM
 class __FollowUserPeersPage extends React.Component {
 
   state = {
-    username: '',
+    username: 'robertdowneyjr',
     nUsers: 10,
     users: [],
     showAlertAfterFinish: false,

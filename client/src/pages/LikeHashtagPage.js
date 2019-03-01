@@ -4,7 +4,7 @@ const { Redirect } = ReactRouterDOM
 class __LikeHashtagPage extends React.Component {
 
   state = {
-    hashtag: '',
+    hashtag: 'cats',
     nPhotos: 10,
     showAlertAfterFinish: false,
     shouldRedirectToLogs: false,
@@ -18,6 +18,11 @@ class __LikeHashtagPage extends React.Component {
     showAlertAfterFinish && this.props.notifyWhenQueueFinished()
 
     try {
+      if (!instagram.isStopped) {
+        alert(`Please stop all other tasks before running!`)
+        return
+      }
+      
       await likePhotosByHashtag(hashtag, nPhotos, this.props.printLog)
 
       this.handleRedirectToLogs()

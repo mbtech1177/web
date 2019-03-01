@@ -4,7 +4,7 @@ const { Redirect } = ReactRouterDOM
 class __LikeUserPage extends React.Component {
 
   state = {
-    username: '',
+    username: 'robertdowneyjr',
     nPhotos: 10,
     showAlertAfterFinish: false,
     shouldRedirectToLogs: false,
@@ -18,6 +18,11 @@ class __LikeUserPage extends React.Component {
     showAlertAfterFinish && this.props.notifyWhenQueueFinished()
 
     try {
+      if (!instagram.isStopped) {
+        alert(`Please stop all other tasks before running!`)
+        return
+      }
+
       await likePhotosByUsername(username, nPhotos, this.props.printLog)
 
       this.handleRedirectToLogs()
