@@ -6,6 +6,17 @@
 
 > Yes, we moved [Instabot](https://github.com/instagrambot/instabot) to the browser. No coding skills needed! 
 
+## Features
+
+- Like posts by hashtag
+- Like posts by user
+- Follow users' followers
+- Follow users' followings
+- Follow users' who posted to hashtag
+- Download users' followers
+- Already-downloaded results will be available after manual stop or even error
+- ... And many more are coming! Drop us a line into Telegram: https://t.me/instabotproject
+
 ## Minimal Requirements
 
 While we are in early alpha version, to use our service you should fit these requirements:
@@ -22,6 +33,23 @@ While we are in early alpha version, to use our service you should fit these req
 <img width="200" alt="Developer mode" src="https://user-images.githubusercontent.com/1909384/53411632-0ae4d980-39d8-11e9-8a2a-c313faa7495b.png">
 4. Open https://instagrambot.github.io/web/
 5. Enjoy!
+
+
+## Tasks
+
+Task is a collection of the requests, for example, a series of likes sent to user media. There are few types of tasks, some are listed above in the "Features" section: like by hashtag, like user's media, follow followers etc. Tasks are added to the queue.
+
+  **When one task is added to the queue, you can't run any new tasks.**
+
+This is intentional: we automatically make big pauses between all the requests so that we don't flood the API. If you want to run a new task, stop current, wait until it unwinds, and then continue.
+
+During the work, task prints all the relevant information to the log. If one of the requests fail, task will continue to progress, and you can see an error and it's description in the log.
+
+**If you were downloading something, the previous and the following results should be saved OK**
+
+If some error happens and all the requests fail, you can stop the task manually. You'll need to wait until it will unwind to it's end, though. However, don't worry, **the data you've already downloaded should be safe and sound.**
+
+If you feel the need for some custom task, you can drop us a feature request into [Issues](https://github.com/instagrambot/web/issues/new), [Telegram](https://t.me/instabotproject) or contribute here: [build custom task (Javascript)](https://github.com/instagrambot/web/blob/master/client/src/scripts.js).
 
 ## Updating the extension
 
