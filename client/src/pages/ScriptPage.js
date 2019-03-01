@@ -18,7 +18,13 @@ class __ScriptPage extends React.Component {
       return
     }
 
-    const params = script.params.reduce((obj, item) => ({ ...obj, [item.name]: '' }), {})
+    const params = script.params
+      .reduce(
+        (obj, item) => ({
+          ...obj,
+          [item.name]: item.defaultValue || ''
+        }),
+      {})
 
     this.script = script
     this.state = {
@@ -35,12 +41,20 @@ class __ScriptPage extends React.Component {
     const { showAlertAfterFinish } = this.state
     showAlertAfterFinish && this.props.notifyWhenQueueFinished()
 
+    if (!instagram.isStopped) {
+      alert(`Finish other tasks first!`)
+      return
+    }
+
+    instagram.start()
+
     this.script.run(this.state, this.props.printLog)
       .catch(err => {
           console.error(err)
           this.props.printLog(`Error: ${err.message}`, false)
           alert(err.message)
       })
+      .finally(() => instagram.kill())
       .finally(() => this.props.hideLoader())
 
     this.handleRedirectToLogs()

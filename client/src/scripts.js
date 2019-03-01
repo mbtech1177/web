@@ -3,7 +3,7 @@ const scripts = {
   test: {
     name: 'Test text input',
     params: [
-      { name: 'username', type: 'text', prefix: '@' },
+      { name: 'username', type: 'text', prefix: '@', defaultValue: 'kanyewest' },
       { name: 'password', type: 'text' },
     ],
     run: async ({ username, password } = {}) => {
