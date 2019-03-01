@@ -1,6 +1,6 @@
 {
   "name": "Instagram Yourself!",
-  "version": "0.2.4",
+  "version": "0.2.7",
   "description": "Extension helps you instagram effectively!",
   "icons": {
     "192": "images/icon.png"
@@ -24,12 +24,11 @@
     "default_icon": "images/icon.png"
   },
   "permissions": [
-    "activeTab",
     "storage",
     "background",
     "webRequest",
     "webRequestBlocking",
-    "*://*.instagram.com/",
+    "https://i.instagram.com/*",
     "https://caffeinum.github.io/*",
     "https://instagrambot.github.io/*"
   ],

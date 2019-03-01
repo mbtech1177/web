@@ -194,7 +194,7 @@ export default class Instagram {
       if (!ok) throw new Error(`User rejected request`)
     }
 
-    const result = await _method(this, args)
+    const result = await _method(this, ...args)
 
     this.history && this.history.save(name, args, result)
 
