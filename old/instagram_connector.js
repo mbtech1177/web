@@ -12,7 +12,7 @@ class NotInstalledError extends Error {}
 
 class InstagramConnector {
   _currend_id = ""
-  _instaweb_dev_id = "kmdamjjnlpjgbnaeaboghopmcchjpaep"
+  _instaweb_dev_id = "kakgeanaigaghemcjhohikiblgnflbfl"
   _instaweb_id = "njonkbhnmmjgancfbncekpgkmidhbbpo"
 
   isStopped = false
