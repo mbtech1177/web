@@ -118,7 +118,7 @@ const __Topbar = (props) => (
             <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
               <a className="dropdown-item" href={props.user ? `https://www.instagram.com/${props.user.username}/` : `#`} target="_blank">
                 <i className="fab fa-instagram fa-md fa-fw mr-2 text-gray-400"></i>
-                You Instagram
+                Your Instagram
               </a>
               {/* <a className="dropdown-item" href="#">
                 <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
