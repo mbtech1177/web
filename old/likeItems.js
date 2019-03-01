@@ -16,6 +16,132 @@ const getURL = (item) => {
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
+const makeGenerator = function * (from) {
+  yield * from
+}
+
+const unwrapGenerator = async (generator) => {
+  while (true) {
+    const result = await generator.next()
+
+    if (result.done) return result.value
+  }
+}
+
+const unwrapAccumulateGenerator = async (generator) => {
+  let results = []
+
+  while (true) {
+    const result = await generator.next()
+
+    if (result.done) return results
+
+    results.push(result.value)
+  }
+}
+
+const reduceGenerator = async function * (generator, combine, initial = {}) {
+  // const generator = createGenerator()
+
+  let pass
+  let accumulator = initial
+
+  while (true) {
+    const result = await generator.next()
+
+    if (result.done) return accumulator
+
+    accumulator = await combine(accumulator, result.value)
+  }
+}
+
+const filterGenerator = async function * (generator, condition) {
+  // const generator = createGenerator()
+
+  let pass
+
+  while (true) {
+    const result = await generator.next(pass)
+
+    if (result.done) return result.value
+
+    if (await condition(result.value)) {
+      pass = yield result.value
+    } else {
+      pass = undefined
+    }
+  }
+}
+
+const mapGenerator = async function * (generator, transform) {
+  // const generator = createGenerator()
+
+  let pass
+
+  while (true) {
+    const result = await generator.next(pass)
+
+    if (result.done) return result.value
+
+    pass = yield (await transform(result.value))
+  }
+}
+
+const watchGenerator = async function * (generator, withValue) {
+  // const generator = createGenerator()
+
+  let pass
+
+  while (true) {
+    const result = await generator.next(pass)
+
+    if (result.done) return result.value
+
+    await withValue(result.value)
+
+    pass = yield result.value
+  }
+}
+
+const safeGenerator = async function * (generator, printLog = console.log, timeout = 5) {
+  let index = 0
+  let result
+
+  while (true) {
+    try {
+      result = await generator.next()
+
+      if (result.done) {
+        return result.value
+      }
+
+      yield result.value
+    } catch (err) {
+      yield { status: 'error', error: err.message }
+    }
+
+    const num = `${++index}`
+    const url = getURL(result)
+
+    if (instagram.isStopped) {
+      printLog(`${num}: Skipping <a href="${url}" target="_blank">${url}</a>...`)
+      return { status: 'skipped' }
+    }
+
+    const amp = 0.9
+    const randomTimeout = timeout * (1 + amp * (0.5 - Math.random()))
+    const sec = Math.max(0.5, randomTimeout)
+    printLog(`Sleeping ${sec.toFixed(2)} seconds`)
+
+
+    await sleep(sec * 1000)
+
+    if (instagram.isStopped) {
+      printLog(`${num}: Skipping <a href="${url}" target="_blank">${url}</a>...`)
+      return { status: 'skipped' }
+    }
+  }
+}
 
 const safeMap = async (items, transform, printLog = console.log, timeout = 5, n) => {
   instagram.start()

@@ -11,6 +11,68 @@ const scripts = {
     },
   },
 
+  load_followers: {
+    name: 'Load full list of user followers',
+    params: [
+      {
+        name: 'username',
+        type: 'text',
+        prefix: '@',
+        labelText: 'Username',
+        defaultValue: 'burkinafan',
+      },
+    ],
+    run: async ({ username, isFullInfo = false }, printLog = console.log, timeout) => {
+      const { user: { pk } } = await instagram.request({ method: 'get_user_info', params: [username] }, true)
+
+      if (!pk || isNaN(pk)) throw new Error(`No user id: ${pk}`)
+
+      const followers_paging_generator = instagram.request_generator({ method: 'get_user_followers', params: [ pk ] })
+
+      const safe_paging = safeGenerator(followers_paging_generator, printLog, timeout)
+
+      const full_follower_list = mapGenerator(safe_paging, async followers => {
+        printLog(`Batch of followers for @${username} loaded: ${followers.length}`)
+
+        if (!isFullInfo) {
+          return followers
+        }
+
+        const safe_batch = safeGenerator(makeGenerator(followers), printLog, timeout)
+
+        const batch = await unwrapAccumulateGenerator(mapGenerator(safe_batch, async follower => {
+          const { user } = await instagram.request({ method: 'get_user_info', params: [follower.pk]})
+
+          printLog(`Loaded info for @${user.username}`)
+
+          return user
+        }))
+        // const users = mapGenerator(infos, ({ user }) => user)
+        //
+        // const and_print = watchGenerator(users, user => printLog(`Loaded info for @${user.username}`))
+
+        // return unwrapAccumulateGenerator(and_print)
+
+        printLog(`Loaded batch. ${batch.length}`)
+
+        return batch
+      })
+
+      const followers = await unwrapGenerator(reduceGenerator(full_follower_list, (arr, batch) => [ ...arr, ...batch ], []))
+
+      printLog(`Followers for @${username} loaded: ${followers.length}`)
+      printLog(`You can access them in window.followers or download using`)
+      // printLog(`\t\tdownloadCSV()`)
+      // printLog(`or`)
+      printLog(`\t\tdownload('followers.csv', getCSV(followers))`)
+
+      window.followers = followers
+      window.downloadCSV = () => download('followers.csv', getCSV(followers))
+
+      downloadCSV()
+    },
+  },
+
   like_followers: {
     name: 'Like first photos of user followers',
     params: [

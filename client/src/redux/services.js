@@ -60,7 +60,15 @@ const fetchStats = async () => {
   return data
 }
 
-const getCSV = arr => [ Object.keys(arr[0]), ...arr.map(item => Object.values(item).join(',')) ].join('\n')
+const getCSV = arr => [
+  Object.keys(arr[0]),
+  ...arr.map(item =>
+      Object.keys(arr[0])
+        .map(key => item[key])
+        .map(s => `"${String(s).replace(/"/g,'')}"`)
+        .join(',')
+  )
+].join('\n')
 
 const download = (filename, content) => {
   const element = document.createElement('a')

@@ -83,6 +83,33 @@ class InstagramConnector {
     if (wake && !wasWorking) this.kill()
   })
 
+  request_generator = async function * ({ method, params }, limit = Infinity) {
+
+    let _params = params
+    let _users = []
+
+    do {
+
+      const payload = { method, params: _params }
+      const { users, big_list, next_max_id } = await instagram.request(payload)
+
+      console.log('users', users)
+      console.log('list', big_list, next_max_id)
+
+      _users = [ ..._users, ...users ]
+
+      const shouldStop = yield users
+
+      if (shouldStop || !next_max_id || _users.length > limit) {
+        return _users
+      }
+
+      _params = [ ...params, next_max_id ]
+
+    } while(true)
+
+  }
+
 }
 
 const instagram = new InstagramConnector()
