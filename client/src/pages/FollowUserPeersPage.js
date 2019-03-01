@@ -153,7 +153,7 @@ class __FollowUserPeersPage extends React.Component {
                     <div className="btn-group">
                       {[1, 2, 5, 10, 20, 30, 50, 100].map((num, index) => (
                         <Button
-                          className="btn btn-secondary"
+                          className="btn-secondary"
                           key={index}
                           data-value={num}
                           ym={`follow-select-${num}`}
@@ -173,7 +173,7 @@ class __FollowUserPeersPage extends React.Component {
                   <div className="col-auto">
                     <div>
                         <Button
-                          className="btn btn-success"
+                          className="btn-success"
                           ym={`follow-submit`}
                           onClick={this.handleFollowUserPeersButton}>
                           Follow {nUsers} Users
