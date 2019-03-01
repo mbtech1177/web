@@ -31,6 +31,7 @@ class __ScriptPage extends React.Component {
       showAlertAfterFinish: false,
       shouldRedirectToLogs: false,
       params: script.params,
+      files: {},
       ...params,
     }
   }
@@ -65,6 +66,26 @@ class __ScriptPage extends React.Component {
     const value = event.target.value
 
     this.setState({ [name]: value })
+
+    if (event.target.files) {
+      this.handleFileChange(files)
+    }
+  }
+
+  handleFileChange = files => {
+    const reader = new FileReader()
+
+    reader.onload = event => {
+      console.log('file', event.target.result)
+
+      this.setState({
+        files: {
+          [name]: event.target.result,
+        },
+      })
+    }
+
+    reader.readAsDataURL(event.target.files[0])
   }
 
   handleNumberChange = (name, value) => (event) => {
@@ -148,6 +169,19 @@ class __ScriptPage extends React.Component {
                               </Button>
                             ))}
 
+                          </div>
+                        )}
+
+                        {type === 'file' && (
+                          <div className="input-group mb-3">
+                            <input
+                              type="file"
+                              className="form-control form-control-lg"
+                              id={name}
+                              name={name}
+                              value={this.state[name]}
+                              onChange={this.handleChange}
+                            />
                           </div>
                         )}
 

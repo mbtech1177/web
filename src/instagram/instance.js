@@ -92,7 +92,7 @@ export default class Instagram {
     const signed_data = generate_signature(data)
     print("Final POST DATA after signing:\n", signed_data)
 
-    const response = await this.send_request('accounts/login/', data, true)
+    const response = await this.send_request('accounts/login/', data, {}, true)
 
     if (response['message'] == 'checkpoint_required') {
       // In case of 'suspicious activity'
@@ -160,7 +160,7 @@ export default class Instagram {
     return this._request(endpoint, 'POST', data, extra_headers)
   }
 
-  send_request(endpoint, data = null, doLogin = false) {
+  send_request(endpoint, data = null, extra_headers = {}, doLogin = false) {
     if (!this.is_logged_in && !doLogin) {
       throw new Error(`Not logged in! Tried to call ${endpoint}`)
     }
@@ -171,9 +171,9 @@ export default class Instagram {
 
     try {
       if (data) {
-        return this._post(endpoint, generate_signature(data))
+        return this._post(endpoint, generate_signature(data), extra_headers)
       } else {
-        return this._get(endpoint)
+        return this._get(endpoint, extra_headers)
       }
     } catch (err) {
       console.error(`Request failed:`, err, `Data:`, endpoint, data, )

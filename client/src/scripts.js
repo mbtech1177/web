@@ -11,6 +11,28 @@ const scripts = {
     },
   },
 
+  // upload_image: {
+  //   name: 'Upload Image',
+  //   params: [
+  //     { name: 'image', type: 'file', labelText: 'Insert image URL' },
+  //     { name: 'caption', type: 'text', labelText: 'Image caption' },
+  //   ],
+  //   run: async ({ caption, files }, printLog = console.log) => {
+  //     const { image } = files
+  //
+  //     printLog(`Uploading image: ${caption}`)
+  //     console.log('image', image)
+  //
+  //     try {
+  //       const res = await instagram.request({ method: 'upload_photo', params: [image, caption] })
+  //
+  //       console.log('res', res)
+  //     } catch (err) {
+  //       console.log('err', err)
+  //     }
+  //
+  //   },
+  // },
   like_followers: {
     name: 'Like first photos of user followers',
     params: [
