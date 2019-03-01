@@ -14,7 +14,7 @@
 - Follow users' followings
 - Follow users' who posted to hashtag
 - Download users' followers
-- Already-downloaded results will be available after manual stop or even error
+- Stop any task at any moment – results will still be available
 - ... And many more are coming! Drop us a line into Telegram: https://t.me/instabotproject
 
 ## Minimal Requirements
