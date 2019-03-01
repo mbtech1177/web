@@ -66,3 +66,15 @@ export const follow = (self, user_id) => {
 export const unfollow = (self, user_id) => {
   return self.send_request(`friendships/destroy/${user_id}/`, {})
 }
+
+export const comment = (self, media_id, comment_text) => {
+  return self.send_request(`media/${media_id}/comment/`, { comment_text })
+}
+
+export const reply_to_comment = (self, media_id, comment_text, replied_to_comment_id) => {
+  return self.send_request(`media/${media_id}/comment/`, { comment_text, replied_to_comment_id })
+}
+
+export const delete_comment = (self, media_id, comment_id) => {  
+  return self.send_request(`media/${media_id}/comment/${comment_id}/delete/`, {})
+}
