@@ -2658,6 +2658,7 @@ fieldset:disabled a.btn {
 .btn-secondary:focus, .btn-secondary.focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(151, 153, 166, 0.5);
   box-shadow: 0 0 0 0.2rem rgba(151, 153, 166, 0.5);
+  background-color: #2653d4;
 }
 
 .btn-secondary.disabled, .btn-secondary:disabled {
@@ -2677,6 +2678,7 @@ fieldset:disabled a.btn {
 .show > .btn-secondary.dropdown-toggle:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(151, 153, 166, 0.5);
   box-shadow: 0 0 0 0.2rem rgba(151, 153, 166, 0.5);
+  background-color: #6b6d7d;
 }
 
 .btn-success {

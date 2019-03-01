@@ -115,7 +115,7 @@ class __LikeUserPage extends React.Component {
                     <div className="btn-group">
                       {[1, 2, 3, 5, 10].map((num, index) => (
                         <Button
-                          className="btn-secondary"
+                          className="btn btn-secondary"
                           key={index}
                           data-value={num}
                           ym={`like-user-select-${num}`}
@@ -135,7 +135,7 @@ class __LikeUserPage extends React.Component {
                   <div className="col-auto">
                     <div>
                         <Button
-                          className="btn-primary"
+                          className="btn btn-success"
                           ym={`like-user-submit`}
                           onClick={this.handleLikeUserButton}>
                           Like {nPhotos} photos

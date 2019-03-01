@@ -121,7 +121,7 @@ class __LikeHashtagPage extends React.Component {
                   <div className="btn-group">
                     {[10, 20, 50].map((num, index) => (
                       <Button
-                        className="btn-secondary"
+                        className="btn btn-secondary"
                         key={index}
                         data-value={num}
                         ym={`like-hashtag-select-${num}`}
@@ -141,7 +141,7 @@ class __LikeHashtagPage extends React.Component {
                 <div className="col-auto">
                   <div>
                       <Button
-                        className="btn-primary"
+                        className="btn btn-success"
                         ym="like-hashtag-submit"
                         onClick={this.handleLikeHashtagButton}>
                         Like {nPhotos} photos
