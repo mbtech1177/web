@@ -37,7 +37,18 @@ class __SupportUsPage extends React.Component {
   }
 
   likeUs = async () => {
-    // TODO: like us please!
+    try { 
+      this.props.showLoader()
+
+      likePhotosByUsername('ohld', 10, this.props.printLog)
+      // TODO: like all of us please!
+    } catch (err) {
+      console.error(err)
+      this.props.printLog(`Error: ${err.message}`)
+      alert(err.message)
+    } finally {
+      this.props.hideLoader()
+    }
   }
 
   render () {
@@ -77,8 +88,7 @@ class __SupportUsPage extends React.Component {
 
                 <div className="my-2"></div>
 
-                {/* TODO: */}
-                {/* <Button 
+                <Button 
                   className="btn-success btn-icon-split" 
                   onClick={this.likeUs}
                   ym={`supportUs-like`}
@@ -87,7 +97,7 @@ class __SupportUsPage extends React.Component {
                       <i className="fas fa-heart"></i>
                   </span>
                   <span className="text">Like Us on Instagram</span>
-                </Button>  */}
+                </Button> 
 
               </div>
             </div>
