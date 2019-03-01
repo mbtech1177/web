@@ -26,7 +26,7 @@
     "build:chrome": "npm run build && npm run zip",
     "postbuild:chrome": "npm run open-chrome-store",
     "zip": "rm -rf chrome-ext.zip && zip -r -X chrome-ext.zip chrome-ext",
-    "open-chrome-store": "open https://chrome.google.com/webstore/developer/dashboard",
+    "open-chrome-store": "open https://chrome.google.com/webstore/devconsole/g07844052442324404914/njonkbhnmmjgancfbncekpgkmidhbbpo/edit/package?hl=en_GB",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
