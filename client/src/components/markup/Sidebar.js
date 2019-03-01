@@ -58,8 +58,23 @@ const Sidebar = () => (
       <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div className="bg-white py-2 collapse-inner rounded">
           {/* <!-- <h6 className="collapse-header">Custom Utilities:</h6>  --> */}
-          <Link className="collapse-item" to="/follow/followers">Followers of</Link>
-          <Link className="collapse-item" to="/follow/followings">Followees of</Link>
+          <Link className="collapse-item" to="/follow/followers">Followers</Link>
+          <Link className="collapse-item" to="/follow/followings">Followees</Link>
+        </div>
+      </div>
+    </li>
+
+
+    {/* <!-- Nav Item - Utilities Collapse Menu  --> */}
+    <li className="nav-item">
+      <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+        <i className="fas fa-fw fa-file-download"></i>
+        <span>Download</span>
+      </a>
+      <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div className="bg-white py-2 collapse-inner rounded">
+          {/* <!-- <h6 className="collapse-header">Custom Utilities:</h6>  --> */}
+          <Link className="collapse-item" to="/script/load_followers">Followers</Link>
         </div>
       </div>
     </li>
