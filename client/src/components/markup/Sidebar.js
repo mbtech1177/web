@@ -111,6 +111,13 @@ const Sidebar = () => (
       </Link>
     </li>
 
+    <li className="nav-item">
+      <Link className="nav-link" to="/legal">
+        <i className="fas fa-fw fa-file-signature"></i>
+        <span>Legal</span>
+      </Link>
+    </li>
+
     {/* <!-- Sidebar Toggler (Sidebar)  --> */}
     {/* <div className="text-center d-none d-md-inline">
       <button className="rounded-circle border-0" id="sidebarToggle"></button>

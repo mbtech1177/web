@@ -47,6 +47,7 @@ class __App extends React.Component {
             <Route path='/blank' component={BlankPage}/>
             <Route path='/empty' component={BlankPage}/>
             <Route path='/404' component={NotFoundPage}/>
+            <Route path='/legal' component={LegalPage}/>
             <Route component={NotFoundPage} />
           </Switch>
         </Wrapper>
