@@ -38,8 +38,8 @@ const scripts = {
 
       const safe_paging = safeGenerator(followers_paging_generator, printLog, timeout)
 
-      const full_follower_list = mapGenerator(safe_paging, async followers => {
-        printLog(`Batch of followers for @${username} loaded: ${followers.length}`)
+      const full_follower_list = mapGenerator(safe_paging, async (followers, batchIndex) => {
+        printLog(`Batch ${batchIndex+1} of followers for @${username} loaded: ${followers.length}`)
 
         if (!isFullInfo) {
           return followers
@@ -47,10 +47,10 @@ const scripts = {
 
         const safe_batch = safeGenerator(makeGenerator(followers), printLog, timeout)
 
-        const batch = await unwrapAccumulateGenerator(mapGenerator(safe_batch, async follower => {
+        const batch = await unwrapAccumulateGenerator(mapGenerator(safe_batch, async (follower, index) => {
           const { user } = await instagram.request({ method: 'get_user_info', params: [follower.pk]})
 
-          printLog(`Loaded info for @${user.username}`)
+          printLog(`Batch ${batchIndex+1}: ${index+1}/${followers.length}: Loaded info for @${user.username}`)
 
           return user
         }))
@@ -95,13 +95,37 @@ const scripts = {
         values: [1, 2, 3, 5, 10],
         labelText: 'Number of followers',
       },
+      {
+        name: 'nLikePhotos',
+        type: 'number',
+        values: [1],
+        labelText: 'How many photos to like',
+      },
     ],
-    run: async ({ username, nFollowers = 3 } = {}, printLog = console.log) => {
+    run: async ({ username, nFollowers = 3, nLikePhotos = 1 } = {}, printLog = console.log) => {
       const { user: { pk } } = await instagram.request({ method: 'get_user_info', params: [username] }, true)
 
       if (!pk || isNaN(pk)) throw new Error(`No user id: ${pk}`)
 
-      const { users: followers } = await instagram.request({ method: 'get_user_followers', params: [pk] }, true)
+      const followers_paging_generator = instagram.request_generator({ method: 'get_user_followers', params: [ pk ] }, nFollowers)
+
+      const followers_g = safeGenerator(followers_paging_generator, async followers => {
+
+        printLog(`Followers for @${username} loaded: ${followers.length}`)
+
+        if (!followers || !followers.length) throw new Error(`No followers: ${followers}`)
+
+        printLog(`Will like ${followers.length} followers`)
+
+        const photos = await safeMap(followers, user => instagram.request({ method: 'get_user_feed', params: [user.pk] }), printLog)
+
+        const first_photos = photos.map(feed => feed.items && feed.items[0]).filter(item => !!item)
+
+        return await safeMap(first_photos, item => instagram.request({ method: 'like', params: [item.id] }), printLog)
+
+      }, printLog)
+
+      const followers = await unwrapGenerator(followers_g)
 
       printLog(`Followers for @${username} loaded: ${followers.length}`)
 
@@ -109,6 +133,11 @@ const scripts = {
 
       printLog(`Will like ${followers.slice(0, nFollowers).length} followers`)
 
+      // const followers_generator = makeGenerator(followers)
+
+      // const photos_g = safeGenerator(followers_generator, user => instagram.request({ method: 'get_user_feed', params: [user.pk] }), printLog)
+      //
+      // const photos = await unwrapGenerator(photos_g)
       const photos = await safeMap(followers.slice(0, nFollowers), user => instagram.request({ method: 'get_user_feed', params: [user.pk] }), printLog)
 
       const first_photos = photos.map(feed => feed.items && feed.items[0]).filter(item => !!item)
