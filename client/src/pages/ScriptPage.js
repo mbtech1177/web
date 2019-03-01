@@ -108,7 +108,7 @@ class __ScriptPage extends React.Component {
         <div className="row no-gutters align-items-center">
           <div className="col mr-12">
             <div className="text-xs font-weight-bold text-primary text-uppercase mb-12">
-              Like Users media
+              {this.script.name || scriptName}
             </div>
           </div>
         </div>
