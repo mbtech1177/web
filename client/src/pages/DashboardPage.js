@@ -22,7 +22,9 @@ class __DashboardPage extends React.Component {
 
           <Button
             className="btn btn-warning btn-icon-split"
-            onClick={this.updateStats}>
+            onClick={this.updateStats}
+            ym={`dashboard-update`}
+          >
             <span className="icon text-white-50">
                 <i className="fas fa-sync"></i>
               </span>
