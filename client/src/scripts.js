@@ -80,6 +80,62 @@ const scripts = {
     },
   },
 
+  load_hashtag: {
+    name: 'Load list of photos by hashtag',
+    params: [
+      {
+        name: 'hashtag',
+        type: 'text',
+        prefix: '#',
+        labelText: 'Hashtag',
+        defaultValue: 'vr',
+      },
+      {
+        name: 'nPhotos',
+        type: 'number',
+        values: [10, 50, 100, 200],
+        labelText: 'Number of photos to download',
+        defaultValue: 10,
+      },
+    ],
+    run: async ({ hashtag, nPhotos }, printLog = console.log, timeout) => {
+      const photos_paging_generator = instagram.request_generator({ method: 'get_hashtag_feed', params: [ hashtag ] })
+
+      const safe_paging = safeGenerator(photos_paging_generator, printLog, timeout)
+
+      const full_photos_list = mapGenerator(safe_paging, async (page, batchIndex) => {
+        printLog(`Batch ${batchIndex+1} of photos for #${hashtag} loaded: ${page.length}`)
+
+        const safe_batch = safeGenerator(makeGenerator(followers), printLog, timeout)
+
+        const batch = await unwrapAccumulateGenerator(mapGenerator(safe_batch, async (item, index) => {
+          const { item } = await instagram.request({ method: 'media_info', params: [ item.id ]})
+
+          printLog(`Batch ${batchIndex+1}: ${index+1}/${followers.length}: Loaded info for @${user.username}`)
+
+          return item
+        }))
+
+        printLog(`Loaded batch. ${batch.length}`)
+
+        return batch
+      })
+
+      const photos = await unwrapGenerator(reduceGenerator(full_photos_list, (arr, batch) => [ ...arr, ...batch ], []))
+
+      printLog(`Photos by #${hashtag} loaded: ${photos.length}`)
+      printLog(`You can access them in window.photos or download using`)
+      // printLog(`\t\tdownloadCSV()`)
+      // printLog(`or`)
+      printLog(`\t\tdownload('photos-${hashtag}.csv', getCSV(photos))`)
+
+      window.photos = photos
+      window.downloadCSV = () => download(`photos-${hashtag}.csv`, getCSV(photos))
+
+      downloadCSV()
+    },
+  },
+
   like_followers: {
     name: 'Like first photos of user followers',
     params: [
