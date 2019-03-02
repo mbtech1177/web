@@ -1,8 +1,12 @@
 class ChromeHistory extends History {
 
-  collection = new Collection('history', [
-    ...History.AVAILABLE_METHODS, 'login', 'misc'
-  ])
+  constructor () {
+    super()
+
+    this.collection = new Collection('history', [
+      ...History.AVAILABLE_METHODS, 'login', 'misc'
+    ])
+  }
 
   async save (method, params, result) {
     const { status } = result

@@ -36,10 +36,12 @@ class TimeoutError extends Error {}
 
 class InstagramConnector {
 
-  isStopped = false
-  isConnected = false
+  constructor() {
+    this.isStopped = false
+    this.isConnected = false
+  }
 
-  init = async () => {
+  async init () {
     try {
       const ping = await this.request({
         method: 'ping'
@@ -59,10 +61,12 @@ class InstagramConnector {
 
   }
 
-  start = () => this.isStopped = false
-  kill = () => this.isStopped = true
+  start () { this.isStopped = false }
+  kill () { this.isStopped = true }
 
-  request = (data) => new Promise((resolve, reject) => {
+  request (data) {
+    return new Promise((resolve, reject) => {
+
     if (this.isStopped) return reject(new Error(`Request was killed`))
 
     // { method, params } = method
@@ -91,7 +95,10 @@ class InstagramConnector {
 
     console.log(`send_message`, null, { req_id, ...data })
     chrome.runtime.sendMessage(null, { req_id, ...data })
-  })
+
+    })
+
+  }
 
 }
 
