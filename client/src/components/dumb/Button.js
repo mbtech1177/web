@@ -1,17 +1,19 @@
 const _onClick = (handler, props) => (event) => {
   event.preventDefault()
 
-  if (props.ym) {
-    console.log('ym', 52144714, 'reachGoal', `button-click-${props.ym}`)
+  const ymParams = props.ymParams
 
-    ym(52144714, 'reachGoal', `button-click-${props.ym}`)
+  if (props.ym) {
+    console.log('ym', 52144714, 'reachGoal', `button-click-${props.ym}`, ymParams)
+
+    ym(52144714, 'reachGoal', `button-click-${props.ym}`, ymParams)
   } else {
     const buttonText = event.target.textContent
 
     const name = String(buttonText).replace(/\s/g, '-').toLowerCase()
 
-    console.log('ym', 52144714, 'reachGoal', `button-click-${name ? name : 'unknown'}`)
-    ym(52144714, 'reachGoal', `button-click-${name ? name : 'unknown'}`)
+    console.log('ym', 52144714, 'reachGoal', `button-click-${name ? name : 'unknown'}`, ymParams)
+    ym(52144714, 'reachGoal', `button-click-${name ? name : 'unknown'}`, ymParams)
   }
 
   return handler(event)

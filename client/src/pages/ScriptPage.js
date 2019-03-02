@@ -167,7 +167,8 @@ class __ScriptPage extends React.Component {
                         className="btn-secondary"
                         key={index}
                         data-value={num}
-                        ym={`${scriptName}-select-${num}`}
+                        ymParams={{num}}
+                        ym={`${scriptName}-select`}
                         onClick={this.handleNumberChange(name, num)}
                       >
                         {num}

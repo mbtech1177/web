@@ -47,7 +47,12 @@ const __Topbar = (props) => (
         <li className="nav-item dropdown no-arrow">
           <span className="nav-link">
             <span className="install-extension mr-2 d-none d-lg-inline text-grey-600">
-              <a href="https://chrome.google.com/webstore/detail/instagram-yourself/njonkbhnmmjgancfbncekpgkmidhbbpo" target="_blank">
+              <a
+                className="btn btn-success"
+                target="_blank"
+                onClick={() => props.sendMetrikaEvent(`button-click-install-extension`)}
+                href="https://chrome.google.com/webstore/detail/instagram-yourself/njonkbhnmmjgancfbncekpgkmidhbbpo"
+              >
                 Install extension
               </a>
             </span>
@@ -145,5 +150,5 @@ const __Topbar = (props) => (
 
 const Topbar = connect(
   ({ user, isLoading, error, connection, instagram }) => ({ user, isLoading, error, connection, instagram }),
-  { printLog }
+  { printLog, sendMetrikaEvent }
 )(__Topbar)
