@@ -71,10 +71,10 @@ const scripts = {
       printLog(`You can access them in window.followers or download using`)
       // printLog(`\t\tdownloadCSV()`)
       // printLog(`or`)
-      printLog(`\t\tdownload('followers.csv', getCSV(followers))`)
+      printLog(`\t\tdownload('followers_${username}.csv', getCSV(followers))`)
 
       window.followers = followers
-      window.downloadCSV = () => download('followers.csv', getCSV(followers))
+      window.downloadCSV = () => download(`followers_${username}.csv`, getCSV(followers))
 
       downloadCSV()
     },
