@@ -56,6 +56,16 @@ class __FollowUserPeersPage extends React.Component {
       printLog(`OK, ${users.length} results`, false)
 
       followList(users, nUsers, printLog)
+        .then(() => this.props.sendMetrikaEvent(`task-success-follow`))
+        .catch(err => {
+            console.error(err)
+            this.props.printLog(`Error: ${err.message}`)
+            alert(err.message)
+            this.props.sendMetrikaEvent(`task-error-follow`)
+        })
+        .finally(() => this.props.hideLoader())
+
+      this.props.sendMetrikaEvent(`task-started-follow`)
 
       this.handleRedirectToLogs()
     } catch (err) {
@@ -191,5 +201,5 @@ class __FollowUserPeersPage extends React.Component {
 
 const FollowUserPeersPage = connect(
   null,
-  { likePhotosByUsername, notifyWhenQueueFinished, showLoader, hideLoader, printLog }
+  { likePhotosByUsername, notifyWhenQueueFinished, showLoader, hideLoader, printLog, sendMetrikaEvent }
 )(__FollowUserPeersPage)

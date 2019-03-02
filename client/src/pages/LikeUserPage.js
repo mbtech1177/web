@@ -23,7 +23,17 @@ class __LikeUserPage extends React.Component {
         return
       }
 
-      await likePhotosByUsername(username, nPhotos, this.props.printLog)
+      likePhotosByUsername(username, nPhotos, this.props.printLog)
+        .then(() => this.props.sendMetrikaEvent(`task-success-like-user`))
+        .catch(err => {
+            console.error(err)
+            this.props.printLog(`Error: ${err.message}`)
+            alert(err.message)
+            this.props.sendMetrikaEvent(`task-error-like-user`)
+        })
+        .finally(() => this.props.hideLoader())
+
+      this.props.sendMetrikaEvent(`task-started-like-user`)
 
       this.handleRedirectToLogs()
     } catch (err) {
@@ -153,5 +163,5 @@ class __LikeUserPage extends React.Component {
 
 const LikeUserPage = connect(
   null,
-  { likePhotosByUsername, notifyWhenQueueFinished, showLoader, hideLoader, printLog }
+  { likePhotosByUsername, notifyWhenQueueFinished, showLoader, hideLoader, printLog, sendMetrikaEvent }
 )(__LikeUserPage)

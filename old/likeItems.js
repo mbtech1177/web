@@ -247,6 +247,7 @@ const likeItems = async (items, n = 10, printLog = console.log) => {
     .then(() => printLog(`Finished! ${Math.min(n, items.length)} photos.`))
     .finally(() => instagram.kill())
 
+  return queue
 }
 
 const followList = async (users, n = 10, printLog = console.log) => {
@@ -301,6 +302,8 @@ const followList = async (users, n = 10, printLog = console.log) => {
   queue
     .then(() => printLog(`Finished! Followed ${Math.min(n, users.length)} users.`))
     .finally(() => instagram.kill())
+
+  return queue
 }
 
 const makeQueue = (items, step) => {

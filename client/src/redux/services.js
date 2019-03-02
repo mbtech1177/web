@@ -113,7 +113,7 @@ const likePhotosByHashtag = async (hashtag, n, printLog = console.log) => {
   printLog(`OK, ${items.length} results`, false)
   console.log(`URLS:`, items.map(instagramUrl))
 
-  likeItems(items, n, printLog)
+  return likeItems(items, n, printLog)
 
 }
 
@@ -143,7 +143,7 @@ const likePhotosByUsername = async (username, n, printLog) => {
 
   printLog(`OK, ${items.length} results`, false)
 
-  likeItems(items, n, printLog)
+  return likeItems(items, n, printLog)
 }
 
 const onKillAll = async (printLog = console.log) => {

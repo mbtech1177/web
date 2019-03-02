@@ -38,6 +38,8 @@ class __ScriptPage extends React.Component {
   handleSubmit = async () => {
     this.props.showLoader()
 
+    const scriptName = this.props.match.params.name
+
     const { showAlertAfterFinish } = this.state
     showAlertAfterFinish && this.props.notifyWhenQueueFinished()
 
@@ -49,13 +51,17 @@ class __ScriptPage extends React.Component {
     instagram.start()
 
     this.script.run(this.state, this.props.printLog)
+      .then(res => this.props.sendMetrikaEvent(`task-success-${scriptName}`))
       .catch(err => {
           console.error(err)
-          this.props.printLog(`Error: ${err.message}`, false)
+          this.props.printLog(`Error: ${err.message}`)
           alert(err.message)
+          this.props.sendMetrikaEvent(`task-error-${scriptName}`)
       })
       .finally(() => instagram.kill())
       .finally(() => this.props.hideLoader())
+
+    this.props.sendMetrikaEvent(`task-started-${scriptName}`)
 
     this.handleRedirectToLogs()
   }
@@ -168,7 +174,7 @@ class __ScriptPage extends React.Component {
                         key={index}
                         data-value={num}
                         ymParams={{num}}
-                        ym={`${scriptName}-select`}
+                        ym={`${scriptName}-${name}-select`}
                         onClick={this.handleNumberChange(name, num)}
                       >
                         {num}
@@ -233,5 +239,5 @@ class __ScriptPage extends React.Component {
 
 const ScriptPage = connect(
   null,
-  { likePhotosByUsername, notifyWhenQueueFinished, showLoader, hideLoader, printLog }
+  { likePhotosByUsername, notifyWhenQueueFinished, showLoader, hideLoader, printLog, sendMetrikaEvent }
 )(__ScriptPage)

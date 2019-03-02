@@ -22,8 +22,18 @@ class __LikeHashtagPage extends React.Component {
         alert(`Please stop all other tasks before running!`)
         return
       }
-      
-      await likePhotosByHashtag(hashtag, nPhotos, this.props.printLog)
+
+      likePhotosByHashtag(hashtag, nPhotos, this.props.printLog)
+        .then(() => this.props.sendMetrikaEvent(`task-success-like-hashtag`))
+        .catch(err => {
+            console.error(err)
+            this.props.printLog(`Error: ${err.message}`)
+            alert(err.message)
+            this.props.sendMetrikaEvent(`task-error-like-hashtag`)
+        })
+        .finally(() => this.props.hideLoader())
+
+      this.props.sendMetrikaEvent(`task-started-like-hashtag`)
 
       this.handleRedirectToLogs()
     } catch (err) {
@@ -158,5 +168,5 @@ class __LikeHashtagPage extends React.Component {
 
 const LikeHashtagPage = connect(
   null,
-  { likePhotosByHashtag, notifyWhenQueueFinished, showLoader, hideLoader, printLog }
+  { likePhotosByHashtag, notifyWhenQueueFinished, showLoader, hideLoader, printLog, sendMetrikaEvent }
 )(__LikeHashtagPage)
