@@ -24,6 +24,7 @@ While we are in early alpha version, to use our service you should fit these req
 1. Update Google Chrome browser
 2. Install [Extension](https://chrome.google.com/webstore/detail/instagram-yourself/njonkbhnmmjgancfbncekpgkmidhbbpo)
 3. Disable 2FA on your Instagram account
+4. Don't close the website while it doing his job. If you close tab - everything would stop.
 
 ## How to start automating your Instagram
 
