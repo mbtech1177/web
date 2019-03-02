@@ -1,6 +1,6 @@
 {
   "name": "Instagram Yourself!",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Extension helps you instagram effectively!",
   "icons": {
     "192": "images/icon.png"
@@ -9,7 +9,7 @@
     "scripts": [
       "shared/credentials.js",
       "background/services/insecure_headers.js",
-      "background/services/active_tab.js",
+      "background/services/on_install.js",
       "background/main.js",
       "background/storage/collection.js",
       "background/storage/storage_promise.js",

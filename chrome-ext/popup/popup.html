@@ -29,6 +29,8 @@
   <meta property="og:description" content="Send me crypto" />
   <meta property="og:site_name" content="Flight wallet" />
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
   <script src="../shared/credentials.js" charset="utf-8"></script>
   <script src="./instagram_connector.js" charset="utf-8"></script>
   <script src="./popup.js" charset="utf-8"></script>
@@ -42,20 +44,68 @@
 </style>
 
 <body>
-  <div id="container" style="justify-content: center; align-items: center; text-align: center;">
-    <h1 class="logged_in">Logged in as @<span class="username-field"></span>!<h1> <!-- logged as <username> -->
-    <h1 class="not_logged_in">Not logged in!<h1>
-    <br>
+  <div id="container" class="container" style="width: 100%; max-width: 400px; padding: 30px">
+    <div class="row">
+      <div class="col-md mb-2">
+        <img class="mx-auto d-block" src="../images/icon.png" />
+        <!-- <a href="https://github.com/instagrambot/web/"> -->
+        <!-- </a> -->
+      </div>
+    </div>
 
-    <a class="logged_in" href="https://instagrambot.github.io/web/" target="_blank">Control panel</a>
-    <br>
-    <a class="logged_in" href="#" id="exit">Logout</a>
+    <div class="row logged_in">
+      <div class="col-sm mb-1 text-center">
+        <button type="button" class="btn btn-outline-info" style="width: 100%" disabled>
+          @
+          <span class="username-field"></span>
+        </button>
+      </div>
+    </div>
+    <div class="row logged_in">
+      <div class="col-sm text-center">
 
-    <form class="not_logged_in" id="instalogin">
-      <input type="text" name="username" id="username" /> <br>
-      <input type="password" name="password" id="password" /> <br>
-      <input type="submit" value="Login">
-    </form>
+        <a class="btn btn-outline-primary" href="https://instagrambot.github.io/web/" target="_blank">
+          Dashboard
+        </a>
+
+        <a class="btn btn-outline-danger" href="#" id="exit">Logout</a>
+
+      </div>
+    </div>
+
+    <div class="row not_logged_in">
+      <div class="col-sm">
+        <form id="instalogin">
+          <div class="form-group">
+            <label for="username">Username</label>
+
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">@</div>
+              </div>
+
+              <input type="text" class="form-control" id="username" placeholder="instagram">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" placeholder="********">
+
+            <small id="passwordHelp" class="form-text text-muted">Credentials are stored securely inside your browser. We never share them.</small>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Login</button>
+          <a class="btn btn-outline-info" href="https://github.com/instagrambot/web" target="_blank">
+            Read GitHub
+          </a>
+
+        </form>
+
+      </div>
+    </div>
+
+
   </div>
 
 </body>
