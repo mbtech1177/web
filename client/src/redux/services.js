@@ -13,6 +13,13 @@ const connectExtension = async () => {
 
     instagram.kill()
 
+    window.onbeforeunload = () => {
+      if (!instagram.isStopped) {
+        console.log(`You have tasks running. They will not continue if you leave now. You sure?`)
+        return true
+      }
+    }
+
     if (user && user.pk) {
       return {
         user,
