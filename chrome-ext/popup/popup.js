@@ -41,13 +41,17 @@ const updateView = async () => {
 }
 
 const setView = ({ logged_in, user = {}} = {}) => {
+  const changeDisplay = (elem, isShown) => isShown
+    ? elem.classList.remove("hide")
+    : elem.classList.add("hide")
+
   if (logged_in) {
-    document.querySelectorAll('.logged_in')    .forEach(elem => elem.style.display = '')
-    document.querySelectorAll('.not_logged_in').forEach(elem => elem.style.display = 'none')
+    document.querySelectorAll('.logged_in')    .forEach(elem => changeDisplay(elem, true))
+    document.querySelectorAll('.not_logged_in').forEach(elem => changeDisplay(elem, false))
   }
   else {
-    document.querySelectorAll('.logged_in')    .forEach(elem => elem.style.display = 'none')
-    document.querySelectorAll('.not_logged_in').forEach(elem => elem.style.display = '')
+    document.querySelectorAll('.logged_in')    .forEach(elem => changeDisplay(elem, false))
+    document.querySelectorAll('.not_logged_in').forEach(elem => changeDisplay(elem, true))
   }
 
   if (user) {
