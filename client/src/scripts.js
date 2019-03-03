@@ -15,7 +15,7 @@ const scripts = {
     name: 'Comment photos from hashtag feed',
     params: [
       { name: 'hashtag', type: 'text', prefix: '#', defaultValue: 'cats' },
-      { name: 'nPhotos', type: 'number', values: [1,5,10,20,50] },
+      { name: 'nPhotos', type: 'number', values: [1,2,5,10,20,50] },
     ],
     run: async ({ hashtag, nPhotos }, printLog = console.log) => {
       if (!hashtag) {
@@ -34,9 +34,9 @@ const scripts = {
 
       const comment_text = item => window.comment_text
           ? window.comment_text(item)
-          : `great post @${item.user.username}!`
+          : `🔥 @${item.user.username}!`
 
-      return safeMap(items, item => instagram.request({ method: 'comment', params: [ item.id, comment_text(item) ] }), printLog)
+      return safeMap(items.slice(0, nPhotos), item => instagram.request({ method: 'comment', params: [ item.id, comment_text(item) ] }), printLog)
     }
   },
 
@@ -44,7 +44,7 @@ const scripts = {
     name: 'Comment photos from user',
     params: [
       { name: 'username', type: 'text', prefix: '@', defaultValue: 'ohld' },
-      { name: 'nPhotos', type: 'number', values: [1,5,10,20,50] },
+      { name: 'nPhotos', type: 'number', values: [1,2,3] },
     ],
     run: async ({ username, nPhotos }, printLog = console.log) => {
       if (!username) {
@@ -65,9 +65,9 @@ const scripts = {
 
       const comment_text = item => window.comment_text
           ? window.comment_text(item)
-          : `great post @${item.user.username}!`
+          : `🔥 @${item.user.username}!`
 
-      return safeMap(items, item => instagram.request({ method: 'comment', params: [ item.id, comment_text(item) ] }), printLog)
+      return safeMap(items.slice(0, nPhotos), item => instagram.request({ method: 'comment', params: [ item.id, comment_text(item) ] }), printLog)
     }
   },
 
