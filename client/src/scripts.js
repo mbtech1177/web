@@ -11,6 +11,65 @@ const scripts = {
     },
   },
 
+  comment_by_hashtag: {
+    name: 'Comment photos from hashtag feed',
+    params: [
+      { name: 'hashtag', type: 'text', prefix: '#', defaultValue: 'cats' },
+      { name: 'nPhotos', type: 'number', values: [1,5,10,20,50] },
+    ],
+    run: async ({ hashtag, nPhotos }, printLog = console.log) => {
+      if (!hashtag) {
+        throw new Error(`Empty hashtag field!`)
+      }
+
+      printLog(`Fetching photos by hashtag: #${hashtag} ... `)
+
+      const { items } = await instagram.request({
+        method: 'get_hashtag_feed',
+        params: [ hashtag ]
+      })
+
+      printLog(`OK, ${items.length} results`, false)
+      console.log(`URLS:`, items.map(instagramUrl))
+
+      const comment_text = item => window.comment_text
+          ? window.comment_text(item)
+          : `great post @${item.user.username}!`
+
+      return safeMap(items, item => instagram.request({ method: 'comment', params: [ item.id, comment_text(item) ] }), printLog)
+    }
+  },
+
+  comment_by_user: {
+    name: 'Comment photos from user',
+    params: [
+      { name: 'username', type: 'text', prefix: '@', defaultValue: 'ohld' },
+      { name: 'nPhotos', type: 'number', values: [1,5,10,20,50] },
+    ],
+    run: async ({ username, nPhotos }, printLog = console.log) => {
+      if (!username) {
+        throw new Error(`Empty username field!`)
+      }
+
+      printLog(`Fetching photos by username: @${username} ... `)
+
+      const { user } = await instagram.request({ method: 'get_user_info', params: [username] })
+
+      const { items } = await instagram.request({
+        method: 'get_user_feed',
+        params: [ user.pk ]
+      })
+
+      printLog(`OK, ${items.length} results`, false)
+      console.log(`URLS:`, items.map(instagramUrl))
+
+      const comment_text = item => window.comment_text
+          ? window.comment_text(item)
+          : `great post @${item.user.username}!`
+
+      return safeMap(items, item => instagram.request({ method: 'comment', params: [ item.id, comment_text(item) ] }), printLog)
+    }
+  },
 
   follow_by_hashtag: {
     name: 'Follow people who posts by hashtag',
