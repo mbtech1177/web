@@ -11,6 +11,32 @@ const scripts = {
     },
   },
 
+
+  follow_by_hashtag: {
+    name: 'Follow people who posts by hashtag',
+    params: [
+      { name: 'hashtag', type: 'text', prefix: '#', labelText: 'Hashtag', defaultValue: 'cats' },
+      { name: 'nUsers', type: 'number', labelText: 'Number of users', values: [1,5,10,20,50] },
+    ],
+    run: async ({ hashtag, nUsers }, printLog = console.log) => {
+      if (!hashtag) {
+        throw new Error(`Empty hashtag field!`)
+      }
+
+      printLog(`Fetching photos by hashtag: #${hashtag} ... `)
+
+      const { items } = await instagram.request({
+        method: 'get_hashtag_feed',
+        params: [ hashtag ]
+      })
+
+      printLog(`OK, ${items.length} results`, false)
+      console.log(`URLS:`, items.map(instagramUrl))
+
+      return followList(items.map(item => item.user), nUsers, printLog)
+    }
+  },
+
   load_followers: {
     name: 'Load full list of user followers',
     params: [
