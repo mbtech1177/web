@@ -126,6 +126,86 @@ const scripts = {
     }
   },
 
+  load_pictures: {
+    params: [
+      {
+        name: 'username',
+        type: 'text',
+        prefix: '@',
+        labelText: 'Username',
+        defaultValue: 'ohld',
+      },
+      {
+        name: 'max_id',
+        type: 'text',
+        labelText: 'max_id (leave empty)',
+      }
+    ],
+    run: async ({ username, max_id }, printLog = console.log) => {
+
+      const { user: { pk, media_count } } = await instagram.request({ method: 'get_user_info', params: [ username ] })
+
+      if (!pk || isNaN(pk)) throw new Error(`No user id: ${pk}`)
+
+      const { items, next_max_id } = await instagram.request({ method: 'get_user_feed', params: [ pk, max_id ] })
+
+      printLog(`Loaded a batch of ${items.length} items. Total users media: ${media_count}`)
+      printLog(`You can access a next batch manually using this id: ${next_max_id}`)
+      printLog(`Download this batch: downloadCSV()`)
+
+      window.items = items
+      window.downloadCSV = () => download(`items_${username}.csv`, getCSV(items))
+
+      // downloadCSV()
+
+      return
+    }
+  },
+
+  load_stories: {
+    params: [
+      {
+        name: 'username',
+        type: 'text',
+        prefix: '@',
+        labelText: 'Username',
+        defaultValue: 'ohld',
+      },
+    ],
+    run: async ({ username }, printLog = console.log) => {
+
+      const { user: { pk, media_count } } = await instagram.request({ method: 'get_user_info', params: [ username ] })
+
+      if (!pk || isNaN(pk)) throw new Error(`No user id: ${pk}`)
+
+      const { broadcast, reel, post_live_item } = await instagram.request({ method: 'get_user_story_feed', params: [ pk ] })
+
+      console.log('Loaded')
+      console.log('broadcast', broadcast)
+      console.log('reel', reel)
+      console.log('post_live_item', post_live_item)
+
+      const { items } = reel
+      printLog(`Loaded ${items.length} stories for @${username}. Livestream: ${!!broadcast}. Finished streams: ${!!post_live_item}`)
+      printLog(`Download this batch: downloadCSV()`)
+
+      window.items = items
+      window.downloadCSV = () => download(`stories_${username}.csv`, getCSV(items))
+
+      items.map((item,index) => {
+        const matches = item.video_dash_manifest.match(/<BaseURL>(.*?)<\/BaseURL>/g)
+
+        printLog(`Story ${index+1}:`)
+
+        console.log('matches', matches)
+        const urls = matches.map(token => token.replace(/<.*?>/g, ''))
+
+        urls.map(url => printLog(`<a href="${url}">${url}</a>`))
+        // urls.map(url => printLog(`<a href="${url}">link</a>`))
+      })
+    }
+  },
+
   load_followers: {
     name: 'Load full list of user followers',
     params: [
