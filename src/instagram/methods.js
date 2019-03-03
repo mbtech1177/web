@@ -75,6 +75,15 @@ export const reply_to_comment = (self, media_id, comment_text, replied_to_commen
   return self.send_request(`media/${media_id}/comment/`, { comment_text, replied_to_comment_id })
 }
 
-export const delete_comment = (self, media_id, comment_id) => {  
+export const delete_comment = (self, media_id, comment_id) => {
   return self.send_request(`media/${media_id}/comment/${comment_id}/delete/`, {})
+}
+
+export const get_user_story_feed = (self, user_id) => {
+  return self.send_request(`feed/user/${user_id}/story/`)
+}
+
+export const search_location = (self, query, lat = '', lng = '') => {
+  const rank_token = self.rank_token()
+  return self.send_request(`fbsearch/places/?rank_token=${rank_token}&query=${query}&lat=${lat}&lng=${lng}`)
 }
