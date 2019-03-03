@@ -97,21 +97,21 @@ const Sidebar = () => (
 
     {/* <!-- Nav Item -   --> */}
     <li className="nav-item">
-      <a className="nav-link" href="https://t.me/instabotproject">
+      <a className="nav-link" href="https://t.me/instabotproject" target="_blank">
         <i className="fab fa-fw fa-telegram"></i>
         <span>Telegram</span></a>
     </li>
 
     {/* <!-- Nav Item -   --> */}
     <li className="nav-item">
-      <a className="nav-link" href="https://github.com/instagrambot/web">
+      <a className="nav-link" href="https://github.com/instagrambot/web" target="_blank">
         <i className="fab fa-fw fa-github"></i>
         <span>GitHub</span></a>
     </li>
 
     {/* <!-- Nav Item -   --> */}
     <li className="nav-item">
-        <a className="nav-link" href="https://github.com/instagrambot/web#installing-extension">
+        <a className="nav-link" href="https://github.com/instagrambot/web#installing-extension" target="_blank">
           <i className="fas fa-fw fa-question"></i>
           <span>FAQ</span></a>
       </li>
