@@ -6,7 +6,7 @@ class LogCard extends React.Component {
   }
 
   convertRawURL = (text) => {
-    const [ _, head, url, link_text, tail ] = text.match(/^(.*)<a href="(.*)" target="_blank">(.*)<\/a>(.*)$/)
+    const [ _, head, url, params, link_text, tail ] = text.match(/^(.*)<a href="(.*)"(.*)>(.*)<\/a>(.*)$/)
 
     return (
       <span>
