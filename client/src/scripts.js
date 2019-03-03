@@ -96,6 +96,35 @@ const scripts = {
     }
   },
 
+  like_location: {
+    params: [
+      { name: 'location_name', type: 'text', labelText: 'Location name' },
+      { name: 'nPhotos', type: 'number', labelText: 'Number of photos', values: [1,2,5,10,20,50] },
+    ],
+    run: async ({ location_name, nPhotos }, printLog = console.log) => {
+      const { items: locations } = await instagram.request({ method: 'search_location', params: [location_name] })
+
+      if (!locations.length) throw new Error(`Location ${location_name} not found`)
+
+      printLog(`Location search by '${location_name}': found ${locations.length} items.`)
+
+      const { location } = locations[0]
+
+      printLog(`Using '${location.name}'`)
+
+      const { items } = await instagram.request({ method: 'get_location_feed', params: [ location.pk ] })
+
+      printLog(`Loaded ${items.length} photos. Requested to like ${nPhotos}.`)
+
+      if (!items.length) {
+        printLog(`Sorry, no photos to like in this location. Try more specific name.`)
+        return
+      }
+
+      return safeMap(items.slice(0, nPhotos), item => instagram.request({ method: 'like', params: [item.id] }), printLog)
+    }
+  },
+
   load_followers: {
     name: 'Load full list of user followers',
     params: [
