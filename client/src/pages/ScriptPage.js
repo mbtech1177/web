@@ -119,6 +119,14 @@ class __ScriptPage extends React.Component {
           </div>
         </div>
 
+        {this.script.description && (<div className="row">
+          <div className="col-auto">
+            <div className="" style={{ padding: '20px 0' }}>
+              {this.script.description}
+            </div>
+          </div>
+        </div>)}
+
         {params.map(({ labelText, name, type, prefix, values }, index) => (
           <div className="row" key={index}>
             <div className="col-auto">

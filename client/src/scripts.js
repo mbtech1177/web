@@ -13,6 +13,7 @@ const scripts = {
 
   comment_by_hashtag: {
     name: 'Comment photos from hashtag feed',
+    description: 'Will post the same comment: 🔥 @{username}!',
     params: [
       { name: 'hashtag', type: 'text', prefix: '#', defaultValue: 'cats' },
       { name: 'nPhotos', type: 'number', values: [1,2,5,10,20,50] },
