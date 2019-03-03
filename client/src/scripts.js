@@ -185,6 +185,11 @@ const scripts = {
       console.log('reel', reel)
       console.log('post_live_item', post_live_item)
 
+      if (!reel) {
+        printLog(`No stories for user @${username}. Abort`)
+        return
+      }
+
       const { items } = reel
       printLog(`Loaded ${items.length} stories for @${username}. Livestream: ${!!broadcast}. Finished streams: ${!!post_live_item}`)
       printLog(`Download this batch: downloadCSV()`)
@@ -193,15 +198,29 @@ const scripts = {
       window.downloadCSV = () => download(`stories_${username}.csv`, getCSV(items))
 
       items.map((item,index) => {
-        const matches = item.video_dash_manifest.match(/<BaseURL>(.*?)<\/BaseURL>/g)
+        printLog(`Story ${index+1}: `)
 
-        printLog(`Story ${index+1}:`)
+        if (item.video_dash_manifest) {
+          printLog(`Video`, false)
+          const matches = item.video_dash_manifest.match(/<BaseURL>(.*?)<\/BaseURL>/g)
 
-        console.log('matches', matches)
-        const urls = matches.map(token => token.replace(/<.*?>/g, ''))
+          console.log('matches', matches)
+          const urls = matches.map(token => token.replace(/<.*?>/g, ''))
 
-        urls.map(url => printLog(`<a href="${url}">${url}</a>`))
-        // urls.map(url => printLog(`<a href="${url}">link</a>`))
+          const types = ["Audio", "Video", "Video HD"]
+
+          urls.map((url, index) => printLog(`<a href="${url}">Download ${types[index]}</a>`))
+        } else if (item.image_versions2 && item.image_versions2.candidates) {
+          printLog(`Photo`, false)
+          const photo = item.image_versions2.candidates[0]
+
+          console.log('photo', photo)
+          const url = photo.url
+
+          printLog(`<a href="${url}">Download Photo</a>`)
+        } else {
+          printLog(`Wrong format, skip`, false)
+        }
       })
     }
   },
