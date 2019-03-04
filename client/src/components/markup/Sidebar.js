@@ -31,7 +31,7 @@ const Sidebar = () => (
       Actions
     </div>
 
-    {/* <!-- Nav Item - Pages Collapse Menu  --> */}
+    {/* <!-- Nav Item - Like Collapse Menu  --> */}
     <li className="nav-item">
       <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLike" aria-expanded="true" aria-controls="collapseLike">
         <i className="fas fa-fw fa-heart"></i>
@@ -49,7 +49,7 @@ const Sidebar = () => (
       </div>
     </li>
 
-    {/* <!-- Nav Item - Utilities Collapse Menu  --> */}
+    {/* <!-- Nav Item - Follow Collapse Menu  --> */}
     <li className="nav-item">
       <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFollow" aria-expanded="true" aria-controls="collapseFollow">
         <i className="fas fa-fw fa-user-friends"></i>
@@ -65,7 +65,7 @@ const Sidebar = () => (
     </li>
 
 
-    {/* <!-- Nav Item - Utilities Collapse Menu  --> */}
+    {/* <!-- Nav Item - Download Collapse Menu  --> */}
     <li className="nav-item">
       <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDownload" aria-expanded="true" aria-controls="collapseDownload">
         <i className="fas fa-fw fa-file-download"></i>
@@ -75,6 +75,7 @@ const Sidebar = () => (
         <div className="bg-white py-2 collapse-inner rounded">
           {/* <!-- <h6 className="collapse-header">Custom Utilities:</h6>  --> */}
           <Link className="collapse-item" to="/script/load_followers">Followers</Link>
+          <Link className="collapse-item" to="/script/load_stories">Stories</Link>
         </div>
       </div>
     </li>
