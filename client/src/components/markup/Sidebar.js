@@ -42,6 +42,8 @@ const Sidebar = () => (
           {/* <!-- <h6 className="collapse-header">Custom Components:</h6>  --> */}
           <Link className="collapse-item" to="/like/hashtag">Hashtag</Link>
           <Link className="collapse-item" to="/like/user-medias">User Medias</Link>
+          <Link className="collapse-item" to="/like/user-medias">User Medias</Link>
+          <Link className="collapse-item" to="/script/like_followers">Followers</Link>
 
           {/* <a className="collapse-item" href="like/hashtag.html">Hashtag</a> */}
           {/* <a className="collapse-item" href="like/user-medias.html">User Medias</a> */}
@@ -60,6 +62,8 @@ const Sidebar = () => (
           {/* <!-- <h6 className="collapse-header">Custom Utilities:</h6>  --> */}
           <Link className="collapse-item" to="/follow/followers">Followers</Link>
           <Link className="collapse-item" to="/follow/followings">Followees</Link>
+          <Link className="collapse-item" to="/script/follow_by_hashtag">Hashtag Authors</Link>
+      
         </div>
       </div>
     </li>
