@@ -1,7 +1,7 @@
 {
-  "name": "Instagram Yourself!",
-  "version": "0.2.13",
-  "description": "Extension helps you instagram effectively!",
+  "name": "Gram Up!",
+  "version": "0.3.0",
+  "description": "Extension helps you Instagram effectively!",
   "icons": {
     "192": "images/icon.png"
   },
