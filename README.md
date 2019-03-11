@@ -1,10 +1,10 @@
-# Instagram yourself!
+# Gram Up!
 
-<img width="200" alt="Instagram Web" src="https://user-images.githubusercontent.com/1909384/52903490-47be0d00-322f-11e9-954c-9035f4d9ac7f.png">
+<img width="200" alt="Instagrambot Web" src="https://user-images.githubusercontent.com/1909384/52903490-47be0d00-322f-11e9-954c-9035f4d9ac7f.png">
 
 ## Automate your Instagram with your browser!
 
-> Yes, we moved [Instabot](https://github.com/instagrambot/instabot) to the browser. No coding skills needed! 
+> Yes, we moved [Instabot](https://github.com/instagrambot/instabot) to the browser. No coding skills needed!
 
 ## Features
 
@@ -69,11 +69,11 @@ If you passed all steps in Installation guide and you sure that you satisfied al
 3. Logout and login again in the extension
 4. Delete extension and reinstall it
 
-If it still fails, please follow [the guide](https://github.com/instagrambot/web/issues/1) to provide us with all data we may need to fix this. Send all screenshots to [GitHub Issues](https://github.com/instagrambot/web/issues/new). Thanks! 
+If it still fails, please follow [the guide](https://github.com/instagrambot/web/issues/1) to provide us with all data we may need to fix this. Send all screenshots to [GitHub Issues](https://github.com/instagrambot/web/issues/new). Thanks!
 
 
 # For developers Only
-If you want to code some features to the website, you can clone the repo and: 
+If you want to code some features to the website, you can clone the repo and:
 
 ## Build Chrome Extension Manually
 
@@ -93,7 +93,7 @@ npm run build
 
 
 ----------
-*authors: [@caffeinum](https://github.com/caffeinum), [@ohld](https://github.com/ohld).* 
+*authors: [@caffeinum](https://github.com/caffeinum), [@ohld](https://github.com/ohld).*
 
 <a href="https://www.buymeacoffee.com/okhlopkov" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 ----------
