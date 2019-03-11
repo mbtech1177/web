@@ -3,7 +3,7 @@ const Footer = () => (
     {/* <!-- Footer  --> */}
     <div className="container my-auto">
       <div className="copyright text-center my-auto">
-        <span>Copyright &copy; Instagram yourself 2019</span>
+        <span>Copyright &copy; Gram Up! 2019</span>
       </div>
     </div>
     {/* <!-- End of Footer  --> */}

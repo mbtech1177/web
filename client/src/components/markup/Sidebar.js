@@ -9,7 +9,7 @@ const Sidebar = () => (
       <div className="sidebar-brand-icon">
         <img src="./client/img/icon.png" />
       </div>
-      <div className="sidebar-brand-text mx-3">Instagram yourself</div>
+      <div className="sidebar-brand-text mx-3">Gram Up Yourself!</div>
     </Link>
 
     {/* <!-- Divider  --> */}
@@ -63,7 +63,7 @@ const Sidebar = () => (
           <Link className="collapse-item" to="/follow/followers">Followers</Link>
           <Link className="collapse-item" to="/follow/followings">Followees</Link>
           <Link className="collapse-item" to="/script/follow_by_hashtag">Hashtag Authors</Link>
-      
+
         </div>
       </div>
     </li>
